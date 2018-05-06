@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Розклад занять НТУ ХПІ</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="schedule">Розклад</string>
+    <string name="task">Завдання</string>
+    <string name="teacher">Викладачі</string>
+    <string name="buildings">Корпуси</string>
+
+    <string name="search">Знайти</string>
+    <string name="search.buildings">Введіть корпус</string>
+    <string name="search.faculties">Введіть факультет</string>
+    <string name="search.groups">Введіть групу</string>
+
+    <string name="buildings_list_title">Учбові корпуси</string>
+    <string name="buildings_description">Опис</string>
+    <string name="buildings_map">Карта</string>
+
+    <string name="my_groups">Мої групи</string>
+    <string name="faculty">Факультети</string>
+
+    <string name="first_course">Курс 1</string>
+    <string name="second_course">Курс 2</string>
+    <string name="third_course">Курс 3</string>
+    <string name="fourth_course">Курс 4</string>
+    <string name="fifth_course">Курс 5</string>
+    <string name="sixth_course">Курс 6</string>
+
+
+    <string name="class_schedule">Розклад занять</string>
+    <string name="teachers">Викладачі</string>
+    <string name="tasks">Завдання</string>
+    <string name="campus">Учбові корпуси</string>
+    <string name="settings">Про ХПІ</string>
+    <string name="about">Про додаток</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

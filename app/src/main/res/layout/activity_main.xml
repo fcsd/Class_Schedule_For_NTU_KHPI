@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.khpi.classschedule.presentation.main.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/vgFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_fragment"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/schedule_fragment"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_48sdp"
+        android:background="@color/c_546e7a"
+        style="@style/ClickableViewStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/task_fragment">
+
+        <ImageView
+            android:id="@+id/schedule_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/schedule_text"/>
+
+        <TextView
+            android:id="@+id/schedule_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_image"
+            style="@style/TabTextViewStyle"
+            android:text="@string/schedule"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/task_fragment"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_48sdp"
+        android:background="@color/c_546e7a"
+        style="@style/ClickableViewStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/schedule_fragment"
+        app:layout_constraintRight_toLeftOf="@+id/teacher_fragment">
+
+        <ImageView
+            android:id="@+id/task_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/task_text"/>
+
+        <TextView
+            android:id="@+id/task_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_image"
+            style="@style/TabTextViewStyle"
+            android:text="@string/task"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/teacher_fragment"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_48sdp"
+        android:background="@color/c_546e7a"
+        style="@style/ClickableViewStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/task_fragment"
+        app:layout_constraintRight_toLeftOf="@+id/building_fragment">
+
+        <ImageView
+            android:id="@+id/teacher_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/teacher_text"/>
+
+        <TextView
+            android:id="@+id/teacher_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/teacher_image"
+            style="@style/TabTextViewStyle"
+            android:text="@string/teacher"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/building_fragment"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_48sdp"
+        android:background="@color/c_546e7a"
+        style="@style/ClickableViewStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/teacher_fragment"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/building_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/building_text"/>
+
+        <TextView
+            android:id="@+id/building_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/building_image"
+            style="@style/TabTextViewStyle"
+            android:text="@string/buildings"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/progress_bar"
+        layout="@layout/layout_progressbar" />
+
+</android.support.constraint.ConstraintLayout>

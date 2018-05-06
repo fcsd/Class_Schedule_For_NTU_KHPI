@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/c_transparent</item>
+    </style>
+
+
+    <style name="TabTextViewStyle">
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textColor">@color/c_ffffff</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ClickableViewStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:minHeight">@dimen/_48sdp</item>
+    </style>
+
+</resources>
