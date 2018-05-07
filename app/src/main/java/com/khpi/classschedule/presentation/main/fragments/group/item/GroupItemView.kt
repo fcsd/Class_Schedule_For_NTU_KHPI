@@ -10,6 +10,6 @@ interface GroupItemView : BaseView {
     fun showGroups(groups: MutableList<BaseModel>, callback: GroupItemPresenter)
 
     @StateStrategyType(SkipStrategy::class)
-    fun openScheduleScreen(groupId: Int)
+    fun openScheduleScreen(group: BaseModel)
 
 }

@@ -1,0 +1,11 @@
+package com.khpi.classschedule.presentation.main.fragments.schedule.item
+
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.presentation.base.BaseView
+
+interface ScheduleItemView : BaseView {
+    @StateStrategyType(SkipStrategy::class)
+    fun showSchedule(schedule: List<Schedule>, callback: ScheduleItemPresenter)
+}

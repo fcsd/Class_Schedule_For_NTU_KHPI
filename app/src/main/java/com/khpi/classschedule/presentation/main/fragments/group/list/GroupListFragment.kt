@@ -44,7 +44,7 @@ class GroupListFragment : BaseFragment(), GroupListView {
         val facultyTitle = this.faculty?.title ?: return
         val facultyId = this.faculty?.id ?: return
         (activity as? MainActivity)?.setToolbarTitle(facultyTitle)
-        presenter.loadGroupListByFacultyId(facultyId)
+        presenter.loadGroupListById(facultyId)
     }
 
     override fun showGroupsByCourse(groupsByFirstCourse: List<BaseModel>,

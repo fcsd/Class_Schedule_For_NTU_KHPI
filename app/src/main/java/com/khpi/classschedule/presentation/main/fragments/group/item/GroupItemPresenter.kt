@@ -22,8 +22,7 @@ class GroupItemPresenter : BasePresenter<GroupItemView>(), BaseAdapter.OnBaseIte
     }
 
     override fun onItemClick(item: BaseModel) {
-        val id = item.id ?: return
-        viewState.openScheduleScreen(id)
+        viewState.openScheduleScreen(item)
     }
 
     fun onSearchEntered(searchGroup: String) {

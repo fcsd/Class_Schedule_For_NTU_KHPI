@@ -9,6 +9,7 @@ import com.khpi.classschedule.presentation.main.fragments.building.list.Building
 import com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPresenter
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,4 +23,5 @@ interface AppComponent {
     fun inject(buildingInfoPresenter: BuildingInfoPresenter)
     fun inject(facultyListPresenter: FacultyListPresenter)
     fun inject(groupListPresenter: GroupListPresenter)
+    fun inject(scheduleListPresenter: ScheduleListPresenter)
 }

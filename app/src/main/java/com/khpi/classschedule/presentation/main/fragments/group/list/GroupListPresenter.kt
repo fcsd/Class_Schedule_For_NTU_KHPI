@@ -21,10 +21,10 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         viewState.configureView()
     }
 
-    fun loadGroupListByFacultyId(facultyId: Int) {
+    fun loadGroupListById(facultyId: Int) {
 
         viewState.showProgressDialog()
-        scheduleManager.getGroupListByFacultyId(facultyId, { groups ->
+        scheduleManager.getGroupListById(facultyId, { groups ->
             replaceGroupByCourse(groups)
         }, {
             val errorMessage = it ?: "Unknown error"
