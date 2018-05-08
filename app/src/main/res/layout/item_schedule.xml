@@ -37,9 +37,20 @@
             android:paddingEnd="@dimen/_12sdp"
             android:background="@color/c_e2e2e2"
             android:textColor="@color/c_afafaf"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/schedule_auditory_text"
             app:layout_constraintTop_toTopOf="@+id/schedule_time_text"
             tools:text="Лекція"/>
+
+        <TextView
+            android:id="@+id/schedule_auditory_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/c_afafaf"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/schedule_time_text"
+            tools:text="404 У1"/>
 
         <TextView
             android:id="@+id/schedule_name_text"

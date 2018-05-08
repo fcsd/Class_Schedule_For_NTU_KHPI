@@ -12,7 +12,6 @@ import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.group.item.GroupItemFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.item.ScheduleItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
@@ -44,10 +43,10 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     }
 
     override fun configureView() {
-        val groupTitle = this.group?.title ?: return
+        val groupName = this.group?.title ?: return
         val groupId = this.group?.id ?: return
-        (activity as? MainActivity)?.setToolbarTitle(groupTitle)
-        presenter.loadScheduleById(groupId)
+        (activity as? MainActivity)?.setToolbarTitle(groupName)
+        presenter.loadScheduleById(groupId, groupName)
     }
 
     override fun showSchedule(schedule: BaseSchedule) {

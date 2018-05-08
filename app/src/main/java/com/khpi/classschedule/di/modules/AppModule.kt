@@ -26,7 +26,7 @@ class AppModule(private val application: App) {
 
     @Provides
     @Singleton
-    internal fun provideMainConfig(context: Context): MemoryRepository = MemoryRepository(context)
+    internal fun provideMainConfig(context: Context, gson: Gson): MemoryRepository = MemoryRepository(context, gson)
 
     @Provides
     @Singleton

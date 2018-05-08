@@ -30,6 +30,7 @@ class ScheduleItemAdapter(private val schedule: List<Schedule>,
             itemView.schedule_name_text.text = item.name
             itemView.schedule_teacher_text.text = item.teacher
             itemView.schedule_type_text.text = item.type
+            itemView.schedule_auditory_text.text = item.auditory
             itemView.setOnClickListener { listener.onItemClick(item) }
         }
     }

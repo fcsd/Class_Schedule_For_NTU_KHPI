@@ -38,11 +38,12 @@ class ScheduleManager(private val requestApi: RequestApi) {
                         })
     }
 
-    fun getScheduleFirstById(groupId : Int,
-                             onSuccess: (response: FullSchedule) -> Unit,
-                             onFailure: (exception: String?) -> Unit) {
+    fun getScheduleByWeekById(week: String,
+                              groupId : Int,
+                              onSuccess: (response: FullSchedule) -> Unit,
+                              onFailure: (exception: String?) -> Unit) {
 
-        requestApi.getScheduleFirstById(groupId)
+        requestApi.getScheduleByWeekById(week, groupId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -52,22 +53,4 @@ class ScheduleManager(private val requestApi: RequestApi) {
                             onFailure(exception)
                         })
     }
-
-    fun getScheduleSecondById(groupId : Int,
-                             onSuccess: (response: FullSchedule) -> Unit,
-                             onFailure: (exception: String?) -> Unit) {
-
-        requestApi.getScheduleSecondById(groupId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { onSuccess(it) },
-                        { throwable ->
-                            val exception = (throwable as? Exception)?.localizedMessage
-                            onFailure(exception)
-                        })
-    }
-
-
-
 }

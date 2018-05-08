@@ -16,13 +16,10 @@ interface RequestApi {
             @Path("fid") facultyId : Int
     ): Single<ArrayList<BaseModel>>
 
-    @GET("Schedule/{gid}")
-    fun getScheduleFirstById(
+    @GET("{week}/{gid}")
+    fun getScheduleByWeekById(
+            @Path("week") week : String,
             @Path("gid") groupId : Int
     ): Single<FullSchedule>
 
-    @GET("Schedule2/{gid}")
-    fun getScheduleSecondById(
-            @Path("gid") groupId : Int
-    ): Single<FullSchedule>
 }
