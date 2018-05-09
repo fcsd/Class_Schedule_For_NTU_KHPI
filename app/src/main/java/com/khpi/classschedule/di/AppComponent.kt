@@ -11,7 +11,7 @@ import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPre
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListPresenter
-import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListPresenter
 import dagger.Component
 import javax.inject.Singleton
 

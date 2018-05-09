@@ -11,5 +11,5 @@ interface FacultyListView : BaseView {
     fun onFacultyLoaded(faculties: MutableList<BaseModel>, callback: FacultyListPresenter)
 
     @StateStrategyType(SkipStrategy::class)
-    fun openGroupScreen(facultyId: BaseModel)
+    fun openGroupScreen(model: BaseModel)
 }

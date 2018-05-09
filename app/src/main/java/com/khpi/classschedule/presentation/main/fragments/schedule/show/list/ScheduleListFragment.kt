@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.list
+package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.item.ScheduleItemFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
 
@@ -24,11 +25,13 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     @InjectPresenter lateinit var presenter: ScheduleListPresenter
     //@formatter:on
 
+    private var type: ScheduleType? = null
     private var group: BaseModel? = null
 
     companion object {
-        fun newInstance(group: BaseModel): ScheduleListFragment = ScheduleListFragment().apply {
+        fun newInstance(group: BaseModel, type: ScheduleType): ScheduleListFragment = ScheduleListFragment().apply {
             this.group = group
+            this.type = type
         }
     }
 
@@ -44,6 +47,7 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     override fun configureView() {
         val groupName = this.group?.title ?: return
         (activity as? MainActivity)?.setToolbarTitle(groupName)
+        presenter.setType(type)
         group?.let { presenter.loadScheduleById(it) }
     }
 

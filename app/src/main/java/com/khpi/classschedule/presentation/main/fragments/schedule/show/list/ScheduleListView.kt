@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.list
+package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType

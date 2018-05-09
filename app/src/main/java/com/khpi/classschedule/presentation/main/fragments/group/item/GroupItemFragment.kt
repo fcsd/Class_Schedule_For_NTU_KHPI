@@ -11,9 +11,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListFragment
 import com.khpi.classschedule.views.BaseAdapter
 import kotlinx.android.synthetic.main.fragment_group_item.*
 
@@ -27,12 +28,15 @@ class GroupItemFragment : BaseFragment(), GroupItemView {
 
     private var groups = listOf<BaseModel>()
 
+
+    private var type: ScheduleType? = null
     private lateinit var groupAdapter : BaseAdapter
     private lateinit var searchViewItem : MenuItem
 
     companion object {
-        fun newInstance(groups: List<BaseModel>): GroupItemFragment = GroupItemFragment().apply {
+        fun newInstance(groups: List<BaseModel>, type: ScheduleType): GroupItemFragment = GroupItemFragment().apply {
             this.groups = groups
+            this.type = type
         }
     }
 
@@ -92,7 +96,6 @@ class GroupItemFragment : BaseFragment(), GroupItemView {
     }
 
     override fun openScheduleScreen(group: BaseModel) {
-        (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(group))
+        type?.let { (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(group, it)) }
     }
-
 }

@@ -118,7 +118,7 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
             memoryRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = true)
 
             viewState.dismissProgressDialog()
-            viewState.showMessage("Розклад $messageType $name був оновлений успiшно!")
+            viewState.showMessage("Розклад $messageType $name був оновлений успiшно")
         }
     }
 }

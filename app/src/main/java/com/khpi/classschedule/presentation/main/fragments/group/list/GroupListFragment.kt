@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.group.item.GroupItemFragment
@@ -24,10 +25,12 @@ class GroupListFragment : BaseFragment(), GroupListView {
     //@formatter:on
 
     private var faculty: BaseModel? = null
+    private var type: ScheduleType? = null
 
     companion object {
-        fun newInstance(faculty: BaseModel): GroupListFragment = GroupListFragment().apply {
+        fun newInstance(faculty: BaseModel, type: ScheduleType): GroupListFragment = GroupListFragment().apply {
             this.faculty = faculty
+            this.type = type
         }
     }
 
@@ -44,6 +47,8 @@ class GroupListFragment : BaseFragment(), GroupListView {
         val facultyTitle = this.faculty?.title ?: return
         val facultyId = this.faculty?.id ?: return
         (activity as? MainActivity)?.setToolbarTitle(facultyTitle)
+
+        presenter.setType(type)
         presenter.loadGroupListById(facultyId)
     }
 
@@ -52,16 +57,17 @@ class GroupListFragment : BaseFragment(), GroupListView {
                                     groupsByThirdCourse: List<BaseModel>,
                                     groupsByFourthCourse: List<BaseModel>,
                                     groupsByFifthCourse: List<BaseModel>,
-                                    groupsBySixthCourse: List<BaseModel>) {
+                                    groupsBySixthCourse: List<BaseModel>,
+                                    type: ScheduleType) {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
-        val groupsByFirstCourseFragment = GroupItemFragment.newInstance(groupsByFirstCourse)
-        val groupsBySecondCourseFragment = GroupItemFragment.newInstance(groupsBySecondCourse)
-        val groupsByThirdCourseFragment = GroupItemFragment.newInstance(groupsByThirdCourse)
-        val groupsByFourthCourseFragment = GroupItemFragment.newInstance(groupsByFourthCourse)
-        val groupsByFifthCourseFragment = GroupItemFragment.newInstance(groupsByFifthCourse)
-        val groupsBySixthCourseFragment = GroupItemFragment.newInstance(groupsBySixthCourse)
+        val groupsByFirstCourseFragment = GroupItemFragment.newInstance(groupsByFirstCourse, type)
+        val groupsBySecondCourseFragment = GroupItemFragment.newInstance(groupsBySecondCourse, type)
+        val groupsByThirdCourseFragment = GroupItemFragment.newInstance(groupsByThirdCourse, type)
+        val groupsByFourthCourseFragment = GroupItemFragment.newInstance(groupsByFourthCourse, type)
+        val groupsByFifthCourseFragment = GroupItemFragment.newInstance(groupsByFifthCourse, type)
+        val groupsBySixthCourseFragment = GroupItemFragment.newInstance(groupsBySixthCourse, type)
 
         adapter.addFragment(groupsByFirstCourseFragment, getString(R.string.first_course))
         adapter.addFragment(groupsBySecondCourseFragment, getString(R.string.second_course))

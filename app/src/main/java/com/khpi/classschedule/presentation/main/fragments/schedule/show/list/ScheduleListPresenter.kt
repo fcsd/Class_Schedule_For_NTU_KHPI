@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.list
+package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
@@ -23,9 +23,14 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     private var scheduleFirstWeek: Schedule? = null
     private var scheduleSecondWeek: Schedule? = null
     private var group: BaseModel? = null
+    private var type: ScheduleType? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
+    }
+
+    fun setType(type: ScheduleType?) {
+        this.type = type
     }
 
     fun loadScheduleById(group: BaseModel) {
@@ -87,17 +92,21 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val id = baseModel?.id ?: return
             val name = baseModel.title ?: return
             val course = baseModel.course ?: return
+            val type = this.type ?: return
 
             val scheduleInfo = BaseModel(id = id,
                     parentName = "Test Faculty",
                     title = name,
                     course = course,
-                    scheduleType = ScheduleType.GROUP)
+                    scheduleType = type)
 
-            memoryRepository.saveSchedule(Constants.GROUP_PREFIX, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo)
+            val prefix = getPrefixByType(type)
+            val messageType = getMessageByType(type)
+
+            memoryRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo)
 
             viewState.dismissProgressDialog()
-            viewState.showMessage("Група $name була збережена успiшно!")
+            viewState.showMessage("Розклад $messageType $name був збережеий успiшно")
             showSchedule(scheduleFirstWeek)
         }
     }

@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.main.fragments.group.list
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
@@ -17,15 +18,27 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         injector().inject(this)
     }
 
+    private var type: ScheduleType? = null
+
     override fun onViewLoaded() {
         viewState.configureView()
+    }
+
+    fun setType(type: ScheduleType?) {
+        this.type = type
     }
 
     fun loadGroupListById(facultyId: Int) {
 
         viewState.showProgressDialog()
         scheduleManager.getGroupListById(facultyId, { groups ->
-            replaceGroupByCourse(groups)
+
+            when (type) {
+                ScheduleType.GROUP -> replaceGroupByCourse(groups)
+                ScheduleType.TEACHER -> throw NotImplementedError()
+                ScheduleType.AUDITORY -> throw NotImplementedError()
+            }
+
         }, {
             val errorMessage = it ?: "Unknown error"
             viewState.dismissProgressDialog()
@@ -42,6 +55,6 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         val groupsBySixthCourse = groups.filter { it.course == 6 }
         viewState.dismissProgressDialog()
         viewState.showGroupsByCourse(groupsByFirstCourse, groupsBySecondCourse, groupsByThirdCourse,
-                groupsByFourthCourse, groupsByFifthCourse, groupsBySixthCourse)
+                groupsByFourthCourse, groupsByFifthCourse, groupsBySixthCourse, ScheduleType.GROUP)
     }
 }

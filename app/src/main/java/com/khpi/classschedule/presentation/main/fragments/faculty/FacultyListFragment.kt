@@ -26,15 +26,14 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
     //@formatter:on
 
     private var type: ScheduleType? = null
+    private lateinit var facultyAdapter : BaseAdapter
+    private lateinit var searchViewItem : MenuItem
 
     companion object {
         fun newInstance(type: ScheduleType): FacultyListFragment = FacultyListFragment().apply {
             this.type = type
         }
     }
-
-    private lateinit var facultyAdapter : BaseAdapter
-    private lateinit var searchViewItem : MenuItem
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -58,8 +57,8 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
         recycler_facutlies.adapter = facultyAdapter
     }
 
-    override fun openGroupScreen(facultyId: BaseModel) {
-        (activity as? MainActivity)?.replaceFragment(GroupListFragment.newInstance(facultyId))
+    override fun openGroupScreen(model: BaseModel) {
+        type?.let { (activity as? MainActivity)?.replaceFragment(GroupListFragment.newInstance(model, it)) }
     }
 
     override fun onCreateOptionsMenu (menu: Menu, inflater : MenuInflater) {

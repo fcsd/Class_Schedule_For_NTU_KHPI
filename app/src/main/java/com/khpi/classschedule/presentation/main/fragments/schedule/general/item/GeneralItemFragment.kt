@@ -13,7 +13,7 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListFragment
 import kotlinx.android.synthetic.main.fragment_general_item.*
 import android.support.v7.widget.RecyclerView
 import com.khpi.classschedule.data.SwipeHelper
@@ -95,7 +95,8 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
     }
 
     override fun openScheduleScreen(baseSchedule: BaseModel) {
-        (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(baseSchedule))
+        baseSchedule.scheduleType?.let { (activity as? MainActivity)?.replaceFragment(
+                ScheduleListFragment.newInstance(baseSchedule, it)) }
     }
 
     override fun notifyDataSetChanged() {
