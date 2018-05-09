@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.BaseSchedule
+import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import kotlinx.android.synthetic.main.fragment_general_item.*
 
@@ -26,13 +25,11 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
     @InjectPresenter lateinit var presenter: GeneralItemPresenter
     //@formatter:on
 
-    private var scheduleInfo: List<BaseSchedule>? = null
-    private var type: ScheduleType? = null
+    private var scheduleInfo: List<BaseModel>? = null
 
     companion object {
-        fun newInstance(scheduleInfo: List<BaseSchedule>, type: ScheduleType): GeneralItemFragment = GeneralItemFragment().apply {
+        fun newInstance(scheduleInfo: List<BaseModel>): GeneralItemFragment = GeneralItemFragment().apply {
             this.scheduleInfo = scheduleInfo
-            this.type = type
         }
     }
 
@@ -50,17 +47,18 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
         presenter.setScheduleInfo(scheduleInfo)
     }
 
-    override fun showScheduleInfo(scheduleInfo: List<BaseSchedule>) {
-        val generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
-        recycler_general.layoutManager = LinearLayoutManager(context)
-        recycler_general.adapter = generalAdapter
+    override fun showScheduleInfo(scheduleInfo: List<BaseModel>) {
+        if (scheduleInfo.isEmpty()) {
+            recycler_general.visibility = View.GONE
+            general_no_items.visibility = View.VISIBLE
+        } else {
+            val generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
+            recycler_general.layoutManager = LinearLayoutManager(context)
+            recycler_general.adapter = generalAdapter
+        }
     }
 
-    override fun openFacultyScreen() {
-        (activity as? MainActivity)?.replaceFragment(FacultyListFragment.newInstance(type))
-    }
-
-    override fun openScheduleScreen(baseSchedule: BaseSchedule) {
+    override fun openScheduleScreen(baseSchedule: BaseModel) {
         (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(baseSchedule))
     }
 }

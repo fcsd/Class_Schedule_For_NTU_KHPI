@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.BaseSchedule
+import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemFragment
@@ -33,6 +33,7 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
     }
 
     private var visibleTab = 0
+    lateinit var adapter: BasePagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -52,15 +53,15 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
         presenter.loadSchedules()
     }
 
-    override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseSchedule>,
-                                        infoTeachers: MutableList<BaseSchedule>,
-                                        infoAuditories: MutableList<BaseSchedule>) {
+    override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
+                                        infoTeachers: MutableList<BaseModel>,
+                                        infoAuditories: MutableList<BaseModel>) {
 
-        val adapter = BasePagerAdapter(childFragmentManager)
+        adapter = BasePagerAdapter(childFragmentManager)
 
-        val groups = GeneralItemFragment.newInstance(infoGroups, ScheduleType.GROUP)
-        val teachers = GeneralItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER)
-        val auditories = GeneralItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY)
+        val groups = GeneralItemFragment.newInstance(infoGroups)
+        val teachers = GeneralItemFragment.newInstance(infoTeachers)
+        val auditories = GeneralItemFragment.newInstance(infoAuditories)
 
         adapter.addFragment(groups, getString(R.string.groups))
         adapter.addFragment(teachers, getString(R.string.teachers))

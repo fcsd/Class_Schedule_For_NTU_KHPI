@@ -11,7 +11,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
@@ -92,7 +91,7 @@ class GroupItemFragment : BaseFragment(), GroupItemView {
         }
     }
 
-    override fun openScheduleScreen(group: BaseSchedule) {
+    override fun openScheduleScreen(group: BaseModel) {
         (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(group))
     }
 

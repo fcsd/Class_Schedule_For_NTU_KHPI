@@ -27,7 +27,7 @@ class BuildingInfoAdapter (private val pairs: ArrayList<FullBuildingPair>,
             TYPE_UNIT -> return BuildingInfoUnitViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_building_unit, parent, false))
         }
-        throw IllegalArgumentException("Unsupported view type " + viewType)
+        throw IllegalArgumentException("Unsupported view scheduleType " + viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

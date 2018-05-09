@@ -2,7 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.group.item
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.presentation.base.BasePresenter
 import com.khpi.classschedule.views.BaseAdapter
 
@@ -23,8 +22,7 @@ class GroupItemPresenter : BasePresenter<GroupItemView>(), BaseAdapter.OnBaseIte
     }
 
     override fun onItemClick(item: BaseModel) {
-        val it = item as BaseSchedule
-        viewState.openScheduleScreen(it)
+        viewState.openScheduleScreen(item)
     }
 
     fun onSearchEntered(searchGroup: String) {

@@ -8,7 +8,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
@@ -25,10 +24,10 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     @InjectPresenter lateinit var presenter: ScheduleListPresenter
     //@formatter:on
 
-    private var group: BaseSchedule? = null
+    private var group: BaseModel? = null
 
     companion object {
-        fun newInstance(group: BaseSchedule): ScheduleListFragment = ScheduleListFragment().apply {
+        fun newInstance(group: BaseModel): ScheduleListFragment = ScheduleListFragment().apply {
             this.group = group
         }
     }

@@ -1,7 +1,6 @@
 package com.khpi.classschedule.data.network
 
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.data.models.FullSchedule
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -15,7 +14,7 @@ interface RequestApi {
     @GET("GroupByFacultyList/{fid}")
     fun getGroupListById(
             @Path("fid") facultyId : Int
-    ): Single<ArrayList<BaseSchedule>>
+    ): Single<ArrayList<BaseModel>>
 
     @GET("{week}/{gid}")
     fun getScheduleByWeekById(

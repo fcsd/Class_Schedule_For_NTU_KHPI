@@ -22,13 +22,13 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     private var scheduleFirstWeek: Schedule? = null
     private var scheduleSecondWeek: Schedule? = null
-    private var group: BaseSchedule? = null
+    private var group: BaseModel? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
     }
 
-    fun loadScheduleById(group: BaseSchedule) {
+    fun loadScheduleById(group: BaseModel) {
         this.group = group
 
         val id = group.id ?: return
@@ -44,7 +44,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     private fun loadScheduleFromInternet(groupId: Int) {
         viewState.showProgressDialog()
-        loadScheduleForWeeks("ScheduleItem", groupId)
+        loadScheduleForWeeks("Schedule", groupId)
         loadScheduleForWeeks("Schedule2", groupId)
     }
 
@@ -58,7 +58,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val friday = schedule.friday ?: return@getScheduleByWeekById
 
             when (week) {
-                "ScheduleItem" -> scheduleFirstWeek = Schedule(
+                "Schedule" -> scheduleFirstWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
@@ -82,14 +82,14 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         })
     }
 
-    private fun synchronizeThreads(baseModel: BaseSchedule?, scheduleFirstWeek: Schedule?, scheduleSecondWeek: Schedule?) {
+    private fun synchronizeThreads(baseModel: BaseModel?, scheduleFirstWeek: Schedule?, scheduleSecondWeek: Schedule?) {
         if (scheduleFirstWeek != null && scheduleSecondWeek != null) {
 
             val id = baseModel?.id ?: return
             val name = baseModel.title ?: return
             val course = baseModel.course ?: return
 
-            val scheduleInfo = BaseSchedule(id = id,
+            val scheduleInfo = BaseModel(id = id,
                     parentName = "Test Faculty",
                     title = name,
                     course = course,

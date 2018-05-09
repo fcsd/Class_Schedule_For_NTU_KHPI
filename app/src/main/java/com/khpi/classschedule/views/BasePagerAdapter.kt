@@ -3,9 +3,10 @@ package com.khpi.classschedule.views
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import java.util.*
 
-class BasePagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+class BasePagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(manager) {
 
     private val mFragmentList = ArrayList<Fragment>()
     private val mFragmentTitleList = ArrayList<String>()

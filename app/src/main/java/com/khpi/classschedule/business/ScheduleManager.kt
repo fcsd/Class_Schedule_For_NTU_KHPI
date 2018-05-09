@@ -1,7 +1,6 @@
 package com.khpi.classschedule.business
 
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.data.models.FullSchedule
 import com.khpi.classschedule.data.network.RequestApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +24,7 @@ class ScheduleManager(private val requestApi: RequestApi) {
     }
 
     fun getGroupListById(facultyId : Int,
-                         onSuccess: (response: ArrayList<BaseSchedule>) -> Unit,
+                         onSuccess: (response: ArrayList<BaseModel>) -> Unit,
                          onFailure: (exception: String?) -> Unit) {
 
         requestApi.getGroupListById(facultyId)

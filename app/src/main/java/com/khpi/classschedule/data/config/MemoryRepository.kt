@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.khpi.classschedule.data.models.Schedule
-import com.khpi.classschedule.data.models.BaseSchedule
+import com.khpi.classschedule.data.models.BaseModel
 
 
 class MemoryRepository(context: Context, private val gson : Gson) {
@@ -23,7 +23,7 @@ class MemoryRepository(context: Context, private val gson : Gson) {
                           groupId: Int,
                           scheduleForFirstWeek: Schedule,
                           scheduleForSecondWeek: Schedule,
-                          scheduleInfo: BaseSchedule) {
+                          scheduleInfo: BaseModel) {
 
         val prefsEditor = sp.edit()
         val jsonFirstWeek = gson.toJson(scheduleForFirstWeek)
@@ -47,20 +47,20 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         return Pair(scheduleForFirstWeek, scheduleForSecondWeek)
     }
 
-    private fun saveScheduleInfo(prefix: String, groupId: Int, scheduleInfo: BaseSchedule) {
+    private fun saveScheduleInfo(prefix: String, groupId: Int, scheduleInfo: BaseModel) {
         val prefsEditor = sp.edit()
         val schedule = gson.toJson(scheduleInfo)
         prefsEditor.putString("$prefix $groupId info", schedule)
         prefsEditor.apply()
     }
 
-    fun getScheduleInfoByTypes(prefix: String) : MutableList<BaseSchedule>? {
+    fun getScheduleInfoByTypes(prefix: String) : MutableList<BaseModel>? {
         val keySchedule = getKeysSchedule(prefix)
-        val scheduleInfo = mutableListOf<BaseSchedule>()
+        val scheduleInfo = mutableListOf<BaseModel>()
 
         keySchedule.forEach { key ->
             val jsonInfo = sp.getString("$prefix $key info", null) ?: return null
-            val info = gson.fromJson(jsonInfo, BaseSchedule::class.java)
+            val info = gson.fromJson(jsonInfo, BaseModel::class.java)
             scheduleInfo.add(info)
         }
 
