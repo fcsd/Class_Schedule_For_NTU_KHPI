@@ -61,7 +61,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
             recycler_general.layoutManager = LinearLayoutManager(ctx)
             recycler_general.adapter = generalAdapter
 
-            val swipeHelper = object : SwipeHelper(ctx, recycler_general) {
+            object : SwipeHelper(ctx, recycler_general) {
 
                 override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder,
                                                        underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
@@ -75,7 +75,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
                             ContextCompat.getColor(ctx, R.color.colorPrimary),
                             object : SwipeHelper.UnderlayButtonClickListener {
                                 override fun onClick(pos: Int) {
-                                    // TODO: onDelete
+//                                    presenter.onDeleteClicked(viewHolder.adapterPosition)
                                 }
                             }
                     ))
@@ -86,7 +86,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
                             ContextCompat.getColor(ctx, R.color.c_4bc173),
                             object : SwipeHelper.UnderlayButtonClickListener {
                                 override fun onClick(pos: Int) {
-                                    // TODO: onRefresh
+                                    showMessage("RERFESH!")
                                 }
                             }
                     ))

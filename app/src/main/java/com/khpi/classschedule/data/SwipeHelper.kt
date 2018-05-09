@@ -1,5 +1,6 @@
 package com.khpi.classschedule.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -27,15 +28,16 @@ abstract class SwipeHelper(private val context: Context, private val recyclerVie
     private var gestureDetector: GestureDetector? = null
     private var swipedPos = -1
     private var swipeThreshold = 0.5f
-    private val buttonsBuffer: MutableMap<Int, MutableList<UnderlayButton>>
+    private var buttonsBuffer = mutableMapOf<Int, MutableList<UnderlayButton>>()
     private var recoverQueue: Queue<Int>? = null
     private val BUTTON_WIDTH = context.resources.getDimension(R.dimen._80sdp)
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             for (button in buttons) {
-                if (button.onClick(e.x, e.y))
+                if (button.onClick(e.x, e.y)) {
                     break
+                }
             }
             return true
         }
@@ -63,22 +65,8 @@ abstract class SwipeHelper(private val context: Context, private val recyclerVie
     }
 
     init {
-        this.buttons = ArrayList()
-        this.gestureDetector = GestureDetector(context, gestureListener)
-        this.recyclerView.setOnTouchListener(onTouchListener)
-        buttonsBuffer = HashMap()
-        recoverQueue = object : LinkedList<Int>() {
-            override fun add(element: Int): Boolean {
-                return if (contains(element))
-                    false
-                else
-                    super.add(element)
-            }
-        }
-
         attachSwipe()
     }
-
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         return false
@@ -100,7 +88,7 @@ abstract class SwipeHelper(private val context: Context, private val recyclerVie
         }
 
         buttonsBuffer.clear()
-        swipeThreshold = 0.5f * buttons.size.toFloat() * BUTTON_WIDTH.toFloat()
+        swipeThreshold = 0.5f * buttons.size.toFloat() * BUTTON_WIDTH
         recoverSwipedItem()
     }
 
@@ -132,9 +120,9 @@ abstract class SwipeHelper(private val context: Context, private val recyclerVie
 
                 if (!buttonsBuffer.containsKey(pos)) {
                     instantiateUnderlayButton(viewHolder, buffer)
-                    buttonsBuffer[pos]?.let {  buffer = it }
+                    buttonsBuffer[pos] = buffer
                 } else {
-                    buttonsBuffer[pos]?.let {  buffer = it }
+                    buttonsBuffer[pos]?.let { buffer = it }
                 }
 
                 translationX = dX * buffer.size.toFloat() * BUTTON_WIDTH / itemView.width
@@ -171,6 +159,17 @@ abstract class SwipeHelper(private val context: Context, private val recyclerVie
     }
 
     private fun attachSwipe() {
+        this.gestureDetector = GestureDetector(context, gestureListener)
+        this.recyclerView.setOnTouchListener(onTouchListener)
+        recoverQueue = object : LinkedList<Int>() {
+            override fun add(element: Int): Boolean {
+                return if (contains(element))
+                    false
+                else
+                    super.add(element)
+            }
+        }
+
         val itemTouchHelper = ItemTouchHelper(this)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
