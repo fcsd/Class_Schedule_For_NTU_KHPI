@@ -1,10 +1,10 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.list
 
 import com.arellomobile.mvp.InjectViewState
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.MemoryRepository
-import com.khpi.classschedule.data.models.Schedule
-import com.khpi.classschedule.data.models.BaseSchedule
+import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
@@ -20,22 +20,21 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         injector().inject(this)
     }
 
-    private var scheduleFirstWeek: BaseSchedule? = null
-    private var scheduleSecondWeek: BaseSchedule? = null
-    private var groupId: Int? = null
-    private var groupName: String? = null
+    private var scheduleFirstWeek: Schedule? = null
+    private var scheduleSecondWeek: Schedule? = null
+    private var group: BaseSchedule? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
     }
 
-    fun loadScheduleById(groupId: Int, groupName: String) {
-        this.groupId = groupId
-        this.groupName = groupName
+    fun loadScheduleById(group: BaseSchedule) {
+        this.group = group
 
-        val groupPair = memoryRepository.getGroupSchedule(groupId)
+        val id = group.id ?: return
+        val groupPair = memoryRepository.getGroupSchedule(Constants.GROUP_PREFIX, id)
         scheduleFirstWeek = groupPair?.first ?: run {
-            loadScheduleFromInternet(groupId)
+            loadScheduleFromInternet(id)
             return
         }
 
@@ -45,11 +44,11 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     private fun loadScheduleFromInternet(groupId: Int) {
         viewState.showProgressDialog()
-        loadScheduleForWeeks("Schedule", groupId)
+        loadScheduleForWeeks("ScheduleItem", groupId)
         loadScheduleForWeeks("Schedule2", groupId)
     }
 
-    private fun loadScheduleForWeeks(week : String, groupId : Int) {
+    private fun loadScheduleForWeeks(week: String, groupId: Int) {
         scheduleManager.getScheduleByWeekById(week, groupId, { schedule ->
 
             val monday = schedule.monday ?: return@getScheduleByWeekById
@@ -59,13 +58,13 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val friday = schedule.friday ?: return@getScheduleByWeekById
 
             when (week) {
-                "Schedule" -> scheduleFirstWeek = BaseSchedule(
+                "ScheduleItem" -> scheduleFirstWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
                         setNormalFormForSchedule(thursday),
                         setNormalFormForSchedule(friday))
-                "Schedule2" -> scheduleSecondWeek = BaseSchedule(
+                "Schedule2" -> scheduleSecondWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
@@ -74,7 +73,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             }
 
             viewState.dismissProgressDialog()
-            synchronizeThreads(groupName, scheduleFirstWeek, scheduleSecondWeek)
+            synchronizeThreads(group, scheduleFirstWeek, scheduleSecondWeek)
 
         }, {
             val errorMessage = it ?: "Unknown error"
@@ -83,25 +82,37 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         })
     }
 
-    private fun synchronizeThreads(name : String?, scheduleFirstWeek: BaseSchedule?, scheduleSecondWeek: BaseSchedule?) {
+    private fun synchronizeThreads(baseModel: BaseSchedule?, scheduleFirstWeek: Schedule?, scheduleSecondWeek: Schedule?) {
         if (scheduleFirstWeek != null && scheduleSecondWeek != null) {
-            groupId?.let { memoryRepository.saveGroupSchedule(it, scheduleFirstWeek, scheduleSecondWeek) }
+
+            val id = baseModel?.id ?: return
+            val name = baseModel.title ?: return
+            val course = baseModel.course ?: return
+
+            val scheduleInfo = BaseSchedule(id = id,
+                    parentName = "Test Faculty",
+                    title = name,
+                    course = course,
+                    scheduleType = ScheduleType.GROUP)
+
+            memoryRepository.saveGroupSchedule(Constants.GROUP_PREFIX, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo)
+
             viewState.showMessage("Група $name була збережена успiшно!")
             showSchedule(scheduleFirstWeek)
         }
     }
 
-    private fun showSchedule(schedule: BaseSchedule) {
+    private fun showSchedule(schedule: Schedule) {
         viewState.showSchedule(schedule)
     }
 
-    private fun setNormalFormForSchedule(day: HashMap<String, Schedule>): List<Schedule> {
+    private fun setNormalFormForSchedule(day: HashMap<String, ScheduleItem>): List<ScheduleItem> {
         for ((key, schedule) in day) {
             schedule.time = setScheduleTime(key)
             schedule.couple = setScheduleCouple(key)
         }
 
-        val withoutEmptySchedule = ArrayList<Schedule>()
+        val withoutEmptySchedule = ArrayList<ScheduleItem>()
 
         day.values.forEach { couple ->
             if (!couple.name.isNullOrEmpty()) {

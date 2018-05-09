@@ -3,14 +3,14 @@ package com.khpi.classschedule.data.models
 import com.google.gson.annotations.SerializedName
 
 data class FullSchedule(
-        @SerializedName("Monday") val monday: HashMap<String, Schedule>?,
-        @SerializedName("Tuesday") val tuesday: HashMap<String, Schedule>?,
-        @SerializedName("Wednesday") val wednesday: HashMap<String, Schedule>?,
-        @SerializedName("Thursday") val thursday: HashMap<String, Schedule>?,
-        @SerializedName("Friday") val friday: HashMap<String, Schedule>?
+        @SerializedName("Monday") val monday: HashMap<String, ScheduleItem>?,
+        @SerializedName("Tuesday") val tuesday: HashMap<String, ScheduleItem>?,
+        @SerializedName("Wednesday") val wednesday: HashMap<String, ScheduleItem>?,
+        @SerializedName("Thursday") val thursday: HashMap<String, ScheduleItem>?,
+        @SerializedName("Friday") val friday: HashMap<String, ScheduleItem>?
 )
 
-data class Schedule(
+data class ScheduleItem(
         var time: String?,
         var couple: Int?,
         @SerializedName("Name") val name: String?,
@@ -19,10 +19,16 @@ data class Schedule(
         @SerializedName("Prepod") val teacher: String?
 )
 
-data class BaseSchedule(
-        val monday: List<Schedule>,
-        val tuesday: List<Schedule>,
-        val wednesday: List<Schedule>,
-        val thursday: List<Schedule>,
-        val friday: List<Schedule>
+data class Schedule(
+        val monday: List<ScheduleItem>,
+        val tuesday: List<ScheduleItem>,
+        val wednesday: List<ScheduleItem>,
+        val thursday: List<ScheduleItem>,
+        val friday: List<ScheduleItem>
 )
+
+enum class ScheduleType {
+    GROUP,
+    TEACHER,
+    AUDITORY
+}

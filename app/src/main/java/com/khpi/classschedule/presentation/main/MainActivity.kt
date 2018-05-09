@@ -9,7 +9,7 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.ScheduleGeneralFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -29,26 +29,26 @@ class MainActivity : BaseActivity(), MainView {
         setSupportActionBar(toolbar)
         btnToolbarBack.setOnClickListener { super.onBackPressed() }
 
-        setVisibleViews(schedule_text, task_text, teacher_text, building_text)
-        replaceFragment(ScheduleGeneralFragment.newInstance())
+        setVisibleViews(schedule_text, task_text, building_text, settings_text)
+        replaceFragment(GeneralListFragment.newInstance())
 
         schedule_fragment.setOnClickListener {
-            setVisibleViews(schedule_text, task_text, teacher_text, building_text)
-            replaceFragment(ScheduleGeneralFragment.newInstance(), true)
+            setVisibleViews(schedule_text, task_text, building_text, settings_text)
+            replaceFragment(GeneralListFragment.newInstance(), true)
         }
 
         task_fragment.setOnClickListener {
-            setVisibleViews(task_text, schedule_text, teacher_text, building_text)
-            replaceFragment(BuildingListFragment.newInstance(), true)
-        }
-
-        teacher_fragment.setOnClickListener {
-            setVisibleViews(teacher_text, schedule_text, task_text, building_text)
+            setVisibleViews(task_text, schedule_text, building_text, settings_text)
             replaceFragment(BuildingListFragment.newInstance(), true)
         }
 
         building_fragment.setOnClickListener {
-            setVisibleViews(building_text, schedule_text, task_text, teacher_text)
+            setVisibleViews(building_text, schedule_text, task_text, settings_text)
+            replaceFragment(BuildingListFragment.newInstance(), true)
+        }
+
+        settings_fragment.setOnClickListener {
+            setVisibleViews(settings_text, schedule_text, task_text, building_text)
             replaceFragment(BuildingListFragment.newInstance(), true)
         }
     }

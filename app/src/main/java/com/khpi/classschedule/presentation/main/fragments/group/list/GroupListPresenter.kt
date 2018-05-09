@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.main.fragments.group.list
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.BaseSchedule
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
@@ -33,7 +34,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         })
     }
 
-    private fun replaceGroupByCourse(groups: ArrayList<BaseModel>) {
+    private fun replaceGroupByCourse(groups: ArrayList<BaseSchedule>) {
         val groupsByFirstCourse = groups.filter { it.course == 1 }
         val groupsBySecondCourse = groups.filter { it.course == 2 }
         val groupsByThirdCourse = groups.filter { it.course == 3 }

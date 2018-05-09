@@ -3,9 +3,8 @@ package com.khpi.classschedule.data.config
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.data.models.BaseSchedule
-import android.R.id.edit
-
 
 
 class MemoryRepository(context: Context, private val gson : Gson) {
@@ -16,47 +15,69 @@ class MemoryRepository(context: Context, private val gson : Gson) {
 
     private val sp: SharedPreferences
 
-    private val groupPrefix = "group"
-
     init {
         this.sp = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
     }
 
-    fun saveGroupSchedule(groupId: Int, scheduleForFirstWeek: BaseSchedule, scheduleForSecondWeek: BaseSchedule) {
+    fun saveGroupSchedule(prefix : String,
+                          groupId: Int,
+                          scheduleForFirstWeek: Schedule,
+                          scheduleForSecondWeek: Schedule,
+                          scheduleInfo: BaseSchedule) {
+
         val prefsEditor = sp.edit()
         val jsonFirstWeek = gson.toJson(scheduleForFirstWeek)
         val jsonSecondWeek = gson.toJson(scheduleForSecondWeek)
-        prefsEditor.putString("$groupPrefix $groupId 1", jsonFirstWeek)
-        prefsEditor.putString("$groupPrefix $groupId 2", jsonSecondWeek)
-
-        saveKey(groupPrefix, groupId)
-
-        prefsEditor.putInt("$groupPrefix $groupId", groupId)
+        prefsEditor.putString("$prefix $groupId 1", jsonFirstWeek)
+        prefsEditor.putString("$prefix $groupId 2", jsonSecondWeek)
         prefsEditor.apply()
+
+        saveKeySchedule(prefix, groupId)
+        saveScheduleInfo(prefix, groupId, scheduleInfo)
     }
 
-    fun getGroupSchedule(groupId: Int) : Pair<BaseSchedule, BaseSchedule>? {
+    fun getGroupSchedule(prefix: String, groupId: Int) : Pair<Schedule, Schedule>? {
 
-        val jsonFirstWeek = sp.getString("$groupPrefix $groupId 1", null) ?: return null
-        val jsonSecondWeek = sp.getString("$groupPrefix $groupId 2", null) ?: return null
+        val jsonFirstWeek = sp.getString("$prefix $groupId 1", null) ?: return null
+        val jsonSecondWeek = sp.getString("$prefix $groupId 2", null) ?: return null
 
-        val scheduleForFirstWeek = gson.fromJson(jsonFirstWeek, BaseSchedule::class.java)
-        val scheduleForSecondWeek = gson.fromJson(jsonSecondWeek, BaseSchedule::class.java)
+        val scheduleForFirstWeek = gson.fromJson(jsonFirstWeek, Schedule::class.java)
+        val scheduleForSecondWeek = gson.fromJson(jsonSecondWeek, Schedule::class.java)
 
         return Pair(scheduleForFirstWeek, scheduleForSecondWeek)
     }
 
-    private fun saveKey(prefix: String, groupId: Int) {
+    private fun saveScheduleInfo(prefix: String, groupId: Int, scheduleInfo: BaseSchedule) {
         val prefsEditor = sp.edit()
-        val keys = getKeys(prefix)
-        keys.add(groupId)
-
-        val jsonText = gson.toJson(keys)
-        prefsEditor.putString(groupPrefix, jsonText)
+        val schedule = gson.toJson(scheduleInfo)
+        prefsEditor.putString("$prefix $groupId info", schedule)
         prefsEditor.apply()
     }
 
-    private fun getKeys(prefix: String) : MutableList<Int> {
+    fun getScheduleInfoByTypes(prefix: String) : MutableList<BaseSchedule>? {
+        val keySchedule = getKeysSchedule(prefix)
+        val scheduleInfo = mutableListOf<BaseSchedule>()
+
+        keySchedule.forEach { key ->
+            val jsonInfo = sp.getString("$prefix $key info", null) ?: return null
+            val info = gson.fromJson(jsonInfo, BaseSchedule::class.java)
+            scheduleInfo.add(info)
+        }
+
+        return scheduleInfo
+    }
+
+    private fun saveKeySchedule(prefix: String, groupId: Int) {
+        val prefsEditor = sp.edit()
+        val keysSchedule = getKeysSchedule(prefix)
+        keysSchedule.add(groupId)
+
+        val jsonText = gson.toJson(keysSchedule)
+        prefsEditor.putString(prefix, jsonText)
+        prefsEditor.apply()
+    }
+
+    private fun getKeysSchedule(prefix: String) : MutableList<Int> {
         val jsonText = sp.getString(prefix, null)
         jsonText?.let { return gson.fromJson<Array<Int>>(it, Array<Int>::class.java).toMutableList() }
                 ?: return mutableListOf()

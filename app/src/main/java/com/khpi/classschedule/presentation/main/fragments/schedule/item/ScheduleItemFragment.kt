@@ -1,6 +1,5 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.item
 
-
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -9,12 +8,8 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.data.models.ScheduleItem
 import com.khpi.classschedule.presentation.base.BaseFragment
-import com.khpi.classschedule.presentation.main.fragments.group.item.GroupItemPresenter
-import com.khpi.classschedule.views.BaseAdapter
-import kotlinx.android.synthetic.main.fragment_group_item.*
 import kotlinx.android.synthetic.main.fragment_schedule_item.*
 
 class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
@@ -25,10 +20,10 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     @InjectPresenter lateinit var presenter: ScheduleItemPresenter
     //@formatter:on
 
-    private var schedule: List<Schedule>? = null
+    private var schedule: List<ScheduleItem>? = null
 
     companion object {
-        fun newInstance(schedule: List<Schedule>): ScheduleItemFragment = ScheduleItemFragment().apply {
+        fun newInstance(schedule: List<ScheduleItem>): ScheduleItemFragment = ScheduleItemFragment().apply {
             this.schedule = schedule
         }
     }
@@ -47,7 +42,7 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
         presenter.prepareToShowSchedule(schedule)
     }
 
-    override fun showSchedule(schedule: List<Schedule>, callback: ScheduleItemPresenter) {
+    override fun showSchedule(schedule: List<ScheduleItem>, callback: ScheduleItemPresenter) {
         val scheduleAdapter = ScheduleItemAdapter(schedule, callback)
         recycler_schedule.layoutManager = LinearLayoutManager(context)
         recycler_schedule.adapter = scheduleAdapter

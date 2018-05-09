@@ -5,8 +5,8 @@
 
     <string name="schedule">Розклад</string>
     <string name="task">Завдання</string>
-    <string name="teacher">Викладачі</string>
     <string name="buildings">Корпуси</string>
+    <string name="settings">Налаштування</string>
 
     <string name="search">Знайти</string>
     <string name="search.buildings">Введіть корпус</string>
@@ -33,13 +33,10 @@
     <string name="thursday">Четвер</string>
     <string name="friday">П\'ятниця</string>
 
-
-    <string name="class_schedule">Розклад занять</string>
+    <string name="groups">Групи</string>
+    <string name="auditories">Аудиторії</string>
     <string name="teachers">Викладачі</string>
-    <string name="tasks">Завдання</string>
-    <string name="campus">Учбові корпуси</string>
-    <string name="settings">Про ХПІ</string>
-    <string name="about">Про додаток</string>
+    <string name="course">Курс %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

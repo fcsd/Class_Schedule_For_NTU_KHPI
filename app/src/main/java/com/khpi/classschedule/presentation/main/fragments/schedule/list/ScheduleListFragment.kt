@@ -1,6 +1,5 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.list
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.BaseSchedule
+import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.item.ScheduleItemFragment
@@ -25,10 +25,10 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     @InjectPresenter lateinit var presenter: ScheduleListPresenter
     //@formatter:on
 
-    private var group: BaseModel? = null
+    private var group: BaseSchedule? = null
 
     companion object {
-        fun newInstance(group: BaseModel): ScheduleListFragment = ScheduleListFragment().apply {
+        fun newInstance(group: BaseSchedule): ScheduleListFragment = ScheduleListFragment().apply {
             this.group = group
         }
     }
@@ -44,12 +44,11 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
     override fun configureView() {
         val groupName = this.group?.title ?: return
-        val groupId = this.group?.id ?: return
         (activity as? MainActivity)?.setToolbarTitle(groupName)
-        presenter.loadScheduleById(groupId, groupName)
+        group?.let { presenter.loadScheduleById(it) }
     }
 
-    override fun showSchedule(schedule: BaseSchedule) {
+    override fun showSchedule(schedule: Schedule) {
         val adapter = BasePagerAdapter(childFragmentManager)
 
         val monday = ScheduleItemFragment.newInstance(schedule.monday)

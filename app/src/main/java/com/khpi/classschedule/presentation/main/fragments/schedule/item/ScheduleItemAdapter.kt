@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.data.models.ScheduleItem
 import kotlinx.android.synthetic.main.item_schedule.view.*
 
-class ScheduleItemAdapter(private val schedule: List<Schedule>,
+class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
                           private val listener: OnScheduleItemClickListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -25,7 +25,7 @@ class ScheduleItemAdapter(private val schedule: List<Schedule>,
 
     class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: Schedule, listener: OnScheduleItemClickListener) {
+        fun onBind(item: ScheduleItem, listener: OnScheduleItemClickListener) {
             itemView.schedule_time_text.text = item.time
             itemView.schedule_name_text.text = item.name
             itemView.schedule_teacher_text.text = item.teacher
@@ -36,6 +36,6 @@ class ScheduleItemAdapter(private val schedule: List<Schedule>,
     }
 
     interface OnScheduleItemClickListener {
-        fun onItemClick(item: Schedule)
+        fun onItemClick(item: ScheduleItem)
     }
 }
