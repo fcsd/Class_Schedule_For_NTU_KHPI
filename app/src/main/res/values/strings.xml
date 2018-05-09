@@ -38,6 +38,9 @@
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
 
+    <string name="remove">Видалити</string>
+    <string name="refresh">Оновити</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

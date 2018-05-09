@@ -1,7 +1,10 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
 
 
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +13,12 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import kotlinx.android.synthetic.main.fragment_general_item.*
+import android.support.v7.widget.RecyclerView
+import com.khpi.classschedule.data.SwipeHelper
 
 
 class GeneralItemFragment : BaseFragment(), GeneralItemView {
@@ -48,13 +52,46 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
     }
 
     override fun showScheduleInfo(scheduleInfo: List<BaseModel>) {
+        val ctx = context ?: return
         if (scheduleInfo.isEmpty()) {
             recycler_general.visibility = View.GONE
             general_no_items.visibility = View.VISIBLE
         } else {
             val generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
-            recycler_general.layoutManager = LinearLayoutManager(context)
+            recycler_general.layoutManager = LinearLayoutManager(ctx)
             recycler_general.adapter = generalAdapter
+
+            val swipeHelper = object : SwipeHelper(ctx, recycler_general) {
+
+                override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder,
+                                                       underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
+
+                    val drawableRemove = ContextCompat.getDrawable(ctx, R.drawable.ic_content_delete) ?: return
+                    val drawableRefresh = ContextCompat.getDrawable(ctx, R.drawable.ic_add_new_item) ?: return
+
+                    underlayButtons.add(SwipeHelper.UnderlayButton(
+                            resources.getString(R.string.remove),
+                            drawableToBitmap(drawableRemove),
+                            ContextCompat.getColor(ctx, R.color.colorPrimary),
+                            object : SwipeHelper.UnderlayButtonClickListener {
+                                override fun onClick(pos: Int) {
+                                    // TODO: onDelete
+                                }
+                            }
+                    ))
+
+                    underlayButtons.add(SwipeHelper.UnderlayButton(
+                            resources.getString(R.string.refresh),
+                            drawableToBitmap(drawableRefresh),
+                            ContextCompat.getColor(ctx, R.color.c_4bc173),
+                            object : SwipeHelper.UnderlayButtonClickListener {
+                                override fun onClick(pos: Int) {
+                                    // TODO: onRefresh
+                                }
+                            }
+                    ))
+                }
+            }
         }
     }
 
