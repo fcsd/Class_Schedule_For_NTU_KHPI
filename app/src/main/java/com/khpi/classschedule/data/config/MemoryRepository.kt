@@ -19,27 +19,27 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         this.sp = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
     }
 
-    fun saveGroupSchedule(prefix : String,
-                          groupId: Int,
-                          scheduleForFirstWeek: Schedule,
-                          scheduleForSecondWeek: Schedule,
-                          scheduleInfo: BaseModel) {
+    fun saveSchedule(prefix : String,
+                     id: Int,
+                     scheduleForFirstWeek: Schedule,
+                     scheduleForSecondWeek: Schedule,
+                     scheduleInfo: BaseModel) {
 
         val prefsEditor = sp.edit()
         val jsonFirstWeek = gson.toJson(scheduleForFirstWeek)
         val jsonSecondWeek = gson.toJson(scheduleForSecondWeek)
-        prefsEditor.putString("$prefix $groupId 1", jsonFirstWeek)
-        prefsEditor.putString("$prefix $groupId 2", jsonSecondWeek)
+        prefsEditor.putString("$prefix $id 1", jsonFirstWeek)
+        prefsEditor.putString("$prefix $id 2", jsonSecondWeek)
         prefsEditor.apply()
 
-        saveKeySchedule(prefix, groupId)
-        saveScheduleInfo(prefix, groupId, scheduleInfo)
+        saveKeySchedule(prefix, id)
+        saveScheduleInfo(prefix, id, scheduleInfo)
     }
 
-    fun getGroupSchedule(prefix: String, groupId: Int) : Pair<Schedule, Schedule>? {
+    fun getSchedule(prefix: String, id: Int) : Pair<Schedule, Schedule>? {
 
-        val jsonFirstWeek = sp.getString("$prefix $groupId 1", null) ?: return null
-        val jsonSecondWeek = sp.getString("$prefix $groupId 2", null) ?: return null
+        val jsonFirstWeek = sp.getString("$prefix $id 1", null) ?: return null
+        val jsonSecondWeek = sp.getString("$prefix $id 2", null) ?: return null
 
         val scheduleForFirstWeek = gson.fromJson(jsonFirstWeek, Schedule::class.java)
         val scheduleForSecondWeek = gson.fromJson(jsonSecondWeek, Schedule::class.java)
@@ -47,10 +47,26 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         return Pair(scheduleForFirstWeek, scheduleForSecondWeek)
     }
 
-    private fun saveScheduleInfo(prefix: String, groupId: Int, scheduleInfo: BaseModel) {
+    fun removeSchedule(prefix: String, id: Int) {
+        val prefsEditor = sp.edit()
+        prefsEditor.remove("$prefix $id 1")
+        prefsEditor.remove("$prefix $id 2")
+        prefsEditor.apply()
+
+        removeKeySchedule(prefix, id)
+        removeScheduleInfo(prefix, id)
+    }
+
+    private fun saveScheduleInfo(prefix: String, id: Int, scheduleInfo: BaseModel) {
         val prefsEditor = sp.edit()
         val schedule = gson.toJson(scheduleInfo)
-        prefsEditor.putString("$prefix $groupId info", schedule)
+        prefsEditor.putString("$prefix $id info", schedule)
+        prefsEditor.apply()
+    }
+
+    private fun removeScheduleInfo(prefix: String, id: Int) {
+        val prefsEditor = sp.edit()
+        prefsEditor.remove("$prefix $id info")
         prefsEditor.apply()
     }
 
@@ -67,10 +83,10 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         return scheduleInfo
     }
 
-    private fun saveKeySchedule(prefix: String, groupId: Int) {
+    private fun saveKeySchedule(prefix: String, id: Int) {
         val prefsEditor = sp.edit()
         val keysSchedule = getKeysSchedule(prefix)
-        keysSchedule.add(groupId)
+        keysSchedule.add(id)
 
         val jsonText = gson.toJson(keysSchedule)
         prefsEditor.putString(prefix, jsonText)
@@ -83,4 +99,13 @@ class MemoryRepository(context: Context, private val gson : Gson) {
                 ?: return mutableListOf()
     }
 
+    private fun removeKeySchedule(prefix: String, id: Int) {
+        val prefsEditor = sp.edit()
+        val keysSchedule = getKeysSchedule(prefix)
+        keysSchedule.remove(id)
+
+        val jsonText = gson.toJson(keysSchedule)
+        prefsEditor.putString(prefix, jsonText)
+        prefsEditor.apply()
+    }
 }

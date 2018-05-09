@@ -33,7 +33,6 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
     }
 
     private var visibleTab = 0
-    lateinit var adapter: BasePagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -57,7 +56,7 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
                                         infoTeachers: MutableList<BaseModel>,
                                         infoAuditories: MutableList<BaseModel>) {
 
-        adapter = BasePagerAdapter(childFragmentManager)
+        val adapter = BasePagerAdapter(childFragmentManager)
 
         val groups = GeneralItemFragment.newInstance(infoGroups)
         val teachers = GeneralItemFragment.newInstance(infoTeachers)

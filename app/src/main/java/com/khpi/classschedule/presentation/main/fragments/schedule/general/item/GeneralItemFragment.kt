@@ -1,8 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
 
 
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -30,6 +28,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
     //@formatter:on
 
     private var scheduleInfo: List<BaseModel>? = null
+    private lateinit var generalAdapter : GeneralItemAdapter
 
     companion object {
         fun newInstance(scheduleInfo: List<BaseModel>): GeneralItemFragment = GeneralItemFragment().apply {
@@ -57,7 +56,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
             recycler_general.visibility = View.GONE
             general_no_items.visibility = View.VISIBLE
         } else {
-            val generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
+            generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
             recycler_general.layoutManager = LinearLayoutManager(ctx)
             recycler_general.adapter = generalAdapter
 
@@ -75,7 +74,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
                             ContextCompat.getColor(ctx, R.color.colorPrimary),
                             object : SwipeHelper.UnderlayButtonClickListener {
                                 override fun onClick(pos: Int) {
-//                                    presenter.onDeleteClicked(viewHolder.adapterPosition)
+                                    presenter.onRemoveClicked(viewHolder.adapterPosition)
                                 }
                             }
                     ))
@@ -86,7 +85,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
                             ContextCompat.getColor(ctx, R.color.c_4bc173),
                             object : SwipeHelper.UnderlayButtonClickListener {
                                 override fun onClick(pos: Int) {
-                                    showMessage("RERFESH!")
+                                    presenter.onRefreshClicked(viewHolder.adapterPosition)
                                 }
                             }
                     ))
@@ -97,5 +96,9 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
 
     override fun openScheduleScreen(baseSchedule: BaseModel) {
         (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(baseSchedule))
+    }
+
+    override fun notifyDataSetChanged() {
+        generalAdapter.notifyDataSetChanged()
     }
 }

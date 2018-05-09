@@ -9,6 +9,7 @@ import com.khpi.classschedule.presentation.main.fragments.building.list.Building
 import com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPresenter
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListPresenter
 import dagger.Component
@@ -26,4 +27,5 @@ interface AppComponent {
     fun inject(groupListPresenter: GroupListPresenter)
     fun inject(scheduleListPresenter: ScheduleListPresenter)
     fun inject(scheduleGeneralPresenter: GeneralListPresenter)
+    fun inject(generalItemPresenter: GeneralItemPresenter)
 }
