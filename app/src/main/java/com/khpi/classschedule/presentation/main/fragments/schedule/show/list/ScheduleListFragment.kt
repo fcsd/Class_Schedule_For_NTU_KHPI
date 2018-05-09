@@ -52,13 +52,15 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     }
 
     override fun showSchedule(schedule: Schedule) {
+
+        val type = this.type ?: return
         val adapter = BasePagerAdapter(childFragmentManager)
 
-        val monday = ScheduleItemFragment.newInstance(schedule.monday)
-        val tuesday = ScheduleItemFragment.newInstance(schedule.tuesday)
-        val wednesday = ScheduleItemFragment.newInstance(schedule.wednesday)
-        val thursday = ScheduleItemFragment.newInstance(schedule.thursday)
-        val friday = ScheduleItemFragment.newInstance(schedule.friday)
+        val monday = ScheduleItemFragment.newInstance(schedule.monday, type)
+        val tuesday = ScheduleItemFragment.newInstance(schedule.tuesday, type)
+        val wednesday = ScheduleItemFragment.newInstance(schedule.wednesday, type)
+        val thursday = ScheduleItemFragment.newInstance(schedule.thursday, type)
+        val friday = ScheduleItemFragment.newInstance(schedule.friday, type)
 
         adapter.addFragment(monday, getString(R.string.monday))
         adapter.addFragment(tuesday, getString(R.string.tuesday))

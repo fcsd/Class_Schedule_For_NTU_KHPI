@@ -37,6 +37,7 @@
     <string name="auditories">Аудиторії</string>
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
+    <string name="map">Mапа</string>
 
     <string name="remove">Видалити</string>
     <string name="refresh">Оновити</string>

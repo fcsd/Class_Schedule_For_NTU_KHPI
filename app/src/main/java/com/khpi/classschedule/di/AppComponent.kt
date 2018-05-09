@@ -11,6 +11,7 @@ import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPre
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -28,4 +29,5 @@ interface AppComponent {
     fun inject(scheduleListPresenter: ScheduleListPresenter)
     fun inject(scheduleGeneralPresenter: GeneralListPresenter)
     fun inject(generalItemPresenter: GeneralItemPresenter)
+    fun inject(scheduleItemPresenter: ScheduleItemPresenter)
 }
