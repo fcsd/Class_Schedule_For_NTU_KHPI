@@ -1,12 +1,10 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
 
 import com.arellomobile.mvp.InjectViewState
-import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.MemoryRepository
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
-import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
@@ -106,18 +104,21 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
 
             val id = baseModel?.id ?: return
             val name = baseModel.title ?: return
-            val course = baseModel.course ?: return
+            val type = baseModel.scheduleType ?: return
 
             val scheduleInfo = BaseModel(id = id,
-                    parentName = "Test Faculty",
+                    parentName = baseModel.parentName,
                     title = name,
-                    course = course,
-                    scheduleType = ScheduleType.GROUP)
+                    course = baseModel.course,
+                    scheduleType = type)
 
-            memoryRepository.saveSchedule(Constants.GROUP_PREFIX, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo)
+            val prefix = getPrefixByType(type)
+            val messageType = getMessageByType(type)
+
+            memoryRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = true)
 
             viewState.dismissProgressDialog()
-            viewState.showMessage("Група $name була оновлена успiшно!")
+            viewState.showMessage("Розклад $messageType $name був оновлений успiшно!")
         }
     }
 }

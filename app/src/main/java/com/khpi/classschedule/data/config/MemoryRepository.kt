@@ -23,7 +23,8 @@ class MemoryRepository(context: Context, private val gson : Gson) {
                      id: Int,
                      scheduleForFirstWeek: Schedule,
                      scheduleForSecondWeek: Schedule,
-                     scheduleInfo: BaseModel) {
+                     scheduleInfo: BaseModel,
+                     isUpdate: Boolean = false) {
 
         val prefsEditor = sp.edit()
         val jsonFirstWeek = gson.toJson(scheduleForFirstWeek)
@@ -32,7 +33,9 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         prefsEditor.putString("$prefix $id 2", jsonSecondWeek)
         prefsEditor.apply()
 
-        saveKeySchedule(prefix, id)
+        if (!isUpdate) {
+            saveKeySchedule(prefix, id)
+        }
         saveScheduleInfo(prefix, id, scheduleInfo)
     }
 
