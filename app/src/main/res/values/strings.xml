@@ -39,8 +39,8 @@
     <string name="course">Курс %d</string>
     <string name="map">Mапа</string>
 
-    <string name="remove">Видалити</string>
-    <string name="refresh">Оновити</string>
+    <string name="remove_schedule">Видалити розклад</string>
+    <string name="refresh_schedule">Оновити розклад</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

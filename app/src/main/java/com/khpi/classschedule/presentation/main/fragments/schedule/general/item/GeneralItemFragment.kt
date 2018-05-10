@@ -59,38 +59,6 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
             generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
             recycler_general.layoutManager = LinearLayoutManager(ctx)
             recycler_general.adapter = generalAdapter
-
-            object : SwipeHelper(ctx, recycler_general) {
-
-                override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder,
-                                                       underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
-
-                    val drawableRemove = ContextCompat.getDrawable(ctx, R.drawable.ic_content_delete) ?: return
-                    val drawableRefresh = ContextCompat.getDrawable(ctx, R.drawable.ic_add_new_item) ?: return
-
-                    underlayButtons.add(SwipeHelper.UnderlayButton(
-                            resources.getString(R.string.remove),
-                            drawableToBitmap(drawableRemove),
-                            ContextCompat.getColor(ctx, R.color.colorPrimary),
-                            object : SwipeHelper.UnderlayButtonClickListener {
-                                override fun onClick(pos: Int) {
-                                    presenter.onRemoveClicked(viewHolder.adapterPosition)
-                                }
-                            }
-                    ))
-
-                    underlayButtons.add(SwipeHelper.UnderlayButton(
-                            resources.getString(R.string.refresh),
-                            drawableToBitmap(drawableRefresh),
-                            ContextCompat.getColor(ctx, R.color.c_4bc173),
-                            object : SwipeHelper.UnderlayButtonClickListener {
-                                override fun onClick(pos: Int) {
-                                    presenter.onRefreshClicked(viewHolder.adapterPosition)
-                                }
-                            }
-                    ))
-                }
-            }
         }
     }
 

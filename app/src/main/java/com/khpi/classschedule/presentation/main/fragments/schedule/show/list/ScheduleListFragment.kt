@@ -1,9 +1,8 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v4.content.ContextCompat
+import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
@@ -15,6 +14,8 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
+import android.text.method.TextKeyListener.clear
+import android.view.*
 
 
 class ScheduleListFragment : BaseFragment(), ScheduleListView {
@@ -45,8 +46,12 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     }
 
     override fun configureView() {
+        val ctx = context ?: return
         val groupName = this.group?.title ?: return
+        setHasOptionsMenu(true)
         (activity as? MainActivity)?.setToolbarTitle(groupName)
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
+        (activity as? MainActivity)?.setRightSecondClickListener { v -> openEditPopup(v) }
         presenter.setType(type)
         group?.let { presenter.loadScheduleById(it) }
     }
@@ -71,5 +76,37 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         schedule_view_pager.adapter = adapter
         schedule_tab.visibility = View.VISIBLE
         schedule_tab.setupWithViewPager(schedule_view_pager)
+    }
+
+    private fun openEditPopup(view: View) {
+
+        val popupMenu = PopupMenu(context, view)
+        popupMenu.inflate(R.menu.menu_schedule)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+
+            when (item.itemId) {
+
+                R.id.refresh_schedule -> {
+                    presenter.onRefreshClicked()
+                    true
+                }
+                R.id.remove_schedule -> {
+                    presenter.onRemoveClicked()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popupMenu.show()
+    }
+
+    override fun closeScreen() {
+        onBackPressed()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.clear()
     }
 }

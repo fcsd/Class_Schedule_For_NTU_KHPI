@@ -40,22 +40,6 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
         viewState.openScheduleScreen(item)
     }
 
-    fun onRemoveClicked(adapterPosition: Int) {
-
-        val itemInfo = scheduleInfo[adapterPosition]
-        val itemId = itemInfo.id ?: return
-        val type = itemInfo.scheduleType ?: return
-
-        val prefix = getPrefixByType(type)
-        val messageType = getMessageByType(type)
-
-        memoryRepository.removeSchedule(prefix, itemId)
-
-        scheduleInfo.remove(itemInfo)
-        viewState.notifyDataSetChanged()
-        viewState.showMessage("Розклад $messageType ${itemInfo.title} був видален успішно")
-    }
-
     fun onRefreshClicked(adapterPosition: Int) {
         val itemInfo = scheduleInfo[adapterPosition]
         val itemId = itemInfo.id ?: return

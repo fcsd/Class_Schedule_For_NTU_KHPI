@@ -2,6 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.group.list
 
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class GroupListFragment : BaseFragment(), GroupListView {
         val facultyTitle = this.faculty?.title ?: return
         val facultyId = this.faculty?.id ?: return
         (activity as? MainActivity)?.setToolbarTitle(facultyTitle)
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
 
         presenter.setType(type)
         presenter.loadGroupListById(facultyId)
