@@ -94,12 +94,12 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         keysSchedule.add(id)
 
         val jsonText = gson.toJson(keysSchedule)
-        prefsEditor.putString(prefix, jsonText)
+        prefsEditor.putString("$prefix schedule", jsonText)
         prefsEditor.apply()
     }
 
     private fun getKeysSchedule(prefix: String) : MutableList<Int> {
-        val jsonText = sp.getString(prefix, null)
+        val jsonText = sp.getString("$prefix schedule", null)
         jsonText?.let { return gson.fromJson<Array<Int>>(it, Array<Int>::class.java).toMutableList() }
                 ?: return mutableListOf()
     }
@@ -126,6 +126,11 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         }
 
         return tasks
+    }
+
+    fun getTaskById(prefix: String, key: Int) : Task? {
+        val jsonTask = sp.getString("$prefix $key task", null) ?: return null
+        return gson.fromJson(jsonTask, Task::class.java)
     }
 
     fun saveTask(task: Task, isUpdate: Boolean) {

@@ -1,7 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.task.item
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,6 @@ import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
-import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListAdapter
-import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
-import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListPresenter
 import com.khpi.classschedule.utils.DateFormatter
 import kotlinx.android.synthetic.main.fragment_task_item.*
 
@@ -28,11 +24,11 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
     @InjectPresenter lateinit var presenter: TaskItemPresenter
     //@formatter:on
 
-    private var task: Task? = null
+    private var taskId: Int? = null
 
     companion object {
-        fun newInstance(task: Task): TaskItemFragment = TaskItemFragment().apply{
-            this.task = task
+        fun newInstance(taskId: Int): TaskItemFragment = TaskItemFragment().apply{
+            this.taskId = taskId
         }
     }
 
@@ -52,7 +48,7 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
         (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.onEditClicked() }
-        presenter.loadTaskInfo(task)
+        presenter.loadTaskInfo(taskId)
     }
 
     override fun showTask(task: Task) {

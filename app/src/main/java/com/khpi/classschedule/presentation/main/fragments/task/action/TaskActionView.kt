@@ -2,6 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseView
 
 interface TaskActionView : BaseView {
@@ -25,5 +26,8 @@ interface TaskActionView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun closeScreen()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun updateTaskInfo(task: Task)
 
 }

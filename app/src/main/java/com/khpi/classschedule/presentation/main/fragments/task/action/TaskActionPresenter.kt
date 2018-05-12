@@ -18,7 +18,7 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
     private var prefix: String? = null
     private var infoTypes: MutableList<BaseModel>? = null
-    private val currentTask: Task? = null
+    private var currentTask: Task? = null
 
     private var selectedGroup: String? = null
     private var selectedSubject: String? = null
@@ -27,10 +27,22 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
     private var description = ""
 
     override fun onViewLoaded() {
-        viewState.configureView()
         prefix = getPrefixByType(ScheduleType.GROUP)
         prefix?.let { infoTypes = memoryRepository.getScheduleInfoByTypes(it) }
         checkAllFieldAreFilled()
+        viewState.configureView()
+    }
+
+    fun loadInfoOfExistingTask(task: Task?) {
+        currentTask = task ?: return
+        selectedGroup = task.group
+        selectedSubject = task.subject
+        selectedType = task.type
+        notificationTime = task.notificationTime
+        description = task.description
+
+        viewState.updateTaskInfo(task)
+        viewState.setConfirmButtonEnabled(true)
     }
 
     fun prepareToShowGroup() {
@@ -127,11 +139,17 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         val subject = selectedSubject ?: return
         val notificationTime = notificationTime ?: return
 
-        val id = memoryRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
+        currentTask?.let {
+            val task = Task(it.id, group, subject, selectedType, notificationTime, description)
+            memoryRepository.saveTask(task, true)
+            viewState.showMessage("Завдання було оновлено успішно")
+        } ?: run {
+            val id = memoryRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
+            val task = Task(id, group, subject, selectedType, notificationTime, description)
+            memoryRepository.saveTask(task, false)
+            viewState.showMessage("Завдання було збережено успішно")
+        }
 
-        val task = Task(id, group, subject, selectedType, notificationTime, description)
-        memoryRepository.saveTask(task, false)
-        viewState.showMessage("Завдання було збережене успішно")
         viewState.closeScreen()
     }
 }

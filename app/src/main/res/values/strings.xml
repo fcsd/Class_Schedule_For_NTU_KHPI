@@ -55,6 +55,7 @@
 
     <string name="remove_schedule">Видалити розклад</string>
     <string name="refresh_schedule">Оновити розклад</string>
+    <string name="edit_task">Редагувати завдання</string>
     <string name="create_task">Додати завдання</string>
 
     <!-- TODO: Remove or change this placeholder text -->

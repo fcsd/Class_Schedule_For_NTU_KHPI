@@ -20,6 +20,9 @@ import java.util.*
 import android.text.Editable
 import android.text.TextWatcher
 import com.khpi.classschedule.data.models.Task
+import android.support.v7.widget.RecyclerView
+
+
 
 
 class TaskActionFragment : BaseFragment(), TaskActionView {
@@ -51,7 +54,9 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
 
     override fun configureView() {
         val ctx = context?: return
-        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.create_task))
+        task?.let { (activity as? MainActivity)?.setToolbarTitle(getString(R.string.edit_task)) }
+                ?: (activity as? MainActivity)?.setToolbarTitle(getString(R.string.create_task))
+
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_apply))
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.saveTask() }
         name_content_text.setOnClickListener { presenter.prepareToShowGroup() }
@@ -73,11 +78,25 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         recycler_type.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
         recycler_type.addItemDecoration(TaskActionDecorator(ctx))
         recycler_type.adapter = taskCreateAdapter
+
+        presenter.loadInfoOfExistingTask(task)
+    }
+
+    override fun updateTaskInfo(task: Task) {
+        name_content_text.text = task.group
+        subject_content_text.text = task.subject
+        date_content_calendar.text = DateFormatter.getDateFromMillis(task.notificationTime)
+        detail_content_edit.setText(task.description)
+        taskCreateAdapter.changeSelectedItem(task.type.position)
+        (recycler_type.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(task.type.position, 0)
     }
 
     override fun showDatePicker(notificationTime: Long?) {
 
         val calendar = Calendar.getInstance()
+
+        task?.let { calendar.timeInMillis = it.notificationTime + 1000 * 60 * 60 * 24 }
+
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)

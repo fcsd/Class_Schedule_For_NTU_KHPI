@@ -1,10 +1,10 @@
 package com.khpi.classschedule.data.models
 
-enum class CoupleType(val title: String) {
-    LECTURE("Лекція"),
-    LABORATORY("Лабораторна"),
-    PRACTICE("Практика"),
-    SEMINAR("Семінар")
+enum class CoupleType(val title: String, val position: Int) {
+    LECTURE("Лекція", 0),
+    LABORATORY("Лабораторна", 1),
+    PRACTICE("Практика", 2),
+    SEMINAR("Семінар", 3)
 }
 
 data class Task(

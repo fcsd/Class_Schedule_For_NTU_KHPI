@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/general_name_text"
             tools:text="404 У1"/>

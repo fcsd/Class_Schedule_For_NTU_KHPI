@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Виконати до 12.12.2012"/>
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/task_date_text"
             tools:text="КН-25б"/>

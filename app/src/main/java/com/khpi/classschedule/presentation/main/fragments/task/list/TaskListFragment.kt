@@ -60,6 +60,6 @@ class TaskListFragment : BaseFragment(), TaskListView {
     }
 
     override fun openDetailTaskScreen(task: Task) {
-        (activity as? MainActivity)?.replaceFragment(TaskItemFragment.newInstance(task))
+        (activity as? MainActivity)?.replaceFragment(TaskItemFragment.newInstance(task.id))
     }
 }

@@ -32,7 +32,9 @@
             android:layout_height="wrap_content"
             tools:text="Lab 1"
             android:textColor="@color/c_000000"
-            android:padding="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp" />
 
     </LinearLayout>
@@ -71,7 +73,9 @@
             android:layout_height="wrap_content"
             tools:text="Lab 1"
             android:textColor="@color/c_000000"
-            android:padding="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp" />
 
     </LinearLayout>
@@ -120,7 +124,9 @@
                 android:layout_height="wrap_content"
                 tools:text="Lab 1"
                 android:textColor="@color/c_000000"
-                android:padding="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:textSize="@dimen/_12sdp" />
 
         </LinearLayout>
@@ -150,7 +156,9 @@
                 android:layout_height="wrap_content"
                 tools:text="Lab 1"
                 android:textColor="@color/c_000000"
-                android:padding="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:textSize="@dimen/_12sdp" />
 
         </LinearLayout>

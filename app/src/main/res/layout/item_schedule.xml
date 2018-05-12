@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="08.00 - 12.00"/>
@@ -36,7 +36,7 @@
             android:paddingStart="@dimen/_12sdp"
             android:paddingEnd="@dimen/_12sdp"
             android:background="@color/c_e2e2e2"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintRight_toLeftOf="@+id/schedule_auditory_text"
             app:layout_constraintTop_toTopOf="@+id/schedule_time_text"
             tools:text="Лекція"/>
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/schedule_time_text"
             tools:text="404 У1"/>
@@ -71,7 +71,7 @@
             android:textSize="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:paddingBottom="@dimen/_12sdp"
-            android:textColor="@color/c_afafaf"
+            android:textColor="@color/c_9e9e9e"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_time_text"
             app:layout_constraintRight_toRightOf="@+id/schedule_auditory_text"
             app:layout_constraintTop_toBottomOf="@+id/schedule_name_text"
