@@ -102,7 +102,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val listener = DatePickerDialog.OnDateSetListener { view, year, month, day ->
+        val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             presenter.setNotificationTime(DateFormatter.getMillisFromPicker(year, month, day))
             date_content_calendar.text = DateFormatter.getDateFromPicker(year, month, day)
         }

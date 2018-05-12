@@ -38,6 +38,14 @@ abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
         (activity as? BaseView)?.notifyDataSetChanged()
     }
 
+    override fun overrideStartAnimation() {
+        (activity as? BaseView)?.overrideStartAnimation()
+    }
+
+    override fun overrideBackAnimation() {
+        (activity as? BaseView)?.overrideStartAnimation()
+    }
+
     fun drawableToBitmap(drawable: Drawable): Bitmap {
 
         if (drawable is BitmapDrawable) {

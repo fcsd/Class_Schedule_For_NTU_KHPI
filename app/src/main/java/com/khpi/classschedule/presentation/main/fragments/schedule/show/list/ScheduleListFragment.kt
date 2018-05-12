@@ -14,8 +14,10 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
-import android.text.method.TextKeyListener.clear
 import android.view.*
+import android.support.design.widget.TabLayout
+
+
 
 
 class ScheduleListFragment : BaseFragment(), ScheduleListView {
@@ -45,22 +47,47 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         presenter.onViewLoaded()
     }
 
-    override fun configureView() {
-        val ctx = context ?: return
-        val groupName = this.group?.title ?: return
-        setHasOptionsMenu(true)
-        (activity as? MainActivity)?.setToolbarTitle(groupName)
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
-        (activity as? MainActivity)?.setRightSecondClickListener { v -> openEditPopup(v) }
-        presenter.setType(type)
-        group?.let { presenter.loadScheduleById(it) }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
     }
 
-    override fun showSchedule(schedule: Schedule) {
+    override fun configureView() {
+        setHasOptionsMenu(true)
+        val groupName = this.group?.title ?: return
+        (activity as? MainActivity)?.setToolbarTitle(groupName)
+        presenter.setType(type)
+        group?.let { presenter.loadScheduleById(it) }
+
+        schedule_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
+    }
+
+    override fun showToolbarIcons() {
+        val ctx = context ?: return
+        (activity as? MainActivity)?.setRightFirstClickListener { presenter.changeCurrentWeek() }
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
+        (activity as? MainActivity)?.setRightSecondClickListener { v -> openEditPopup(v) }
+    }
+
+    override fun showSchedule(schedule: Schedule, currentWeek: Int, currentTab: Int) {
 
         val type = this.type ?: return
-        val adapter = BasePagerAdapter(childFragmentManager)
+        val ctx = context ?: return
 
+        when(currentWeek) {
+            1 -> (activity as? MainActivity)?.setRightFirstNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_first_week))
+            2 -> (activity as? MainActivity)?.setRightFirstNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_second_week))
+        }
+
+        val adapter = BasePagerAdapter(childFragmentManager)
         val monday = ScheduleItemFragment.newInstance(schedule.monday, type)
         val tuesday = ScheduleItemFragment.newInstance(schedule.tuesday, type)
         val wednesday = ScheduleItemFragment.newInstance(schedule.wednesday, type)
@@ -74,6 +101,7 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         adapter.addFragment(friday, getString(R.string.friday))
 
         schedule_view_pager.adapter = adapter
+        schedule_view_pager.currentItem = currentTab
         schedule_tab.visibility = View.VISIBLE
         schedule_tab.setupWithViewPager(schedule_view_pager)
     }

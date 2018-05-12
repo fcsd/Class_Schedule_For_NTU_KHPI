@@ -25,6 +25,9 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     private var group: BaseModel? = null
     private var type: ScheduleType? = null
 
+    private var currentWeek = 1
+    private var currentTab = 0
+
     override fun onViewLoaded() {
         viewState.configureView()
     }
@@ -44,7 +47,9 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         }
 
         scheduleSecondWeek = groupPair.second
-        scheduleFirstWeek?.let { showSchedule(it) }
+
+        viewState.showToolbarIcons()
+        showSchedule(currentWeek)
     }
 
     private fun loadScheduleFromInternet(id: Int, isUpdate: Boolean) {
@@ -119,12 +124,22 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
                 viewState.showMessage("Розклад $messageType $name був збережеий успiшно")
             }
 
-            showSchedule(scheduleFirstWeek)
+            viewState.showToolbarIcons()
+            showSchedule(currentWeek)
         }
     }
 
-    private fun showSchedule(schedule: Schedule) {
-        viewState.showSchedule(schedule)
+    private fun showSchedule(currentWeek: Int) {
+        if (currentWeek == 1) {
+            scheduleFirstWeek?.let { viewState.showSchedule(it, currentWeek, currentTab) }
+        } else {
+            scheduleSecondWeek?.let { viewState.showSchedule(it, currentWeek, currentTab) }
+        }
+    }
+
+    fun changeCurrentWeek() {
+        currentWeek = currentWeek %2 + 1
+        showSchedule(currentWeek)
     }
 
     fun onRemoveClicked() {
@@ -144,5 +159,9 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     fun onRefreshClicked() {
         val id = group?.id ?: return
         loadScheduleFromInternet(id, isUpdate = true)
+    }
+
+    fun setCurrentItem(position: Int) {
+        currentTab = position
     }
 }

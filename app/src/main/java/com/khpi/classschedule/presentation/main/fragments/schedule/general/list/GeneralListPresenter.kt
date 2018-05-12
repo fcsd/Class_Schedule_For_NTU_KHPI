@@ -18,6 +18,8 @@ class GeneralListPresenter : BasePresenter<GeneralListView>() {
         injector().inject(this)
     }
 
+    private var currentTab = 0
+
     override fun onViewLoaded() {
         viewState.configureView()
     }
@@ -26,15 +28,19 @@ class GeneralListPresenter : BasePresenter<GeneralListView>() {
         val infoGroups = memoryRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
         val infoTeachers = memoryRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
         val infoAuditories = memoryRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
-        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories)
+        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab)
     }
 
-    fun onAddClicked(visibleTab: Int) {
-        when (visibleTab) {
+    fun onAddClicked() {
+        when (currentTab) {
             0 -> viewState.openFacultyScreen(ScheduleType.GROUP)
             1 -> viewState.showMessage("TEACHER")
             2 -> viewState.showMessage("AUDITORY")
         }
 
+    }
+
+    fun setCurrentItem(position: Int) {
+        currentTab = position
     }
 }

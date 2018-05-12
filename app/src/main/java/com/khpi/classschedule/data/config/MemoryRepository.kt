@@ -110,7 +110,7 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         keysSchedule.remove(id)
 
         val jsonText = gson.toJson(keysSchedule)
-        prefsEditor.putString(prefix, jsonText)
+        prefsEditor.putString("$prefix schedule", jsonText)
         prefsEditor.apply()
     }
 

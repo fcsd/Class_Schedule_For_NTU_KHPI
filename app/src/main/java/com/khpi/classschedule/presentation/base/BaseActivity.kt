@@ -35,6 +35,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 
         supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
+                .setCustomAnimations(R.anim.right_in, R.anim.left_out, R.anim.left_in, R.anim.right_out)
                 .replace(contentId, fragment, fragment.TAG)
                 .commit()
     }
@@ -66,6 +67,14 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
         (supportFragmentManager.fragments.firstOrNull() as? BaseView)?.onBackPressed() ?: goBack()
     }
 
+    override fun overrideStartAnimation() {
+        overridePendingTransition(R.anim.right_in, R.anim.left_out)
+    }
+
+    override fun overrideBackAnimation() {
+        overridePendingTransition(R.anim.left_in, R.anim.right_out)
+    }
+
     fun goBack() {
         this.hideKeyboard()
         if (supportFragmentManager.backStackEntryCount == 1) {
@@ -73,6 +82,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
         } else {
             super.onBackPressed()
         }
+        overrideBackAnimation()
     }
 
     override fun notifyDataSetChanged() {

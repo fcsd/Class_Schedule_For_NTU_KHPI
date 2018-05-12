@@ -2,7 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.group.list
 
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +16,7 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.group.item.GroupItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_group_list.*
+import kotlinx.android.synthetic.main.fragment_schedule_list.*
 
 class GroupListFragment : BaseFragment(), GroupListView {
 
@@ -52,6 +53,16 @@ class GroupListFragment : BaseFragment(), GroupListView {
 
         presenter.setType(type)
         presenter.loadGroupListById(facultyId)
+
+        group_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun showGroupsByCourse(groupsByFirstCourse: List<BaseModel>,
@@ -60,7 +71,8 @@ class GroupListFragment : BaseFragment(), GroupListView {
                                     groupsByFourthCourse: List<BaseModel>,
                                     groupsByFifthCourse: List<BaseModel>,
                                     groupsBySixthCourse: List<BaseModel>,
-                                    type: ScheduleType) {
+                                    type: ScheduleType,
+                                    currentTab: Int) {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
@@ -79,6 +91,7 @@ class GroupListFragment : BaseFragment(), GroupListView {
         adapter.addFragment(groupsBySixthCourseFragment, getString(R.string.sixth_course))
 
         group_view_pager.adapter = adapter
+        group_view_pager.currentItem = currentTab
         group_tab.visibility = View.VISIBLE
         group_tab.setupWithViewPager(group_view_pager)
     }

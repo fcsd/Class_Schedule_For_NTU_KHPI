@@ -2,6 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.general.list
 
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_general_list.*
 import android.support.v4.view.ViewPager
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
+import kotlinx.android.synthetic.main.fragment_schedule_list.*
 
 
 class GeneralListFragment : BaseFragment(), GeneralListView {
@@ -32,7 +34,7 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
         fun newInstance(): GeneralListFragment = GeneralListFragment()
     }
 
-    private var visibleTab = 0
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -46,15 +48,26 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
     override fun configureView() {
         val ctx = context ?: return
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add_new_item))
-        (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked(visibleTab) }
+        (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked() }
 
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.my_groups))
         presenter.loadSchedules()
+
+        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                         infoTeachers: MutableList<BaseModel>,
-                                        infoAuditories: MutableList<BaseModel>) {
+                                        infoAuditories: MutableList<BaseModel>,
+                                        currentTab: Int) {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
@@ -67,18 +80,9 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
         adapter.addFragment(auditories, getString(R.string.auditories))
 
         general_view_pager.adapter = adapter
+        general_view_pager.currentItem = currentTab
         general_tab.visibility = View.VISIBLE
         general_tab.setupWithViewPager(general_view_pager)
-
-        general_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position : Int, offset : Float, offsetPixels: Int) {
-                visibleTab = position
-            }
-
-            override fun onPageSelected(i: Int) { }
-
-            override fun onPageScrollStateChanged(i: Int) { }
-        })
     }
 
     override fun openFacultyScreen(type: ScheduleType) {

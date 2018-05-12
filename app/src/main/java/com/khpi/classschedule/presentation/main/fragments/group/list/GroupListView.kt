@@ -15,5 +15,6 @@ interface GroupListView : BaseView {
                            groupsByFourthCourse: List<BaseModel>,
                            groupsByFifthCourse: List<BaseModel>,
                            groupsBySixthCourse: List<BaseModel>,
-                           type: ScheduleType)
+                           type: ScheduleType,
+                           currentTab: Int)
 }

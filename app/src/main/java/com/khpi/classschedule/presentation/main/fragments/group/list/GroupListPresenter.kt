@@ -19,6 +19,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
     }
 
     private var type: ScheduleType? = null
+    private var currentTab = 0
 
     override fun onViewLoaded() {
         viewState.configureView()
@@ -55,6 +56,10 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         val groupsBySixthCourse = groups.filter { it.course == 6 }
         viewState.dismissProgressDialog()
         viewState.showGroupsByCourse(groupsByFirstCourse, groupsBySecondCourse, groupsByThirdCourse,
-                groupsByFourthCourse, groupsByFifthCourse, groupsBySixthCourse, ScheduleType.GROUP)
+                groupsByFourthCourse, groupsByFifthCourse, groupsBySixthCourse, ScheduleType.GROUP, currentTab)
+    }
+
+    fun setCurrentItem(position: Int) {
+        currentTab = position
     }
 }

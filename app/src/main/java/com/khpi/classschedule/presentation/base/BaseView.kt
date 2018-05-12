@@ -24,4 +24,10 @@ interface BaseView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun notifyDataSetChanged()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun overrideStartAnimation()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun overrideBackAnimation()
 }
