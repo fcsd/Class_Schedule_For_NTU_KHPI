@@ -13,7 +13,7 @@ import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListPresenter
-import com.khpi.classschedule.presentation.main.fragments.task.create.TaskCreatePresenter
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionPresenter
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -33,5 +33,5 @@ interface AppComponent {
     fun inject(generalItemPresenter: GeneralItemPresenter)
     fun inject(scheduleItemPresenter: ScheduleItemPresenter)
     fun inject(taskListPresenter: TaskListPresenter)
-    fun inject(taskCreatePresenter: TaskCreatePresenter)
+    fun inject(taskCreatePresenter: TaskActionPresenter)
 }

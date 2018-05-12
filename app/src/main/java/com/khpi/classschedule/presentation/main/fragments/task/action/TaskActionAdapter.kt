@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.task.create
+package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -9,7 +9,7 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.CoupleType
 import kotlinx.android.synthetic.main.item_couple_type.view.*
 
-class TaskCreateAdapter(private val presenter: TaskCreatePresenter)
+class TaskActionAdapter(private val presenter: TaskActionPresenter)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val coupleTypes = listOf(CoupleType.LECTURE, CoupleType.LABORATORY, CoupleType.PRACTICE, CoupleType.SEMINAR)
@@ -33,7 +33,7 @@ class TaskCreateAdapter(private val presenter: TaskCreatePresenter)
 
     class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: CoupleType, presenter: TaskCreatePresenter, selectedItem: Int) {
+        fun onBind(item: CoupleType, presenter: TaskActionPresenter, selectedItem: Int) {
             itemView.couple_type.text = item.title
 
             if (adapterPosition == selectedItem) {

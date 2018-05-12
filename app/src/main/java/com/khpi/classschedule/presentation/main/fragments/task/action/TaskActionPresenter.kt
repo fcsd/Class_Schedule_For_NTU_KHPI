@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.task.create
+package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
@@ -8,7 +8,7 @@ import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class TaskCreatePresenter : BasePresenter<TaskCreateView>() {
+class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
     @Inject lateinit var memoryRepository: MemoryRepository
 

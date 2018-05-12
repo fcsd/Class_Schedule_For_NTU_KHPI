@@ -1,18 +1,15 @@
-package com.khpi.classschedule.presentation.main.fragments.task.list
+package com.khpi.classschedule.presentation.main.fragments.task.item
 
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseView
 
-interface TaskListView : BaseView {
+interface TaskItemView: BaseView {
 
     @StateStrategyType(SkipStrategy::class)
-    fun openActionTaskScreen()
+    fun showTask(task: Task)
 
     @StateStrategyType(SkipStrategy::class)
-    fun showActiveTasks(tasks: MutableList<Task>, callback: TaskListPresenter)
-
-    @StateStrategyType(SkipStrategy::class)
-    fun openDetailTaskScreen(task: Task)
+    fun openActionTaskScreen(task: Task)
 }

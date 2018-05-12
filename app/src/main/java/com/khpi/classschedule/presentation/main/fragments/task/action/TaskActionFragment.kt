@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.task.create
+package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -22,19 +22,19 @@ import android.text.TextWatcher
 import com.khpi.classschedule.data.models.Task
 
 
-class TaskCreateFragment : BaseFragment(), TaskCreateView {
+class TaskActionFragment : BaseFragment(), TaskActionView {
 
-    override var TAG = "TaskCreateFragment"
+    override var TAG = "TaskActionFragment"
 
     //@formatter:off
-    @InjectPresenter lateinit var presenter: TaskCreatePresenter
+    @InjectPresenter lateinit var presenter: TaskActionPresenter
     //@formatter:on
 
-    private lateinit var taskCreateAdapter : TaskCreateAdapter
+    private lateinit var taskCreateAdapter : TaskActionAdapter
     private var task: Task? = null
 
     companion object {
-        fun newInstance(task: Task?): TaskCreateFragment = TaskCreateFragment().apply {
+        fun newInstance(task: Task?): TaskActionFragment = TaskActionFragment().apply {
             this.task = task
         }
     }
@@ -69,9 +69,9 @@ class TaskCreateFragment : BaseFragment(), TaskCreateView {
             }
         })
 
-        taskCreateAdapter = TaskCreateAdapter(presenter)
+        taskCreateAdapter = TaskActionAdapter(presenter)
         recycler_type.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
-        recycler_type.addItemDecoration(TaskCreateDecorator(ctx))
+        recycler_type.addItemDecoration(TaskActionDecorator(ctx))
         recycler_type.adapter = taskCreateAdapter
     }
 

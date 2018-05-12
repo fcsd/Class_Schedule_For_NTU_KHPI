@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.task.create
+package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import android.content.Context
 import android.graphics.Rect
@@ -7,7 +7,7 @@ import android.view.View
 import com.khpi.classschedule.R
 
 
-class TaskCreateDecorator(private val context: Context) : RecyclerView.ItemDecoration() {
+class TaskActionDecorator(private val context: Context) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
 

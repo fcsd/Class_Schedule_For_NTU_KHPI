@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.fragments.task.item.TaskItemFragment">
+
+    <LinearLayout
+        android:id="@+id/detail_description_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:background="@color/c_ffffff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/description_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/description"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/description_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Lab 1"
+            android:textColor="@color/c_000000"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_description_layout"
+        android:background="@drawable/dotted" />
+
+    <LinearLayout
+        android:id="@+id/detail_subject_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+        <TextView
+            android:id="@+id/subject_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/subject"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/subject_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Lab 1"
+            android:textColor="@color/c_000000"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_subject_layout"
+        android:background="@drawable/dotted" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/detail_other_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+        <LinearLayout
+            android:id="@+id/detail_time_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/detail_type_layout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/time_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/deadline"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/time_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Lab 1"
+                android:textColor="@color/c_000000"
+                android:padding="@dimen/_12sdp"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detail_type_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            app:layout_constraintLeft_toRightOf="@+id/detail_time_layout"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/type_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/type_task"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/type_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Lab 1"
+                android:textColor="@color/c_000000"
+                android:padding="@dimen/_12sdp"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

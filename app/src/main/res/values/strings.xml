@@ -39,11 +39,12 @@
     <string name="type_task">Тип завдання</string>
     <string name="deadline">Строк виконання</string>
     <string name="detail">Деталі</string>
+    <string name="description">Опис</string>
+    <string name="task_detail">Деталі завдання</string>
     <string name="auditories">Аудиторії</string>
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
     <string name="map">Mапа</string>
-
 
     <string name="choose_group">Оберіть групу зі списку</string>
     <string name="choose_subject">Оберіть предмет зі списку</string>

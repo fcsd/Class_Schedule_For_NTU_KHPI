@@ -13,7 +13,8 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.task.create.TaskCreateFragment
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
+import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import kotlinx.android.synthetic.main.fragment_task_list.*
 
 class TaskListFragment : BaseFragment(), TaskListView {
@@ -54,11 +55,11 @@ class TaskListFragment : BaseFragment(), TaskListView {
         recycler_task.adapter = taskAdapter
     }
 
-    override fun openCreateTaskScreen() {
-        (activity as? MainActivity)?.replaceFragment(TaskCreateFragment.newInstance(null))
+    override fun openActionTaskScreen() {
+        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(null))
     }
 
     override fun openDetailTaskScreen(task: Task) {
-        
+        (activity as? MainActivity)?.replaceFragment(TaskItemFragment.newInstance(task))
     }
 }

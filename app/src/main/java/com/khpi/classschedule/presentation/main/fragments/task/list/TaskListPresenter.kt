@@ -28,7 +28,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
     }
 
     fun onAddClicked() {
-        viewState.openCreateTaskScreen()
+        viewState.openActionTaskScreen()
     }
 
     override fun onItemClick(item: Task) {
