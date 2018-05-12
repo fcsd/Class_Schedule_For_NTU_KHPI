@@ -52,14 +52,14 @@
             android:id="@+id/btnToolbarRight1"
             android:layout_width="?android:actionBarSize"
             android:layout_height="?android:actionBarSize"
-            android:layout_marginEnd="@dimen/_12sdp"
             android:padding="@dimen/_12sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btnToolbarRight2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_goneMarginEnd="@dimen/_12sdp"
-            tools:visibility="visible"/>
+            tools:visibility="visible"
+            tools:src="@drawable/ic_content_edit"/>
 
         <ImageView
             android:id="@+id/btnToolbarRight2"
@@ -70,7 +70,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible"/>
+            tools:visibility="visible"
+            tools:src="@drawable/ic_content_edit"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -58,6 +58,10 @@
     <string name="edit_task">Редагувати завдання</string>
     <string name="create_task">Додати завдання</string>
 
+    <string name="task_sort_date">Сортувати за датою</string>
+    <string name="task_sort_group">Сортувати за групами</string>
+    <string name="task_sort_subject">Сортувати за предметом</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -165,4 +165,11 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         return getKeysTask(prefix).max() ?: 0
     }
 
+    fun saveTaskSortedIndex(prefix: String, sortedKeys: List<Int>) {
+        val prefsEditor = sp.edit()
+        val jsonText = gson.toJson(sortedKeys)
+        prefsEditor.putString("$prefix task", jsonText)
+        prefsEditor.apply()
+    }
+
 }

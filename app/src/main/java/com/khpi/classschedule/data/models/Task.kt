@@ -15,3 +15,9 @@ data class Task(
         val notificationTime: Long,
         val description: String
 )
+
+enum class TaskSort {
+    DATE,
+    GROUP,
+    SUBJECT
+}

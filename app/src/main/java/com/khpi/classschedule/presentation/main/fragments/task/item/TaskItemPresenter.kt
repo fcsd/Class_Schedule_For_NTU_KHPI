@@ -31,5 +31,4 @@ class TaskItemPresenter : BasePresenter<TaskItemView>() {
     fun onEditClicked() {
         task?.let { viewState.openActionTaskScreen(it) }
     }
-
 }

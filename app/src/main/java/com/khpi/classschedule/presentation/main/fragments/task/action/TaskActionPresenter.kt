@@ -142,12 +142,12 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         currentTask?.let {
             val task = Task(it.id, group, subject, selectedType, notificationTime, description)
             memoryRepository.saveTask(task, true)
-            viewState.showMessage("Завдання було оновлено успішно")
+            viewState.showMessage("Завдання було оновлено")
         } ?: run {
             val id = memoryRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
             val task = Task(id, group, subject, selectedType, notificationTime, description)
             memoryRepository.saveTask(task, false)
-            viewState.showMessage("Завдання було збережено успішно")
+            viewState.showMessage("Завдання було створено")
         }
 
         viewState.closeScreen()
