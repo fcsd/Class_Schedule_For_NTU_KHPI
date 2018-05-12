@@ -3,8 +3,10 @@ package com.khpi.classschedule.data.config
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.Task
 
 
 class MemoryRepository(context: Context, private val gson : Gson) {
@@ -34,7 +36,7 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         prefsEditor.apply()
 
         if (!isUpdate) {
-            saveKeySchedule(prefix, id)
+            addKeySchedule(prefix, id)
         }
         saveScheduleInfo(prefix, id, scheduleInfo)
     }
@@ -86,7 +88,7 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         return scheduleInfo
     }
 
-    private fun saveKeySchedule(prefix: String, id: Int) {
+    private fun addKeySchedule(prefix: String, id: Int) {
         val prefsEditor = sp.edit()
         val keysSchedule = getKeysSchedule(prefix)
         keysSchedule.add(id)
@@ -111,4 +113,51 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         prefsEditor.putString(prefix, jsonText)
         prefsEditor.apply()
     }
+
+    fun getAllTasks(prefix: String) : MutableList<Task>? {
+
+        val tasks = mutableListOf<Task>()
+        val keysTask = getKeysTask(prefix)
+
+        keysTask.forEach { key ->
+            val jsonTask = sp.getString("$prefix $key task", null) ?: return null
+            val task = gson.fromJson(jsonTask, Task::class.java)
+            tasks.add(task)
+        }
+
+        return tasks
+    }
+
+    fun saveTask(task: Task, isUpdate: Boolean) {
+        val prefsEditor = sp.edit()
+        val jsonTask = gson.toJson(task)
+
+        prefsEditor.putString("${Constants.GROUP_PREFIX} ${task.id} task", jsonTask)
+        prefsEditor.apply()
+
+        if (!isUpdate) {
+            addKeyTask(Constants.GROUP_PREFIX, task.id)
+        }
+    }
+
+    private fun addKeyTask(prefix: String, id: Int) {
+        val prefsEditor = sp.edit()
+        val keysTask = getKeysTask(prefix)
+        keysTask.add(id)
+
+        val jsonText = gson.toJson(keysTask)
+        prefsEditor.putString("$prefix task", jsonText)
+        prefsEditor.apply()
+    }
+
+    private fun getKeysTask(prefix: String) : MutableList<Int> {
+        val jsonText = sp.getString("$prefix task", null)
+        jsonText?.let { return gson.fromJson<Array<Int>>(it, Array<Int>::class.java).toMutableList() }
+                ?: return mutableListOf()
+    }
+
+    fun getLastTaskId(prefix: String): Int {
+        return getKeysTask(prefix).max() ?: 0
+    }
+
 }

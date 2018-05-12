@@ -24,4 +24,12 @@
         <item name="android:minHeight">@dimen/_48sdp</item>
     </style>
 
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

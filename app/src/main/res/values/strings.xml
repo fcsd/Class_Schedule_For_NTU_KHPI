@@ -33,14 +33,27 @@
     <string name="thursday">Четвер</string>
     <string name="friday">П\'ятниця</string>
 
+    <string name="group">Група</string>
     <string name="groups">Групи</string>
+    <string name="subject">Предмет</string>
+    <string name="type_task">Тип завдання</string>
+    <string name="deadline">Строк виконання</string>
+    <string name="detail">Деталі</string>
     <string name="auditories">Аудиторії</string>
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
     <string name="map">Mапа</string>
 
+
+    <string name="choose_group">Оберіть групу зі списку</string>
+    <string name="choose_subject">Оберіть предмет зі списку</string>
+    <string name="choose_date">Визначте строк виконання</string>
+    <string name="subject_warning">Спочатку оберіть групу</string>
+    <string name="detail_hint">Що потрібно виконати?</string>
+
     <string name="remove_schedule">Видалити розклад</string>
     <string name="refresh_schedule">Оновити розклад</string>
+    <string name="create_task">Додати завдання</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -10,6 +10,7 @@ import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
+import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -39,7 +40,7 @@ class MainActivity : BaseActivity(), MainView {
 
         task_fragment.setOnClickListener {
             setVisibleViews(task_text, schedule_text, building_text, settings_text)
-            replaceFragment(BuildingListFragment.newInstance(), true)
+            replaceFragment(TaskListFragment.newInstance(), true)
         }
 
         building_fragment.setOnClickListener {
@@ -84,6 +85,10 @@ class MainActivity : BaseActivity(), MainView {
     fun setRightSecondNavigationIcon(icon: Drawable?) {
         btnToolbarRight2.visibility = if (icon == null) View.GONE else View.VISIBLE
         btnToolbarRight2.setImageDrawable(icon)
+    }
+
+    fun setRightSecondEnabled(enabled: Boolean) {
+        btnToolbarRight2.isClickable = enabled
     }
 
     fun setRightSecondClickListener(function: (View) -> Unit) {

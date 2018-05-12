@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemFragment">
+
+    <LinearLayout
+        android:id="@+id/name_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/name_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/group"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/name_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_group"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/c_000000"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_layout"
+        android:background="@drawable/dotted" />
+
+    <LinearLayout
+        android:id="@+id/subject_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+        <TextView
+            android:id="@+id/subject_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/subject"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/subject_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_subject"
+            android:textColor="@color/c_000000"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:singleLine="true"
+            android:ellipsize="marquee"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subject_layout"
+        android:background="@drawable/dotted" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/type_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+        <TextView
+            android:id="@+id/type_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/type_task"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_12sdp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_couple_type"
+            app:layout_constraintLeft_toRightOf="@+id/type_title_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/type_title_text"
+            app:layout_constraintBottom_toBottomOf="@+id/type_title_text"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_layout"
+        android:background="@drawable/dotted" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/date_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3">
+
+        <TextView
+            android:id="@+id/date_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/deadline"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/date_content_calendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_date"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/c_000000"
+            app:layout_constraintLeft_toRightOf="@+id/date_title_text"
+            app:layout_constraintTop_toTopOf="@+id/date_title_text"
+            app:layout_constraintBottom_toBottomOf="@+id/date_title_text"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_layout"
+        android:background="@drawable/dotted" />
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4">
+
+        <TextView
+            android:id="@+id/detail_title_text"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/detail"
+            android:textSize="@dimen/_12sdp" />
+
+        <EditText
+            android:id="@+id/detail_content_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:hint="@string/detail_hint"
+            android:textSize="@dimen/_12sdp"
+            android:background="@null"
+            android:inputType="text"
+            style="@style/EditTextStyle"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
