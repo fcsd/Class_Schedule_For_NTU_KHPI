@@ -17,8 +17,10 @@ object DateFormatter {
 
     fun getMillisFromPicker(year: Int, month: Int, day: Int) : Long {
         val calendar = Calendar.getInstance()
-        calendar.set(year, month, day, Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
-                Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND))
+        calendar.set(year, month, day)
+        calendar.set(Calendar.HOUR_OF_DAY, 12)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
         return calendar.timeInMillis - 1000 * 60 * 60 * 24
     }
 

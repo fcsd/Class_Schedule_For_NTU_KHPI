@@ -30,4 +30,7 @@ interface TaskActionView : BaseView {
     @StateStrategyType(SkipStrategy::class)
     fun updateTaskInfo(task: Task)
 
+    @StateStrategyType(SkipStrategy::class)
+    fun configureNotification(task: Task)
+
 }

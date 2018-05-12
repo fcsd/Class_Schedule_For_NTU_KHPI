@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
+import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -30,8 +32,15 @@ class MainActivity : BaseActivity(), MainView {
         setSupportActionBar(toolbar)
         btnToolbarBack.setOnClickListener { super.onBackPressed() }
 
-        setVisibleViews(schedule_text, task_text, building_text, settings_text)
-        replaceFragment(GeneralListFragment.newInstance())
+        val taskId = intent.getIntExtra(Constants.REQUEST_OPEN_TASK_INFO, -1)
+
+        if (taskId == -1) {
+            setVisibleViews(schedule_text, task_text, building_text, settings_text)
+            replaceFragment(GeneralListFragment.newInstance())
+        } else {
+            setVisibleViews(task_text, schedule_text, building_text, settings_text)
+            replaceFragment(TaskItemFragment.newInstance(taskId))
+        }
 
         schedule_fragment.setOnClickListener {
             setVisibleViews(schedule_text, task_text, building_text, settings_text)

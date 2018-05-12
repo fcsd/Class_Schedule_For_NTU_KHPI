@@ -12,4 +12,6 @@ object Constants {
     val GROUP_PREFIX = "group"
     val TEACHER_PREFIX = "teacher"
     val AUDITORY_PREFIX = "auditory"
+
+    val REQUEST_OPEN_TASK_INFO = "open_task_info"
 }

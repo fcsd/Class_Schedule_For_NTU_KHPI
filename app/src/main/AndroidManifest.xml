@@ -24,6 +24,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDPQo5THCGz5YORxl8DtG5xdFHP3CX5MN8" />
 
+        <receiver android:name=".presentation.main.fragments.task.action.TaskActionAlarmAdapter">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

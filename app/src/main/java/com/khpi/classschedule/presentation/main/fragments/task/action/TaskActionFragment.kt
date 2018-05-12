@@ -1,7 +1,10 @@
 package com.khpi.classschedule.presentation.main.fragments.task.action
 
-import android.app.DatePickerDialog
+import android.app.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -13,17 +16,15 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.presentation.base.BaseFragment
-import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.utils.DateFormatter
 import kotlinx.android.synthetic.main.fragment_task_create.*
 import java.util.*
 import android.text.Editable
 import android.text.TextWatcher
 import com.khpi.classschedule.data.models.Task
-import android.support.v7.widget.RecyclerView
-
-
-
+import android.app.PendingIntent
+import com.khpi.classschedule.Constants
+import com.khpi.classschedule.presentation.main.MainActivity
 
 class TaskActionFragment : BaseFragment(), TaskActionView {
 
@@ -160,6 +161,21 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
 
     override fun setConfirmButtonEnabled(enabled: Boolean) {
         (activity as? MainActivity)?.setRightSecondEnabled(enabled)
+    }
+
+    override fun configureNotification(task: Task) {
+
+        val ctx = context ?: return
+
+        val notificationIntent = Intent(ctx, TaskActionAlarmAdapter::class.java)
+                .putExtra(TaskActionAlarmAdapter.NOTIFICATION_ID, task.id)
+                .putExtra(TaskActionAlarmAdapter.NOTIFICATION_TITLE, task.group)
+                .putExtra(TaskActionAlarmAdapter.NOTIFICATION_MESSAGE, task.description)
+
+        val pendingIntent = PendingIntent.getBroadcast(ctx, task.id,
+                notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val alarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, task.notificationTime, pendingIntent)
     }
 
     override fun closeScreen() {
