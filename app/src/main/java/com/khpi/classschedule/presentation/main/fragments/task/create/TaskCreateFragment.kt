@@ -83,8 +83,8 @@ class TaskCreateFragment : BaseFragment(), TaskCreateView {
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
         val listener = DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            presenter.setNotificationTime(DateFormatter.getNotificationMillisFromPicker(year, month, day))
-            date_content_calendar.text = DateFormatter.formatShownDateFromPicker(year, month, day)
+            presenter.setNotificationTime(DateFormatter.getMillisFromPicker(year, month, day))
+            date_content_calendar.text = DateFormatter.getDateFromPicker(year, month, day)
         }
 
         val picker = DatePickerDialog(context, R.style.DialogTheme, listener, currentYear, currentMonth, currentDay)

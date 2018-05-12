@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_6sdp"
+    android:layout_marginStart="@dimen/_6sdp"
+    android:layout_marginEnd="@dimen/_6sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardUseCompatPadding="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/task_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/c_afafaf"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Виконати до 12.12.2012"/>
+
+        <TextView
+            android:id="@+id/task_group_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/c_afafaf"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/task_date_text"
+            tools:text="КН-25б"/>
+
+        <TextView
+            android:id="@+id/task_subject_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:textColor="@color/c_000000"
+            app:layout_constraintLeft_toLeftOf="@+id/task_date_text"
+            app:layout_constraintRight_toRightOf="@+id/task_group_text"
+            app:layout_constraintTop_toBottomOf="@+id/task_date_text"
+            tools:text="Комп'ютерна інженерія"/>
+
+        <TextView
+            android:id="@+id/task_description_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:textColor="@color/c_000000"
+            app:layout_constraintLeft_toLeftOf="@+id/task_date_text"
+            app:layout_constraintRight_toRightOf="@+id/task_group_text"
+            app:layout_constraintTop_toBottomOf="@+id/task_subject_text"
+            tools:text="Лаба №1"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -75,12 +75,12 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         prefsEditor.apply()
     }
 
-    fun getScheduleInfoByTypes(prefix: String) : MutableList<BaseModel>? {
+    fun getScheduleInfoByTypes(prefix: String) : MutableList<BaseModel> {
         val keySchedule = getKeysSchedule(prefix)
         val scheduleInfo = mutableListOf<BaseModel>()
 
         keySchedule.forEach { key ->
-            val jsonInfo = sp.getString("$prefix $key info", null) ?: return null
+            val jsonInfo = sp.getString("$prefix $key info", null) ?: return scheduleInfo
             val info = gson.fromJson(jsonInfo, BaseModel::class.java)
             scheduleInfo.add(info)
         }
@@ -114,13 +114,13 @@ class MemoryRepository(context: Context, private val gson : Gson) {
         prefsEditor.apply()
     }
 
-    fun getAllTasks(prefix: String) : MutableList<Task>? {
+    fun getAllTasks(prefix: String) : MutableList<Task> {
 
         val tasks = mutableListOf<Task>()
         val keysTask = getKeysTask(prefix)
 
         keysTask.forEach { key ->
-            val jsonTask = sp.getString("$prefix $key task", null) ?: return null
+            val jsonTask = sp.getString("$prefix $key task", null) ?: return tasks
             val task = gson.fromJson(jsonTask, Task::class.java)
             tasks.add(task)
         }

@@ -23,9 +23,9 @@ class GeneralListPresenter : BasePresenter<GeneralListView>() {
     }
 
     fun loadSchedules() {
-        val infoGroups = memoryRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX) ?: return
-        val infoTeachers = memoryRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX) ?: return
-        val infoAuditories = memoryRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX) ?: return
+        val infoGroups = memoryRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
+        val infoTeachers = memoryRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
+        val infoAuditories = memoryRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
         viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories)
     }
 

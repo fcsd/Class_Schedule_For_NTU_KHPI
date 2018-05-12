@@ -50,6 +50,7 @@
     <string name="choose_date">Визначте строк виконання</string>
     <string name="subject_warning">Спочатку оберіть групу</string>
     <string name="detail_hint">Що потрібно виконати?</string>
+    <string name="task_deadline">Виконати до %s</string>
 
     <string name="remove_schedule">Видалити розклад</string>
     <string name="refresh_schedule">Оновити розклад</string>

@@ -2,20 +2,19 @@ package com.khpi.classschedule.presentation.main.fragments.task.list
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
-import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPresenter
 import com.khpi.classschedule.presentation.main.fragments.task.create.TaskCreateFragment
+import kotlinx.android.synthetic.main.fragment_task_list.*
 
 class TaskListFragment : BaseFragment(), TaskListView {
 
@@ -24,6 +23,8 @@ class TaskListFragment : BaseFragment(), TaskListView {
     //@formatter:off
     @InjectPresenter lateinit var presenter: TaskListPresenter
     //@formatter:on
+
+    private lateinit var taskAdapter : TaskListAdapter
 
     companion object {
         fun newInstance(): TaskListFragment = TaskListFragment()
@@ -47,9 +48,17 @@ class TaskListFragment : BaseFragment(), TaskListView {
         presenter.loadActiveTask()
     }
 
+    override fun showActiveTasks(tasks: MutableList<Task>, callback: TaskListPresenter) {
+        taskAdapter = TaskListAdapter(tasks, callback)
+        recycler_task.layoutManager = LinearLayoutManager(context)
+        recycler_task.adapter = taskAdapter
+    }
+
     override fun openCreateTaskScreen() {
         (activity as? MainActivity)?.replaceFragment(TaskCreateFragment.newInstance(null))
     }
 
-
+    override fun openDetailTaskScreen(task: Task) {
+        
+    }
 }
