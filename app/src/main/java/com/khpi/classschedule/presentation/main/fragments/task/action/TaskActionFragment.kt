@@ -58,7 +58,6 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         task?.let { (activity as? MainActivity)?.setToolbarTitle(getString(R.string.edit_task)) }
                 ?: (activity as? MainActivity)?.setToolbarTitle(getString(R.string.create_task))
 
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_apply))
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.saveTask() }
         name_content_text.setOnClickListener { presenter.prepareToShowGroup() }
         subject_content_text.setOnClickListener { presenter.prepareToShowSubject() }
@@ -88,8 +87,8 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         subject_content_text.text = task.subject
         date_content_calendar.text = DateFormatter.getDateFromMillis(task.notificationTime)
         detail_content_edit.setText(task.description)
-        taskCreateAdapter.changeSelectedItem(task.type.position)
-        (recycler_type.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(task.type.position, 0)
+        taskCreateAdapter.changeSelectedItem(task.type.ordinal)
+        (recycler_type.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(task.type.ordinal, 0)
     }
 
     override fun showDatePicker(notificationTime: Long?) {
@@ -160,7 +159,16 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
     }
 
     override fun setConfirmButtonEnabled(enabled: Boolean) {
-        (activity as? MainActivity)?.setRightSecondEnabled(enabled)
+
+        val ctx = context ?: return
+
+        val icon = if (enabled) {
+            ContextCompat.getDrawable(ctx, R.drawable.ic_apply)
+        } else {
+            ContextCompat.getDrawable(ctx, R.drawable.ic_apply_transparent)
+        }
+
+        (activity as? MainActivity)?.setRightSecondEnabled(enabled, icon)
     }
 
     override fun configureNotification(task: Task) {

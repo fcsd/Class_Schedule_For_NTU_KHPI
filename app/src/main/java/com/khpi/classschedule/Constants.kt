@@ -14,4 +14,9 @@ object Constants {
     val AUDITORY_PREFIX = "auditory"
 
     val REQUEST_OPEN_TASK_INFO = "open_task_info"
+
+    val INVERT = "invert"
+    val EVERYDAY_UPDATE = "everyday_update"
+    val VIBRATE = "vibrate"
+    val SOUND = "sound"
 }

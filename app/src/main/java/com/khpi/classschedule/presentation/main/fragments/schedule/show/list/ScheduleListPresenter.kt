@@ -3,7 +3,7 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     //@formatter:off
     @Inject lateinit var scheduleManager: ScheduleManager
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var scheduleRepository: ScheduleRepository
     //@formatter:on
 
     init {
@@ -40,7 +40,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         this.group = group
 
         val id = group.id ?: return
-        val groupPair = memoryRepository.getSchedule(Constants.GROUP_PREFIX, id)
+        val groupPair = scheduleRepository.getSchedule(Constants.GROUP_PREFIX, id)
         scheduleFirstWeek = groupPair?.first ?: run {
             loadScheduleFromInternet(id, isUpdate = false)
             return
@@ -114,7 +114,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)
 
-            memoryRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate)
+            scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate)
 
             viewState.dismissProgressDialog()
 
@@ -150,7 +150,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         val prefix = getPrefixByType(type)
         val messageType = getMessageByType(type)
 
-        memoryRepository.removeSchedule(prefix, id)
+        scheduleRepository.removeSchedule(prefix, id)
 
         viewState.showMessage("Розклад $messageType ${group?.title} був видален успішно")
         viewState.closeScreen()

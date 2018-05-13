@@ -6,7 +6,7 @@
     <string name="schedule">Розклад</string>
     <string name="task">Завдання</string>
     <string name="buildings">Корпуси</string>
-    <string name="settings">Налаштування</string>
+    <string name="settings">Параметри</string>
 
     <string name="search">Знайти</string>
     <string name="search.buildings">Введіть корпус</string>
@@ -45,6 +45,7 @@
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
     <string name="map">Mапа</string>
+    <string name="cancel">Відмініти</string>
 
     <string name="choose_group">Оберіть групу зі списку</string>
     <string name="choose_subject">Оберіть предмет зі списку</string>
@@ -61,6 +62,19 @@
     <string name="task_sort_date">Сортувати за датою</string>
     <string name="task_sort_group">Сортувати за групами</string>
     <string name="task_sort_subject">Сортувати за предметом</string>
+
+    <string name="invert_week">Інвертувати тижні</string>
+    <string name="invert_week_content">Якщо поточний тиждень визначається неправильно, натиснить сюди</string>
+    <string name="update_schedule">Щоденне оновлення розкладу</string>
+    <string name="update_schedule_content">Оновлення розкладу кожен день</string>
+    <string name="notification">Повідомлення</string>
+    <string name="vibrate">Вібрація</string>
+    <string name="sound">Звук</string>
+    <string name="remove_task">Видалення завдання</string>
+    <string name="remove_task_content">Автоматичне видалення завдання після його виконання</string>
+    <string name="info_title">Про додаток</string>
+    <string name="version_content">v%s, останнє оновлення 14.05.2018</string>
+    <string name="developer_title">Сумісна колаборація студентів НТУ \"ХПІ\"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

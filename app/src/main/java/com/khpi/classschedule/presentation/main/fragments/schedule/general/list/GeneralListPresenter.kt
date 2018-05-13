@@ -2,7 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.general.list
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GeneralListPresenter : BasePresenter<GeneralListView>() {
 
     //@formatter:off
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var scheduleRepository: ScheduleRepository
     //@formatter:on
 
     init {
@@ -25,9 +25,9 @@ class GeneralListPresenter : BasePresenter<GeneralListView>() {
     }
 
     fun loadSchedules() {
-        val infoGroups = memoryRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
-        val infoTeachers = memoryRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
-        val infoAuditories = memoryRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
+        val infoGroups = scheduleRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
+        val infoTeachers = scheduleRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
+        val infoAuditories = scheduleRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
         viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab)
     }
 

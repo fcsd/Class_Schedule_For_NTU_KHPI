@@ -34,8 +34,6 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
         fun newInstance(): GeneralListFragment = GeneralListFragment()
     }
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_general_list, container, false)

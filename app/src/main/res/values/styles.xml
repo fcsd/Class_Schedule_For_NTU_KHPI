@@ -4,7 +4,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/c_transparent</item>
+        <item name="autoCompleteTextViewStyle">@style/EditTextStyle</item>
+    </style>
+
+    <style name="AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorAccent">@color/c_ffffff</item>
     </style>
 
 
@@ -24,12 +28,13 @@
         <item name="android:minHeight">@dimen/_48sdp</item>
     </style>
 
-    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+    <style name="EditTextStyle" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
 
 </resources>

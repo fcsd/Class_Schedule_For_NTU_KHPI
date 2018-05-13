@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.fragments.paramerts.ParametersFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/schedule_params_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/schedule"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_14sdp"/>
+
+        <TextView
+            android:id="@+id/settings_invert_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_params_title"
+            android:text="@string/invert_week"
+            android:textSize="@dimen/_12sdp"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_invert_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_invert_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/invert_week_content"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/settings_update_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/settings_invert_switch"
+            android:text="@string/update_schedule"
+            android:textSize="@dimen/_12sdp"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_update_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_update_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/update_schedule_content"
+            android:textSize="@dimen/_12sdp" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_update_switch"
+            android:background="@drawable/dotted" />
+
+        <TextView
+            android:id="@+id/notification_params_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/divider1"
+            android:text="@string/notification"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_14sdp"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_vibrate_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/notification_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/vibrate"
+            android:textSize="@dimen/_12sdp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_sound_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_vibrate_switch"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/sound"
+            android:textSize="@dimen/_12sdp" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_sound_switch"
+            android:background="@drawable/dotted" />
+
+        <TextView
+            android:id="@+id/task_params_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            android:text="@string/task"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_14sdp"/>
+
+        <TextView
+            android:id="@+id/settings_remove_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/task_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/remove_task_content"
+            android:textSize="@dimen/_12sdp"/>
+
+        <TextView
+            android:id="@+id/settings_remove_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:textColor="@color/c_000000"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_remove_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/_12sdp" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_remove_content"
+            android:background="@drawable/dotted" />
+
+        <TextView
+            android:id="@+id/settings_info_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/info_title"
+            android:textSize="@dimen/_12sdp"/>
+
+        <TextView
+            android:id="@+id/settings_info_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:textColor="@color/c_000000"
+            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_info_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/_12sdp" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_info_content"
+            android:background="@drawable/dotted" />
+
+        <TextView
+            android:id="@+id/settings_developer_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/divider4"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/developer_title"
+            android:textSize="@dimen/_12sdp"/>
+
+        <ImageView
+            android:id="@+id/image_vkontakte"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_vkontakte"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_developer_title" />
+
+        <TextView
+            android:id="@+id/text_vkontakte"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@+id/image_vkontakte"
+            app:layout_constraintBottom_toBottomOf="@+id/image_vkontakte"
+            app:layout_constraintLeft_toRightOf="@+id/image_vkontakte"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center_vertical"
+            android:text="@string/developer_title"
+            android:textColor="@color/c_000000"
+            android:textSize="@dimen/_12sdp"
+            tools:text="QQQQQQQQQBHHHHHH"/>
+
+        <ImageView
+            android:id="@+id/image_instagram"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_instagram"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintTop_toBottomOf="@+id/image_vkontakte" />
+
+        <TextView
+            android:id="@+id/text_instagram"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@+id/image_instagram"
+            app:layout_constraintBottom_toBottomOf="@+id/image_instagram"
+            app:layout_constraintLeft_toRightOf="@+id/image_instagram"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center_vertical"
+            android:text="@string/developer_title"
+            android:textColor="@color/c_000000"
+            android:textSize="@dimen/_12sdp"
+            tools:text="QQQQQQQQQBHHHHHH"/>
+
+        <ImageView
+            android:id="@+id/image_facebook"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_facebook"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintTop_toBottomOf="@+id/image_instagram" />
+
+        <TextView
+            android:id="@+id/text_facebook"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@+id/image_facebook"
+            app:layout_constraintBottom_toBottomOf="@+id/image_facebook"
+            app:layout_constraintLeft_toRightOf="@+id/image_facebook"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center_vertical"
+            android:text="@string/developer_title"
+            android:textColor="@color/c_000000"
+            android:textSize="@dimen/_12sdp"
+            tools:text="QQQQQQQQQBHHHHHH"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

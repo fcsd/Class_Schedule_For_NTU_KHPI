@@ -1,10 +1,10 @@
 package com.khpi.classschedule.data.models
 
-enum class CoupleType(val title: String, val position: Int) {
-    LECTURE("Лекція", 0),
-    LABORATORY("Лабораторна", 1),
-    PRACTICE("Практика", 2),
-    SEMINAR("Семінар", 3)
+enum class CoupleType(val title: String) {
+    LECTURE("Лекція"),
+    LABORATORY("Лабораторна"),
+    PRACTICE("Практика"),
+    SEMINAR("Семінар")
 }
 
 data class Task(
@@ -20,4 +20,13 @@ enum class TaskSort {
     DATE,
     GROUP,
     SUBJECT
+}
+
+enum class TaskRemove(val title: String, val timeMillis: Long) {
+    NOT_REMOVE("Не видаляти", 0),
+    ONR_HOUR("Через час", 3600000),
+    ONE_DAY("Через день", 86400000),
+    THREE_DAYS("Через три дня", 259200000),
+    ONE_WEEK("Через тиждень", 604800000)
+
 }

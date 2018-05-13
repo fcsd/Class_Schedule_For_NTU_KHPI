@@ -2,7 +2,8 @@ package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.ScheduleRepository
+import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
@@ -10,7 +11,8 @@ import javax.inject.Inject
 @InjectViewState
 class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var taskRepository: TaskRepository
+    @Inject lateinit var scheduleRepository: ScheduleRepository
 
     init {
         injector().inject(this)
@@ -28,7 +30,7 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
     override fun onViewLoaded() {
         prefix = getPrefixByType(ScheduleType.GROUP)
-        prefix?.let { infoTypes = memoryRepository.getScheduleInfoByTypes(it) }
+        prefix?.let { infoTypes = scheduleRepository.getScheduleInfoByTypes(it) }
         checkAllFieldAreFilled()
         viewState.configureView()
     }
@@ -59,7 +61,7 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         }
 
         val id = infoTypes?.find { it.title == group }?.id ?: return
-        val schedulePair = prefix?.let { memoryRepository.getSchedule(it, id) }
+        val schedulePair = prefix?.let { scheduleRepository.getSchedule(it, id) }
 
         val scheduleForFirstWeek = schedulePair?.first ?: return
         val scheduleForSecondWeek = schedulePair.second
@@ -141,13 +143,13 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
         currentTask?.let {
             val task = Task(it.id, group, subject, selectedType, notificationTime, description)
-            memoryRepository.saveTask(task, true)
+            taskRepository.saveTask(task, true)
             viewState.showMessage("Завдання було оновлено")
             viewState.configureNotification(task)
         } ?: run {
-            val id = memoryRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
+            val id = taskRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
             val task = Task(id, group, subject, selectedType, notificationTime, description)
-            memoryRepository.saveTask(task, false)
+            taskRepository.saveTask(task, false)
             viewState.showMessage("Завдання було створено")
             viewState.configureNotification(task)
         }

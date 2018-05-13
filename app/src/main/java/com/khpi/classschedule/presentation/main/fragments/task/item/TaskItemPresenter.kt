@@ -2,7 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.task.item
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 @InjectViewState
 class TaskItemPresenter : BasePresenter<TaskItemView>() {
 
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var taskRepository: TaskRepository
 
     init {
         injector().inject(this)
@@ -24,7 +24,7 @@ class TaskItemPresenter : BasePresenter<TaskItemView>() {
 
     fun loadTaskInfo(taskId: Int?) {
         val id = taskId ?: return
-        task = memoryRepository.getTaskById(Constants.GROUP_PREFIX, id)
+        task = taskRepository.getTaskById(Constants.GROUP_PREFIX, id)
         task?.let { viewState.showTask(it) }
     }
 

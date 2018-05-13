@@ -2,8 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.show.item
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.business.BuildingManager
-import com.khpi.classschedule.business.ScheduleManager
-import com.khpi.classschedule.data.config.MemoryRepository
 import com.khpi.classschedule.data.models.ScheduleItem
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject

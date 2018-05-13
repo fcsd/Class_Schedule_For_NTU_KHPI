@@ -2,7 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.business.ScheduleManager
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.presentation.base.BasePresenter
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
 
     //@formatter:off
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var scheduleRepository: ScheduleRepository
     @Inject lateinit var scheduleManager: ScheduleManager
     //@formatter:on
 
@@ -99,7 +99,7 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)
 
-            memoryRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = true)
+            scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = true)
 
             viewState.dismissProgressDialog()
             viewState.showMessage("Розклад $messageType $name був оновлений успiшно")

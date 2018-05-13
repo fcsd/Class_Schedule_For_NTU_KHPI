@@ -2,7 +2,7 @@ package com.khpi.classschedule.presentation.main.fragments.task.list
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
-import com.khpi.classschedule.data.config.MemoryRepository
+import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BasePresenter
@@ -11,7 +11,7 @@ import javax.inject.Inject
 @InjectViewState
 class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTaskItemClickListener {
 
-    @Inject lateinit var memoryRepository: MemoryRepository
+    @Inject lateinit var taskRepository: TaskRepository
 
     init {
         injector().inject(this)
@@ -24,7 +24,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
     }
 
     fun loadActiveTask() {
-        tasks = memoryRepository.getAllTasks(Constants.GROUP_PREFIX)
+        tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
         viewState.showActiveTasks(tasks, this)
     }
 
@@ -52,7 +52,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
         }
 
         val sortedIndex = sortedTask.map { it.id }
-        memoryRepository.saveTaskSortedIndex(Constants.GROUP_PREFIX, sortedIndex)
+        taskRepository.saveTaskSortedIndex(Constants.GROUP_PREFIX, sortedIndex)
 
         tasks.clear()
         tasks.addAll(sortedTask)
