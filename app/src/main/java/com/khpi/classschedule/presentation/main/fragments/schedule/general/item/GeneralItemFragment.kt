@@ -2,7 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
 
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,6 @@ import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListFragment
 import kotlinx.android.synthetic.main.fragment_general_item.*
-import android.support.v7.widget.RecyclerView
-import com.khpi.classschedule.data.SwipeHelper
 
 
 class GeneralItemFragment : BaseFragment(), GeneralItemView {

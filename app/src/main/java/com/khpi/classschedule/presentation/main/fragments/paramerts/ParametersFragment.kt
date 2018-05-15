@@ -63,6 +63,8 @@ class ParametersFragment : BaseFragment(), ParametersView {
         text_vkontakte.text = Developer.ALEXANDER_SERPOKRYLOW.developer
         text_instagram.text = Developer.TIMUR_ABBASOV.developer
         text_facebook.text = Developer.BERK_ARSLAN.developer
+
+
     }
 
     override fun setPreferencesValue(invert: Boolean, everydayUpdate: Boolean, vibrate: Boolean, sound: Boolean) {

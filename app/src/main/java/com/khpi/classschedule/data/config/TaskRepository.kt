@@ -37,6 +37,10 @@ class TaskRepository(context: Context, private val gson : Gson) {
         return gson.fromJson(jsonTask, Task::class.java)
     }
 
+    fun getTasksBySubject(prefix: String, subject: String): List<Task>? {
+        return getAllTasks(prefix).filter { it.subject == subject }
+    }
+
     fun saveTask(task: Task, isUpdate: Boolean) {
         val prefsEditor = sp.edit()
         val jsonTask = gson.toJson(task)

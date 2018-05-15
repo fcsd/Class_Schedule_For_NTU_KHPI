@@ -16,7 +16,8 @@ data class ScheduleItem(
         @SerializedName("Name") val name: String?,
         @SerializedName("Aud") val auditory: String?,
         @SerializedName("vid") val type: String?,
-        @SerializedName("Prepod") val teacher: String?
+        @SerializedName("Prepod") val teacher: String?,
+        var properties: MutableList<Property>
 )
 
 data class Schedule(

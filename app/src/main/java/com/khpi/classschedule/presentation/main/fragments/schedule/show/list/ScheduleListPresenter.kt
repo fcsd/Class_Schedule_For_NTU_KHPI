@@ -1,11 +1,14 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
+import android.preference.PreferenceManager
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
+import com.khpi.classschedule.data.config.SettingsRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -14,6 +17,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     //@formatter:off
     @Inject lateinit var scheduleManager: ScheduleManager
     @Inject lateinit var scheduleRepository: ScheduleRepository
+    @Inject lateinit var settingsRepository: SettingsRepository
     //@formatter:on
 
     init {
@@ -49,7 +53,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         scheduleSecondWeek = groupPair.second
 
         viewState.showToolbarIcons()
-        showSchedule(currentWeek)
+        configureSchedule()
     }
 
     private fun loadScheduleFromInternet(id: Int, isUpdate: Boolean) {
@@ -125,11 +129,11 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             }
 
             viewState.showToolbarIcons()
-            showSchedule(currentWeek)
+            configureSchedule()
         }
     }
 
-    private fun showSchedule(currentWeek: Int) {
+    private fun showSchedule() {
         if (currentWeek == 1) {
             scheduleFirstWeek?.let { viewState.showSchedule(it, currentWeek, currentTab) }
         } else {
@@ -139,7 +143,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     fun changeCurrentWeek() {
         currentWeek = currentWeek %2 + 1
-        showSchedule(currentWeek)
+        showSchedule()
     }
 
     fun onRemoveClicked() {
@@ -154,6 +158,23 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
         viewState.showMessage("Розклад $messageType ${group?.title} був видален успішно")
         viewState.closeScreen()
+    }
+
+    private fun configureSchedule() {
+        val dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        currentTab = if (dayOfWeek == 1 || dayOfWeek == 7) {
+            0
+        } else {
+            dayOfWeek - 2
+        }
+
+        val invert = settingsRepository.getPreferenceByKey(Constants.INVERT)
+
+        if (invert) {
+            changeCurrentWeek()
+        } else {
+            showSchedule()
+        }
     }
 
     fun onRefreshClicked() {

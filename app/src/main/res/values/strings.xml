@@ -71,7 +71,7 @@
     <string name="vibrate">Вібрація</string>
     <string name="sound">Звук</string>
     <string name="remove_task">Видалення завдання</string>
-    <string name="remove_task_content">Автоматичне видалення завдання після його виконання</string>
+    <string name="remove_task_content">Автоматичне видалення завдання після пари</string>
     <string name="info_title">Про додаток</string>
     <string name="version_content">v%s, останнє оновлення 14.05.2018</string>
     <string name="developer_title">Сумісна колаборація студентів НТУ \"ХПІ\"</string>

@@ -21,19 +21,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/schedule"
-            android:fontFamily="sans-serif-medium"
-            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14sdp"/>
-
-        <TextView
-            android:id="@+id/settings_invert_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            android:layout_marginTop="@dimen/_12sdp"
-            app:layout_constraintTop_toBottomOf="@+id/schedule_params_title"
-            android:text="@string/invert_week"
             android:textSize="@dimen/_12sdp"/>
 
         <android.support.v7.widget.SwitchCompat
@@ -43,19 +31,20 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_invert_title"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_params_title"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/invert_week_content"
+            android:text="@string/invert_week"
             android:textSize="@dimen/_12sdp" />
 
         <TextView
-            android:id="@+id/settings_update_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/settings_invert_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_invert_switch"
-            android:text="@string/update_schedule"
+            android:text="@string/invert_week_content"
+            android:layout_marginEnd="@dimen/_36sdp"
             android:textSize="@dimen/_12sdp"/>
 
         <android.support.v7.widget.SwitchCompat
@@ -65,9 +54,9 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_update_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_invert_title"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/update_schedule_content"
+            android:text="@string/update_schedule"
             android:textSize="@dimen/_12sdp" />
 
         <View
@@ -88,10 +77,8 @@
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@+id/divider1"
             android:text="@string/notification"
-            android:fontFamily="sans-serif-medium"
-            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_12sdp"/>
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/settings_vibrate_switch"
@@ -135,10 +122,8 @@
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@+id/divider2"
             android:text="@string/task"
-            android:fontFamily="sans-serif-medium"
-            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_12sdp"/>
 
         <TextView
             android:id="@+id/settings_remove_title"
@@ -150,6 +135,7 @@
             app:layout_constraintTop_toBottomOf="@+id/task_params_title"
             app:layout_constraintRight_toRightOf="parent"
             android:text="@string/remove_task_content"
+            android:textColor="@color/c_000000"
             android:textSize="@dimen/_12sdp"/>
 
         <TextView
@@ -158,7 +144,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:textColor="@color/c_000000"
             app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
             app:layout_constraintTop_toBottomOf="@+id/settings_remove_title"
             app:layout_constraintRight_toRightOf="parent"
@@ -184,6 +169,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider3"
             app:layout_constraintRight_toRightOf="parent"
             android:text="@string/info_title"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
 
         <TextView
@@ -217,83 +203,103 @@
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@+id/divider4"
             app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorPrimary"
             android:text="@string/developer_title"
             android:textSize="@dimen/_12sdp"/>
 
-        <ImageView
-            android:id="@+id/image_vkontakte"
-            android:layout_width="@dimen/_24sdp"
+        <LinearLayout
+            android:id="@+id/layout_vkontakte"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_vkontakte"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_developer_title" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_developer_title"
+            app:layout_constraintRight_toRightOf="@+id/settings_developer_title">
 
-        <TextView
-            android:id="@+id/text_vkontakte"
+
+            <ImageView
+                android:id="@+id/image_vkontakte"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:src="@drawable/ic_vkontakte" />
+
+            <TextView
+                android:id="@+id/text_vkontakte"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:text="@string/developer_title"
+                android:textColor="@color/c_000000"
+                android:textSize="@dimen/_12sdp"
+                tools:text="QQQQQQQQQBHHHHHH"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_instagram"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            app:layout_constraintTop_toTopOf="@+id/image_vkontakte"
-            app:layout_constraintBottom_toBottomOf="@+id/image_vkontakte"
-            app:layout_constraintLeft_toRightOf="@+id/image_vkontakte"
-            app:layout_constraintRight_toRightOf="parent"
-            android:gravity="center_vertical"
-            android:text="@string/developer_title"
-            android:textColor="@color/c_000000"
-            android:textSize="@dimen/_12sdp"
-            tools:text="QQQQQQQQQBHHHHHH"/>
-
-        <ImageView
-            android:id="@+id/image_instagram"
-            android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_instagram"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/image_vkontakte" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_vkontakte"
+            app:layout_constraintRight_toRightOf="@+id/settings_developer_title">
 
-        <TextView
-            android:id="@+id/text_instagram"
+
+            <ImageView
+                android:id="@+id/image_instagram"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:src="@drawable/ic_instagram" />
+
+            <TextView
+                android:id="@+id/text_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:text="@string/developer_title"
+                android:textColor="@color/c_000000"
+                android:textSize="@dimen/_12sdp"
+                tools:text="QQQQQQQQQBHHHHHH"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_facebook"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            app:layout_constraintTop_toTopOf="@+id/image_instagram"
-            app:layout_constraintBottom_toBottomOf="@+id/image_instagram"
-            app:layout_constraintLeft_toRightOf="@+id/image_instagram"
-            app:layout_constraintRight_toRightOf="parent"
-            android:gravity="center_vertical"
-            android:text="@string/developer_title"
-            android:textColor="@color/c_000000"
-            android:textSize="@dimen/_12sdp"
-            tools:text="QQQQQQQQQBHHHHHH"/>
-
-        <ImageView
-            android:id="@+id/image_facebook"
-            android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_facebook"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/image_instagram" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_instagram"
+            app:layout_constraintRight_toRightOf="@+id/settings_developer_title">
 
-        <TextView
-            android:id="@+id/text_facebook"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            app:layout_constraintTop_toTopOf="@+id/image_facebook"
-            app:layout_constraintBottom_toBottomOf="@+id/image_facebook"
-            app:layout_constraintLeft_toRightOf="@+id/image_facebook"
-            app:layout_constraintRight_toRightOf="parent"
-            android:gravity="center_vertical"
-            android:text="@string/developer_title"
-            android:textColor="@color/c_000000"
-            android:textSize="@dimen/_12sdp"
-            tools:text="QQQQQQQQQBHHHHHH"/>
+
+            <ImageView
+                android:id="@+id/image_facebook"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:src="@drawable/ic_facebook" />
+
+            <TextView
+                android:id="@+id/text_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:text="@string/developer_title"
+                android:textColor="@color/c_000000"
+                android:textSize="@dimen/_12sdp"
+                tools:text="QQQQQQQQQBHHHHHH"/>
+
+        </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 
