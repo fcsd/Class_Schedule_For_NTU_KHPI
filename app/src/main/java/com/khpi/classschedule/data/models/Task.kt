@@ -13,7 +13,8 @@ data class Task(
         val subject: String,
         val type: CoupleType,
         val notificationTime: Long,
-        val description: String
+        val description: String,
+        var properties: MutableList<Property> = mutableListOf()
 )
 
 enum class TaskSort {

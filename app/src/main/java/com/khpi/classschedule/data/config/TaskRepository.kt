@@ -79,4 +79,22 @@ class TaskRepository(context: Context, private val gson : Gson) {
         prefsEditor.putString("$prefix task", jsonText)
         prefsEditor.apply()
     }
+
+    fun removeTask(prefix: String, key: Int) {
+        val prefsEditor = sp.edit()
+        prefsEditor.remove("$prefix $key task")
+        prefsEditor.apply()
+
+        removeKeyTask(prefix, key)
+    }
+
+    private fun removeKeyTask(prefix: String, id: Int) {
+        val prefsEditor = sp.edit()
+        val keysTask = getKeysTask(prefix)
+        keysTask.remove(id)
+
+        val jsonText = gson.toJson(keysTask)
+        prefsEditor.putString("$prefix task", jsonText)
+        prefsEditor.apply()
+    }
 }

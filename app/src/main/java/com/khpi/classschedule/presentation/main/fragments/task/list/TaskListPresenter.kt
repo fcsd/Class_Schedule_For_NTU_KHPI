@@ -1,15 +1,24 @@
 package com.khpi.classschedule.presentation.main.fragments.task.list
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
+import com.khpi.classschedule.R
 import com.khpi.classschedule.data.config.TaskRepository
+import com.khpi.classschedule.data.models.Property
+import com.khpi.classschedule.data.models.PropertyType
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BasePresenter
+import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject
 
 @InjectViewState
-class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTaskItemClickListener {
+class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskItemClickListener,
+        BasePropertyAdapter.OnScheduleItemClickListener {
 
     @Inject lateinit var taskRepository: TaskRepository
 
@@ -25,6 +34,11 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
 
     fun loadActiveTask() {
         tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
+        tasks.forEach { task ->
+            task.properties = mutableListOf()
+            task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+        }
+
         viewState.showActiveTasks(tasks, this)
     }
 
@@ -34,6 +48,19 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
 
     override fun onItemClick(item: Task) {
         viewState.openDetailTaskScreen(item)
+    }
+
+    override fun onPropertyClick(property: Property, adapterPosition: Int) {
+        val task = tasks[adapterPosition]
+        removeTask(task)
+    }
+
+    private fun removeTask(task: Task) {
+        taskRepository.removeTask(Constants.GROUP_PREFIX, task.id)
+        tasks.remove(task)
+        viewState.disableTaskNotification(task)
+        viewState.notifyDataSetChanged()
+        viewState.showMessage("Завдання було видалено успішно")
     }
 
 
@@ -59,5 +86,4 @@ class TaskListPresenter : BasePresenter<TaskListView>(),  TaskListAdapter.OnTask
         viewState.notifyDataSetChanged()
         viewState.showMessage("Сортування за $type успішне")
     }
-
 }

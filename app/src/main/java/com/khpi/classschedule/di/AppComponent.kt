@@ -14,6 +14,7 @@ import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListPresenter
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersPresenter
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionPresenter
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListPresenter
@@ -38,4 +39,5 @@ interface AppComponent {
     fun inject(taskCreatePresenter: TaskActionPresenter)
     fun inject(taskItemPresenter: TaskItemPresenter)
     fun inject(settingsPresenter: ParametersPresenter)
+    fun inject(taskActionAlarmAdapter: TaskActionAlarmAdapter)
 }

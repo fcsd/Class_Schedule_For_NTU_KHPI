@@ -30,10 +30,10 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
 
         fun onBind(item: ScheduleItem, listener: BasePropertyAdapter.OnScheduleItemClickListener) {
 
-            val schedulePopupAdapter = BasePropertyAdapter(item.properties, listener, adapterPosition, this)
+            val propertyAdapter = BasePropertyAdapter(item.properties, listener, adapterPosition, this)
             itemView.recycler_schedule_item.layoutManager = LinearLayoutManager(itemView.context,
                     LinearLayoutManager.HORIZONTAL, false)
-            itemView.recycler_schedule_item.adapter = schedulePopupAdapter
+            itemView.recycler_schedule_item.adapter = propertyAdapter
 
             itemView.schedule_time_text.text = item.time
             itemView.schedule_name_text.text = item.name

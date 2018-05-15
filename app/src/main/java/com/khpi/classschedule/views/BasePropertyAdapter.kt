@@ -49,7 +49,7 @@ class BasePropertyAdapter(private val properties: List<Property>,
         fun onBind(item: Property, parentAdapterPosition: Int, listener: OnScheduleItemClickListener) {
             itemView.image_property.setImageDrawable(ContextCompat.getDrawable(itemView.context, item.image))
             itemView.text_property.text = item.title
-            itemView.setOnClickListener { listener.onItemClick(item, parentAdapterPosition) }
+            itemView.setOnClickListener { listener.onPropertyClick(item, parentAdapterPosition) }
         }
     }
 
@@ -62,7 +62,7 @@ class BasePropertyAdapter(private val properties: List<Property>,
     }
 
     interface OnScheduleItemClickListener {
-        fun onItemClick(property: Property, adapterPosition: Int)
+        fun onPropertyClick(property: Property, adapterPosition: Int)
     }
 
     interface OnCloseClickListener {

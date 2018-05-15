@@ -1,6 +1,10 @@
 package com.khpi.classschedule.presentation.main.fragments.task.list
 
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +19,7 @@ import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import kotlinx.android.synthetic.main.fragment_task_list.*
@@ -60,7 +65,7 @@ class TaskListFragment : BaseFragment(), TaskListView {
     }
 
     override fun showActiveTasks(tasks: MutableList<Task>, callback: TaskListPresenter) {
-        taskAdapter = TaskListAdapter(tasks, callback)
+        taskAdapter = TaskListAdapter(tasks, callback, callback)
         recycler_task.layoutManager = LinearLayoutManager(context)
         recycler_task.adapter = taskAdapter
     }
@@ -91,6 +96,14 @@ class TaskListFragment : BaseFragment(), TaskListView {
         }
 
         popupMenu.show()
+    }
+
+    override fun disableTaskNotification(task: Task) {
+        val ctx = context ?: return
+        val notificationIntent = Intent(ctx, TaskActionAlarmAdapter::class.java)
+        val alarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getBroadcast(ctx, task.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        alarmManager.cancel(pendingIntent)
     }
 
     override fun openActionTaskScreen() {

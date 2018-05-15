@@ -51,7 +51,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
         this.schedule?.let { viewState.showSchedule(it, this) }
     }
 
-    override fun onItemClick(property: Property, adapterPosition: Int) {
+    override fun onPropertyClick(property: Property, adapterPosition: Int) {
         when(property.type) {
             PropertyType.TASK -> viewState.showMessage("Click: Task")
             PropertyType.BUILDING -> loadBuilding(adapterPosition)

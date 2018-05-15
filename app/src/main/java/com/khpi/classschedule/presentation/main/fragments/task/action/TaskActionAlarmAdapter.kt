@@ -10,11 +10,22 @@ import android.content.Intent
 import android.provider.Settings
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
+import com.khpi.classschedule.App
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.config.SettingsRepository
 import com.khpi.classschedule.presentation.main.MainActivity
+import javax.inject.Inject
 
 class TaskActionAlarmAdapter : BroadcastReceiver() {
+
+    //@formatter:off
+    @Inject lateinit var settingsRepository: SettingsRepository
+    //@formatter:on
+
+    init {
+         App.dagger.inject(this)
+    }
 
     companion object {
         var NOTIFICATION_ID = "notification_id"
@@ -36,6 +47,9 @@ class TaskActionAlarmAdapter : BroadcastReceiver() {
         val openIntent = PendingIntent.getActivity(context, 0,
                 fragmentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val vibrate = settingsRepository.getPreferenceByKey(Constants.VIBRATE)
+        val sound = settingsRepository.getPreferenceByKey(Constants.SOUND)
+
         val builder = NotificationCompat.Builder(context, "Notification")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
@@ -44,8 +58,14 @@ class TaskActionAlarmAdapter : BroadcastReceiver() {
                 .setContentIntent(openIntent)
                 .setLights(ContextCompat.getColor(context, R.color.colorPrimary), 3000, 3000)
 
-        builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-        builder.setVibrate(longArrayOf(0, 1000))
+        if (sound) {
+            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+        }
+
+        if (vibrate) {
+            builder.setVibrate(longArrayOf(0, 1000))
+        }
+
         notificationManager.notify(id, builder.build())
     }
 
