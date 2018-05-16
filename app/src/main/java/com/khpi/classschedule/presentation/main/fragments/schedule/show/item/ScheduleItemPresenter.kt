@@ -30,16 +30,17 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
         viewState.configureView()
     }
 
-    fun prepareToShowSchedule(schedule: List<ScheduleItem>, type: ScheduleType) {
+    fun prepareToShowSchedule(schedule: List<ScheduleItem>, type: ScheduleType, group: String) {
 
         val prefix = getPrefixByType(type)
+        val tasks = taskRepository.getTasksByGroup(prefix, group)
 
         schedule.forEach { couple ->
             val subject = couple.name ?: return@forEach
-            val tasks = taskRepository.getTasksBySubject(prefix, subject)
+            val tasksBySubject = tasks?.filter { it.subject == subject }
             couple.properties = mutableListOf()
 
-            tasks?.let {
+            tasksBySubject?.let {
                 if (it.isNotEmpty()) {
                     couple.properties.add(Property("Завдання", R.drawable.ic_task_blue, PropertyType.TASK))
                 }

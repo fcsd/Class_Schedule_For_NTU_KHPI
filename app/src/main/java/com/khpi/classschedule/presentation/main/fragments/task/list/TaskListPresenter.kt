@@ -1,17 +1,12 @@
 package com.khpi.classschedule.presentation.main.fragments.task.list
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.config.ScheduleRepository
+import com.khpi.classschedule.data.config.SettingsRepository
 import com.khpi.classschedule.data.config.TaskRepository
-import com.khpi.classschedule.data.models.Property
-import com.khpi.classschedule.data.models.PropertyType
-import com.khpi.classschedule.data.models.Task
-import com.khpi.classschedule.data.models.TaskSort
+import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject
@@ -20,7 +15,9 @@ import javax.inject.Inject
 class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskItemClickListener,
         BasePropertyAdapter.OnScheduleItemClickListener {
 
+    @Inject lateinit var scheduleRepository: ScheduleRepository
     @Inject lateinit var taskRepository: TaskRepository
+    @Inject lateinit var settingsRepository: SettingsRepository
 
     init {
         injector().inject(this)
@@ -33,13 +30,42 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     }
 
     fun loadActiveTask() {
-        tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
-        tasks.forEach { task ->
-            task.properties = mutableListOf()
-            task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
-        }
 
-        viewState.showActiveTasks(tasks, this)
+        if (scheduleRepository.isHasSavedGroup(Constants.GROUP_PREFIX)) {
+
+            tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
+            removeOutdatedTasks()
+            if (tasks.isEmpty()) {
+                viewState.configureViewForAdding(R.string.add_task_empty, {
+                    viewState.openActionTaskScreen()
+                })
+                return
+            }
+
+            tasks.forEach { task ->
+                task.properties = mutableListOf()
+                task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+            }
+            viewState.showActiveTasks(tasks, this)
+        } else {
+            viewState.configureViewForAdding(R.string.add_schedule_from_task, {
+                viewState.openAddScheduleScreen()
+            })
+        }
+    }
+
+    private fun removeOutdatedTasks() {
+        val mills = TaskRemove.values()[settingsRepository.getRemovePosition()].timeMillis
+        if (mills == 0L) return
+
+        val iterator = tasks.iterator()
+        for (task in iterator) {
+            if (task.notificationTime + 1000 * 60 * 60 * 24 + mills < System.currentTimeMillis()) {
+                taskRepository.removeTask(Constants.GROUP_PREFIX, task.id)
+                viewState.disableTaskNotification(task)
+                iterator.remove()
+            }
+        }
     }
 
     fun onAddClicked() {

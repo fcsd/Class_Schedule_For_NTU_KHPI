@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_task"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"/>
+    tools:context="com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_task"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/layout_task_add"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_add_black"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/description_task_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Lab 1234"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

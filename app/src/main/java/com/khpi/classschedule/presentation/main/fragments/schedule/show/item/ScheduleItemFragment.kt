@@ -1,9 +1,7 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.show.item
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +45,8 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     override fun configureView() {
         val schedule = this.schedule ?: return
         val type = this.type ?: return
-        presenter.prepareToShowSchedule(schedule, type)
+        val toolbarTitle = (activity as? MainActivity)?.getToolbarTitle() ?: return
+        presenter.prepareToShowSchedule(schedule, type, toolbarTitle)
     }
 
     override fun showSchedule(schedule: List<ScheduleItem>, callback: ScheduleItemPresenter) {

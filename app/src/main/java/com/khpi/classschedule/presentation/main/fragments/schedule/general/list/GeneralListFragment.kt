@@ -16,10 +16,8 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_general_list.*
-import android.support.v4.view.ViewPager
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
-import kotlinx.android.synthetic.main.fragment_schedule_list.*
 
 
 class GeneralListFragment : BaseFragment(), GeneralListView {
@@ -43,9 +41,14 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
         presenter.onViewLoaded()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
+    }
+
     override fun configureView() {
         val ctx = context ?: return
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add_new_item))
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add))
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked() }
 
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.my_groups))

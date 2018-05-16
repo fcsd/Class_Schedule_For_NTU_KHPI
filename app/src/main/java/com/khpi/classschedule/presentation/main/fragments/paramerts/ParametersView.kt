@@ -17,4 +17,7 @@ interface ParametersView: BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun showTaskAlert(titles: Array<CharSequence>)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openDeveloperPage(link: String)
 }

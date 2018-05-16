@@ -13,6 +13,17 @@
         android:paddingBottom="@dimen/_12sdp">
 
         <TextView
+            android:id="@+id/settings_invert_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_invert_switch"
+            android:text="@string/invert_week_content"
+            android:layout_marginEnd="@dimen/_36sdp"
+            android:textSize="@dimen/_12sdp"/>
+
+        <TextView
             android:id="@+id/schedule_params_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,22 +41,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_36sdp"
             app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
             app:layout_constraintTop_toBottomOf="@+id/schedule_params_title"
             app:layout_constraintRight_toRightOf="parent"
             android:text="@string/invert_week"
             android:textSize="@dimen/_12sdp" />
-
-        <TextView
-            android:id="@+id/settings_invert_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/settings_invert_switch"
-            android:text="@string/invert_week_content"
-            android:layout_marginEnd="@dimen/_36sdp"
-            android:textSize="@dimen/_12sdp"/>
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/settings_update_switch"
@@ -125,29 +126,33 @@
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
 
-        <TextView
-            android:id="@+id/settings_remove_title"
+        <LinearLayout
+            android:id="@+id/layout_remove_task"
+            android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@+id/task_params_title"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/remove_task_content"
-            android:textColor="@color/c_000000"
-            android:textSize="@dimen/_12sdp"/>
+            app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
-            android:id="@+id/settings_remove_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/settings_invert_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_remove_title"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/_12sdp" />
+            <TextView
+                android:id="@+id/settings_remove_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@string/remove_task_content"
+                android:textColor="@color/c_000000"
+                android:textSize="@dimen/_12sdp"/>
+
+            <TextView
+                android:id="@+id/settings_remove_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/divider3"
@@ -156,7 +161,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/settings_remove_content"
+            app:layout_constraintTop_toBottomOf="@+id/layout_remove_task"
             android:background="@drawable/dotted" />
 
         <TextView

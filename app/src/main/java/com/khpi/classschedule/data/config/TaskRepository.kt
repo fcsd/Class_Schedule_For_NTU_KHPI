@@ -37,8 +37,8 @@ class TaskRepository(context: Context, private val gson : Gson) {
         return gson.fromJson(jsonTask, Task::class.java)
     }
 
-    fun getTasksBySubject(prefix: String, subject: String): List<Task>? {
-        return getAllTasks(prefix).filter { it.subject == subject }
+    fun getTasksByGroup(prefix: String, group: String): List<Task>? {
+        return getAllTasks(prefix).filter { it.group == group }
     }
 
     fun saveTask(task: Task, isUpdate: Boolean) {

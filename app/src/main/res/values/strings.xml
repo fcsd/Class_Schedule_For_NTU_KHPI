@@ -53,6 +53,8 @@
     <string name="subject_warning">Спочатку оберіть групу</string>
     <string name="detail_hint">Що потрібно виконати?</string>
     <string name="task_deadline">Виконати до %s</string>
+    <string name="add_schedule_from_task">Додайте розклад групи, щоб додати завдання</string>
+    <string name="add_task_empty">Додайте перше завдання</string>
 
     <string name="remove_schedule">Видалити розклад</string>
     <string name="refresh_schedule">Оновити розклад</string>

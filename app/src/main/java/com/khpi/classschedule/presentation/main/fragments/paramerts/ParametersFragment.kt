@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_parameters.*
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.BuildConfig
 import com.khpi.classschedule.data.models.Developer
+import android.content.Intent
+import android.net.Uri
+
 
 class ParametersFragment : BaseFragment(), ParametersView {
 
@@ -57,14 +60,16 @@ class ParametersFragment : BaseFragment(), ParametersView {
         settings_sound_switch.setOnCheckedChangeListener({ _, isChecked ->
             presenter.changeSwitchValue(Constants.SOUND, isChecked)
         })
-        settings_remove_content.setOnClickListener { presenter.loadTaskAlert() }
+        layout_remove_task.setOnClickListener { presenter.loadTaskAlert() }
 
         settings_info_content.text = ctx.resources.getString(R.string.version_content, BuildConfig.VERSION_NAME)
         text_vkontakte.text = Developer.ALEXANDER_SERPOKRYLOW.developer
         text_instagram.text = Developer.TIMUR_ABBASOV.developer
         text_facebook.text = Developer.BERK_ARSLAN.developer
 
-
+        text_vkontakte.setOnClickListener { presenter.openDeveloperPage(Developer.ALEXANDER_SERPOKRYLOW.link) }
+        text_instagram.setOnClickListener { presenter.openDeveloperPage(Developer.TIMUR_ABBASOV.link) }
+        text_facebook.setOnClickListener { presenter.openDeveloperPage(Developer.BERK_ARSLAN.link) }
     }
 
     override fun setPreferencesValue(invert: Boolean, everydayUpdate: Boolean, vibrate: Boolean, sound: Boolean) {
@@ -85,6 +90,11 @@ class ParametersFragment : BaseFragment(), ParametersView {
                 .setItems(titles, { _, position -> presenter.saveAlertSelectedPosition(position) })
                 .setNegativeButton(ctx.resources.getString(R.string.cancel), null)
                 .show()
+    }
+
+    override fun openDeveloperPage(link: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(browserIntent)
     }
 
 }

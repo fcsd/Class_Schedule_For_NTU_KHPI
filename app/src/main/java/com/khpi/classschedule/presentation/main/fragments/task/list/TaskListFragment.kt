@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -19,9 +20,11 @@ import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
+import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
+import com.khpi.classschedule.utils.setVisibility
 import kotlinx.android.synthetic.main.fragment_task_list.*
 
 class TaskListFragment : BaseFragment(), TaskListView {
@@ -55,16 +58,27 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
 
     override fun configureView() {
-        val ctx = context?: return
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.task))
-        (activity as? MainActivity)?.setRightFirstNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_sort))
-        (activity as? MainActivity)?.setRightFirstClickListener { v -> openSortingPopup(v) }
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add_new_item))
-        (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked() }
         presenter.loadActiveTask()
     }
 
+    override fun configureViewForAdding(resId: Int, action: () -> Unit) {
+        recycler_task.setVisibility(false)
+        layout_task_add.setVisibility(true)
+        description_task_text.text = resources.getString(resId)
+        layout_task_add.setOnClickListener { action() }
+    }
+
     override fun showActiveTasks(tasks: MutableList<Task>, callback: TaskListPresenter) {
+        val ctx = context?: return
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add))
+        (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked() }
+
+        if (tasks.size > 1) {
+            (activity as? MainActivity)?.setRightFirstNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_sort))
+            (activity as? MainActivity)?.setRightFirstClickListener { v -> openSortingPopup(v) }
+        }
+
         taskAdapter = TaskListAdapter(tasks, callback, callback)
         recycler_task.layoutManager = LinearLayoutManager(context)
         recycler_task.adapter = taskAdapter
@@ -112,6 +126,10 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
     override fun openDetailTaskScreen(task: Task) {
         (activity as? MainActivity)?.replaceFragment(TaskItemFragment.newInstance(task.id))
+    }
+
+    override fun openAddScheduleScreen() {
+        (activity as? MainActivity)?.replaceFragment(GeneralListFragment.newInstance())
     }
 
     override fun notifyDataSetChanged() {

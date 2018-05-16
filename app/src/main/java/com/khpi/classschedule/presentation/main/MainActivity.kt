@@ -75,6 +75,10 @@ class MainActivity : BaseActivity(), MainView {
         tvToolbarTitle.text = title
     }
 
+    fun getToolbarTitle(): String {
+        return tvToolbarTitle.text.toString()
+    }
+
     fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
         replaceFragment(R.id.vgFrame, fragment, isNeedClearBackStack)
     }

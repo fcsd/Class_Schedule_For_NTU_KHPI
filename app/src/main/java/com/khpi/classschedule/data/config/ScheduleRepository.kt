@@ -110,4 +110,9 @@ class ScheduleRepository(context: Context, private val gson : Gson) {
         prefsEditor.putString("$prefix schedule", jsonText)
         prefsEditor.apply()
     }
+
+    fun isHasSavedGroup(prefix: String): Boolean {
+        val keysSchedule = getKeysSchedule(prefix)
+        return keysSchedule.isNotEmpty()
+    }
 }

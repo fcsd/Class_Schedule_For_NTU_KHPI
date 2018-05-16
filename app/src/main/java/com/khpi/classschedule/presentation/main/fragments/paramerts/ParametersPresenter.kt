@@ -45,4 +45,8 @@ class ParametersPresenter : BasePresenter<ParametersView>() {
         val remove = TaskRemove.values()[position].title
         viewState.setRemoveValue(remove)
     }
+
+    fun openDeveloperPage(link: String) {
+        viewState.openDeveloperPage(link)
+    }
 }

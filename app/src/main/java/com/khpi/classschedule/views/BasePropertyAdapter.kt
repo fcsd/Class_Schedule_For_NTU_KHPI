@@ -30,7 +30,7 @@ class BasePropertyAdapter(private val properties: List<Property>,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is BasePopupContentViewHolder -> holder.onBind(properties[position], parentAdapterPosition, parentListener)
+            is BasePopupContentViewHolder -> holder.onBind(properties[position], parentAdapterPosition, parentListener, childListener)
             is BasePopupFooterViewHolder -> holder.onBind(childListener)
         }
     }
@@ -46,10 +46,16 @@ class BasePropertyAdapter(private val properties: List<Property>,
 
     class BasePopupContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: Property, parentAdapterPosition: Int, listener: OnScheduleItemClickListener) {
+        fun onBind(item: Property,
+                   parentAdapterPosition: Int,
+                   listener: OnScheduleItemClickListener,
+                   childListener: OnCloseClickListener) {
             itemView.image_property.setImageDrawable(ContextCompat.getDrawable(itemView.context, item.image))
             itemView.text_property.text = item.title
-            itemView.setOnClickListener { listener.onPropertyClick(item, parentAdapterPosition) }
+            itemView.setOnClickListener {
+                listener.onPropertyClick(item, parentAdapterPosition)
+                childListener.onCloseClick()
+            }
         }
     }
 
