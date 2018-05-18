@@ -12,11 +12,7 @@ interface GeneralListView : BaseView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                infoTeachers: MutableList<BaseModel>,
-                               infoAuditories: MutableList<BaseModel>,
-                               currentTab: Int)
-
-    @StateStrategyType(SkipStrategy::class)
-    fun openFacultyScreen(type: ScheduleType)
+                               infoAuditories: MutableList<BaseModel>)
 
 }
 

@@ -33,7 +33,7 @@
         <ImageView
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_add_black"
+            android:src="@drawable/ic_add_blue"
             android:layout_gravity="center"/>
 
         <TextView

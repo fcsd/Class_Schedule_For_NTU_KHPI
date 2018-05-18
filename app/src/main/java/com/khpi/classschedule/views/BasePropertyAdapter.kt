@@ -64,7 +64,6 @@ class BasePropertyAdapter(private val properties: List<Property>,
         fun onBind(listener: OnCloseClickListener) {
             itemView.setOnClickListener { listener.onCloseClick() }
         }
-
     }
 
     interface OnScheduleItemClickListener {

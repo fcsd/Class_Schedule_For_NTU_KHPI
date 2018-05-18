@@ -1,6 +1,5 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.show.list
 
-import android.preference.PreferenceManager
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
@@ -109,11 +108,14 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val course = baseModel.course ?: return
             val type = this.type ?: return
 
+            val needPinned = !scheduleRepository.isHasSavedGroup()
+
             val scheduleInfo = BaseModel(id = id,
                     parentName = "Test Faculty",
                     title = name,
                     course = course,
-                    scheduleType = type)
+                    scheduleType = type,
+                    isPinned = needPinned)
 
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)

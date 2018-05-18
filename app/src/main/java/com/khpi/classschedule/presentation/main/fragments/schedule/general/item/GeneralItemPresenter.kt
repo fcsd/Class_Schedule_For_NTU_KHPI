@@ -5,6 +5,7 @@ import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
     }
 
     private var scheduleInfo = mutableListOf<BaseModel>()
+    private var type: ScheduleType? = null
 
     private var scheduleFirstWeek: Schedule? = null
     private var scheduleSecondWeek: Schedule? = null
@@ -29,9 +31,10 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
         viewState.configureView()
     }
 
-    fun setScheduleInfo(scheduleInfo: List<BaseModel>?) {
+    fun setScheduleInfo(scheduleInfo: List<BaseModel>?, type: ScheduleType?) {
+        this.type = type
         scheduleInfo?.let {
-            this.scheduleInfo = scheduleInfo.toMutableList()
+            this.scheduleInfo = it.toMutableList()
             viewState.showScheduleInfo(this.scheduleInfo)
         }
     }
@@ -103,6 +106,15 @@ class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
 
             viewState.dismissProgressDialog()
             viewState.showMessage("Розклад $messageType $name був оновлений успiшно")
+        }
+    }
+
+    fun onAddClicked() {
+        val unwrappedType = type ?: return
+        when(unwrappedType) {
+            ScheduleType.GROUP -> viewState.openFacultyScreen(unwrappedType)
+            ScheduleType.TEACHER -> viewState.showMessage("Click: Teacher")
+            ScheduleType.AUDITORY -> viewState.showMessage("Click: Auditory")
         }
     }
 }

@@ -31,7 +31,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
 
     fun loadActiveTask() {
 
-        if (scheduleRepository.isHasSavedGroup(Constants.GROUP_PREFIX)) {
+        if (scheduleRepository.isHasSavedGroupByType(Constants.GROUP_PREFIX)) {
 
             tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
             removeOutdatedTasks()

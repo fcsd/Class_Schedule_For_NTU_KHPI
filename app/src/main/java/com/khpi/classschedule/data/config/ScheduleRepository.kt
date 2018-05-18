@@ -3,6 +3,7 @@ package com.khpi.classschedule.data.config
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
 
@@ -111,8 +112,15 @@ class ScheduleRepository(context: Context, private val gson : Gson) {
         prefsEditor.apply()
     }
 
-    fun isHasSavedGroup(prefix: String): Boolean {
+    fun isHasSavedGroupByType(prefix: String): Boolean {
         val keysSchedule = getKeysSchedule(prefix)
         return keysSchedule.isNotEmpty()
+    }
+
+    fun isHasSavedGroup(): Boolean {
+        val keysScheduleGroup = getKeysSchedule(Constants.GROUP_PREFIX)
+        val keysScheduleTeacher = getKeysSchedule(Constants.TEACHER_PREFIX)
+        val keysScheduleAuditory = getKeysSchedule(Constants.AUDITORY_PREFIX)
+        return keysScheduleGroup.isNotEmpty() || keysScheduleTeacher.isNotEmpty() || keysScheduleAuditory.isNotEmpty()
     }
 }

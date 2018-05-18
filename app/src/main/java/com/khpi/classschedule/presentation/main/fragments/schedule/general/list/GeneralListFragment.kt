@@ -2,7 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.general.list
 
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -49,45 +48,28 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
     override fun configureView() {
         val ctx = context ?: return
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_add))
-        (activity as? MainActivity)?.setRightSecondClickListener { presenter.onAddClicked() }
+        (activity as? MainActivity)?.setRightSecondClickListener { }
 
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.my_groups))
         presenter.loadSchedules()
-
-        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                presenter.setCurrentItem(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-
-            override fun onTabReselected(tab: TabLayout.Tab) { }
-        })
     }
 
     override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                         infoTeachers: MutableList<BaseModel>,
-                                        infoAuditories: MutableList<BaseModel>,
-                                        currentTab: Int) {
+                                        infoAuditories: MutableList<BaseModel>) {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
-        val groups = GeneralItemFragment.newInstance(infoGroups)
-        val teachers = GeneralItemFragment.newInstance(infoTeachers)
-        val auditories = GeneralItemFragment.newInstance(infoAuditories)
+        val groups = GeneralItemFragment.newInstance(infoGroups, ScheduleType.GROUP)
+        val teachers = GeneralItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER)
+        val auditories = GeneralItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY)
 
         adapter.addFragment(groups, getString(R.string.groups))
         adapter.addFragment(teachers, getString(R.string.teachers))
         adapter.addFragment(auditories, getString(R.string.auditories))
 
         general_view_pager.adapter = adapter
-        general_view_pager.currentItem = currentTab
         general_tab.visibility = View.VISIBLE
         general_tab.setupWithViewPager(general_view_pager)
     }
-
-    override fun openFacultyScreen(type: ScheduleType) {
-        (activity as? MainActivity)?.replaceFragment(FacultyListFragment.newInstance(type))
-    }
-
 }

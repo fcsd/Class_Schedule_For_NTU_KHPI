@@ -47,7 +47,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
                 if (it.isNotEmpty()) {
                     couple.properties.add(Property("Завдання", R.drawable.ic_task_blue, PropertyType.TASK_SHOW))
                 } else {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_add_black, PropertyType.TASK_ADD))
+                    couple.properties.add(Property("Завдання", R.drawable.ic_add_blue, PropertyType.TASK_ADD))
                 }
             }
             couple.properties.add(Property("Мапа", R.drawable.ic_building_green, PropertyType.BUILDING))
