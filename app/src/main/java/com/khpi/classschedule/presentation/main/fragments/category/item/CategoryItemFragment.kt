@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
+package com.khpi.classschedule.presentation.main.fragments.category.item
 
 
 import android.os.Bundle
@@ -14,24 +14,24 @@ import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
-import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListFragment
-import kotlinx.android.synthetic.main.fragment_general_item.*
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
+import kotlinx.android.synthetic.main.fragment_category_item.*
 
 
-class GeneralItemFragment : BaseFragment(), GeneralItemView {
+class CategoryItemFragment : BaseFragment(), CategoryItemView {
 
-    override var TAG = "GeneralItemFragment"
+    override var TAG = "CategoryItemFragment"
 
     //@formatter:off
-    @InjectPresenter lateinit var presenter: GeneralItemPresenter
+    @InjectPresenter lateinit var presenter: CategoryItemPresenter
     //@formatter:on
 
     private var scheduleInfo: List<BaseModel>? = null
     private var type: ScheduleType? = null
-    private lateinit var generalAdapter: GeneralItemAdapter
+    private lateinit var generalAdapter: CategoryItemAdapter
 
     companion object {
-        fun newInstance(scheduleInfo: List<BaseModel>, type: ScheduleType): GeneralItemFragment = GeneralItemFragment().apply {
+        fun newInstance(scheduleInfo: List<BaseModel>, type: ScheduleType): CategoryItemFragment = CategoryItemFragment().apply {
             this.scheduleInfo = scheduleInfo
             this.type = type
         }
@@ -44,7 +44,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_general_item, container, false)
+        return inflater.inflate(R.layout.fragment_category_item, container, false)
     }
 
     override fun configureView() {
@@ -52,7 +52,7 @@ class GeneralItemFragment : BaseFragment(), GeneralItemView {
     }
 
     override fun showScheduleInfo(scheduleInfo: List<BaseModel>) {
-        generalAdapter = GeneralItemAdapter(scheduleInfo, presenter)
+        generalAdapter = CategoryItemAdapter(scheduleInfo, presenter)
         recycler_general.layoutManager = LinearLayoutManager(context)
         recycler_general.adapter = generalAdapter
 

@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.IdRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -20,7 +19,7 @@ import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
@@ -129,7 +128,7 @@ class TaskListFragment : BaseFragment(), TaskListView {
     }
 
     override fun openAddScheduleScreen() {
-        (activity as? MainActivity)?.replaceFragment(GeneralListFragment.newInstance())
+        (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance())
     }
 
     override fun notifyDataSetChanged() {

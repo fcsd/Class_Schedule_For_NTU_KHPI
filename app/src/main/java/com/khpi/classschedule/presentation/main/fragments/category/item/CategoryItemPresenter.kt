@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
+package com.khpi.classschedule.presentation.main.fragments.category.item
 
 import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.business.ScheduleManager
@@ -10,7 +10,7 @@ import com.khpi.classschedule.presentation.base.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class GeneralItemPresenter : BasePresenter<GeneralItemView>() {
+class CategoryItemPresenter : BasePresenter<CategoryItemView>() {
 
     //@formatter:off
     @Inject lateinit var scheduleRepository: ScheduleRepository

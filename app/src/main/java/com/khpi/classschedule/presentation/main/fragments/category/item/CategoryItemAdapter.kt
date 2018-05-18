@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.general.item
+package com.khpi.classschedule.presentation.main.fragments.category.item
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.utils.setVisibility
-import kotlinx.android.synthetic.main.item_general.view.*
-import kotlinx.android.synthetic.main.item_general_add.view.*
+import kotlinx.android.synthetic.main.item_category.view.*
+import kotlinx.android.synthetic.main.item_category_add.view.*
 
-class GeneralItemAdapter(private val scheduleInfo: List<BaseModel>,
-                         private val presenter: GeneralItemPresenter)
+class CategoryItemAdapter(private val scheduleInfo: List<BaseModel>,
+                          private val presenter: CategoryItemPresenter)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_CONTENT = 1
@@ -20,9 +20,9 @@ class GeneralItemAdapter(private val scheduleInfo: List<BaseModel>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             TYPE_CONTENT -> return GeneralContentViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_general, parent, false))
+                    .inflate(R.layout.item_category, parent, false))
             TYPE_FOOTER -> return GeneralFooterViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_general_add, parent, false))
+                    .inflate(R.layout.item_category_add, parent, false))
         }
         throw IllegalArgumentException("Unsupported view scheduleType $viewType")
     }
@@ -46,7 +46,7 @@ class GeneralItemAdapter(private val scheduleInfo: List<BaseModel>,
 
     class GeneralContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: BaseModel, presenter: GeneralItemPresenter) {
+        fun onBind(item: BaseModel, presenter: CategoryItemPresenter) {
             itemView.general_name_text.text = item.title
             itemView.general_parent_text.text = item.parentName
             itemView.general_additional_text.text = itemView.context.resources.getString(R.string.course, item.course)
@@ -63,7 +63,7 @@ class GeneralItemAdapter(private val scheduleInfo: List<BaseModel>,
 
     class GeneralFooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(presenter: GeneralItemPresenter) {
+        fun onBind(presenter: CategoryItemPresenter) {
             itemView.general_add_image.setOnClickListener { presenter.onAddClicked() }
         }
     }

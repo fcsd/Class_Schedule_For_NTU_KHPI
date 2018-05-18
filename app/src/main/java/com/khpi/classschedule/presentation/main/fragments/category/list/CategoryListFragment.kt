@@ -1,4 +1,4 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.general.list
+package com.khpi.classschedule.presentation.main.fragments.category.list
 
 
 import android.os.Bundle
@@ -12,28 +12,27 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemFragment
+import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
-import kotlinx.android.synthetic.main.fragment_general_list.*
+import kotlinx.android.synthetic.main.fragment_category_list.*
 import com.khpi.classschedule.data.models.ScheduleType
-import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
 
 
-class GeneralListFragment : BaseFragment(), GeneralListView {
+class CategoryListFragment : BaseFragment(), CategoryListView {
 
-    override var TAG = "GeneralListFragment"
+    override var TAG = "CategoryListFragment"
 
     //@formatter:off
-    @InjectPresenter lateinit var presenter: GeneralListPresenter
+    @InjectPresenter lateinit var presenter: CategoryListPresenter
     //@formatter:on
 
     companion object {
-        fun newInstance(): GeneralListFragment = GeneralListFragment()
+        fun newInstance(): CategoryListFragment = CategoryListFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_general_list, container, false)
+            inflater.inflate(R.layout.fragment_category_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,9 +59,9 @@ class GeneralListFragment : BaseFragment(), GeneralListView {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
-        val groups = GeneralItemFragment.newInstance(infoGroups, ScheduleType.GROUP)
-        val teachers = GeneralItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER)
-        val auditories = GeneralItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY)
+        val groups = CategoryItemFragment.newInstance(infoGroups, ScheduleType.GROUP)
+        val teachers = CategoryItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER)
+        val auditories = CategoryItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY)
 
         adapter.addFragment(groups, getString(R.string.groups))
         adapter.addFragment(teachers, getString(R.string.teachers))

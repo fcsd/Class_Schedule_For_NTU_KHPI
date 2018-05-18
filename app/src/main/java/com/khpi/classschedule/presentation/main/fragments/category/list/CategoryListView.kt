@@ -1,13 +1,11 @@
-package com.khpi.classschedule.presentation.main.fragments.schedule.general.list
+package com.khpi.classschedule.presentation.main.fragments.category.list
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseView
 
-interface GeneralListView : BaseView {
+interface CategoryListView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,

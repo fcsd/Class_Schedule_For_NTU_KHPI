@@ -14,7 +14,7 @@ import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
-import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import com.khpi.classschedule.views.BaseAdapter
 import kotlinx.android.synthetic.main.fragment_group_item.*
 

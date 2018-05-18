@@ -9,10 +9,10 @@ import com.khpi.classschedule.presentation.main.fragments.building.list.Building
 import com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPresenter
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.item.GeneralItemPresenter
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListPresenter
-import com.khpi.classschedule.presentation.main.fragments.schedule.show.item.ScheduleItemPresenter
-import com.khpi.classschedule.presentation.main.fragments.schedule.show.list.ScheduleListPresenter
+import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemPresenter
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.item.ScheduleItemPresenter
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListPresenter
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersPresenter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionPresenter
@@ -32,8 +32,8 @@ interface AppComponent {
     fun inject(facultyListPresenter: FacultyListPresenter)
     fun inject(groupListPresenter: GroupListPresenter)
     fun inject(scheduleListPresenter: ScheduleListPresenter)
-    fun inject(scheduleGeneralPresenter: GeneralListPresenter)
-    fun inject(generalItemPresenter: GeneralItemPresenter)
+    fun inject(scheduleGeneralPresenter: CategoryListPresenter)
+    fun inject(generalItemPresenter: CategoryItemPresenter)
     fun inject(scheduleItemPresenter: ScheduleItemPresenter)
     fun inject(taskListPresenter: TaskListPresenter)
     fun inject(taskCreatePresenter: TaskActionPresenter)

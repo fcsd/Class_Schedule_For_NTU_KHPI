@@ -10,7 +10,7 @@ import com.khpi.classschedule.R
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
-import com.khpi.classschedule.presentation.main.fragments.schedule.general.list.GeneralListFragment
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity(), MainView {
 
         if (taskId == -1) {
             setVisibleViews(schedule_text, task_text, building_text, settings_text)
-            replaceFragment(GeneralListFragment.newInstance())
+            replaceFragment(CategoryListFragment.newInstance())
         } else {
             setVisibleViews(task_text, schedule_text, building_text, settings_text)
             replaceFragment(TaskItemFragment.newInstance(taskId))
@@ -45,7 +45,7 @@ class MainActivity : BaseActivity(), MainView {
 
         schedule_fragment.setOnClickListener {
             setVisibleViews(schedule_text, task_text, building_text, settings_text)
-            replaceFragment(GeneralListFragment.newInstance(), true)
+            replaceFragment(CategoryListFragment.newInstance(), true)
         }
 
         task_fragment.setOnClickListener {
