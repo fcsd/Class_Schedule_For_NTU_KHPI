@@ -4,7 +4,6 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -23,7 +22,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.khpi.classschedule.data.models.Task
 import android.app.PendingIntent
-import com.khpi.classschedule.Constants
+import com.khpi.classschedule.data.models.CoupleType
 import com.khpi.classschedule.presentation.main.MainActivity
 
 class TaskActionFragment : BaseFragment(), TaskActionView {
@@ -36,10 +35,16 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
 
     private lateinit var taskCreateAdapter : TaskActionAdapter
     private var task: Task? = null
+    private var group: String? = null
+    private var subject: String? = null
+    private var type: String? = null
 
     companion object {
-        fun newInstance(task: Task?): TaskActionFragment = TaskActionFragment().apply {
+        fun newInstance(task: Task?, group: String?, subject: String?, type: String?): TaskActionFragment = TaskActionFragment().apply {
             this.task = task
+            this.group = group
+            this.subject = subject
+            this.type = type
         }
     }
 
@@ -80,6 +85,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         recycler_type.adapter = taskCreateAdapter
 
         presenter.loadInfoOfExistingTask(task)
+        presenter.setGroupAndSubjectInfo(group, subject, type)
     }
 
     override fun updateTaskInfo(task: Task) {
@@ -89,6 +95,13 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         detail_content_edit.setText(task.description)
         taskCreateAdapter.changeSelectedItem(task.type.ordinal)
         (recycler_type.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(task.type.ordinal, 0)
+    }
+
+    override fun setGroupAndSubject(group: String, subject: String, type: CoupleType) {
+        name_content_text.text = group
+        subject_content_text.text = subject
+        taskCreateAdapter.changeSelectedItem(type.ordinal)
+        (recycler_type.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(type.ordinal, 0)
     }
 
     override fun showDatePicker(notificationTime: Long?) {

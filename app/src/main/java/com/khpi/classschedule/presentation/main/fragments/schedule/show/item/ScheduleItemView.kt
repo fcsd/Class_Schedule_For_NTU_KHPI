@@ -11,4 +11,7 @@ interface ScheduleItemView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun openBuildingScreen(shortName: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openTaskAddScreen(group: String, subject: String, type: String)
 }

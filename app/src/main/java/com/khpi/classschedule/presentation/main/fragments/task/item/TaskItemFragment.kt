@@ -59,6 +59,6 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
     }
 
     override fun openActionTaskScreen(task: Task) {
-        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task))
+        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = task, group = null, subject = null, type = null))
     }
 }

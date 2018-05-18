@@ -7,7 +7,8 @@ data class Property(
 )
 
 enum class PropertyType {
-    TASK,
+    TASK_ADD,
+    TASK_SHOW,
     BUILDING,
     REMOVE
 }

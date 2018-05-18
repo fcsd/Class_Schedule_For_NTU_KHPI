@@ -25,12 +25,15 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
     }
 
     private var schedule: List<ScheduleItem>? = null
+    private var group: String? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
     }
 
     fun prepareToShowSchedule(schedule: List<ScheduleItem>, type: ScheduleType, group: String) {
+
+        this.group = group
 
         val prefix = getPrefixByType(type)
         val tasks = taskRepository.getTasksByGroup(prefix, group)
@@ -42,7 +45,9 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
 
             tasksBySubject?.let {
                 if (it.isNotEmpty()) {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_task_blue, PropertyType.TASK))
+                    couple.properties.add(Property("Завдання", R.drawable.ic_task_blue, PropertyType.TASK_SHOW))
+                } else {
+                    couple.properties.add(Property("Завдання", R.drawable.ic_add_black, PropertyType.TASK_ADD))
                 }
             }
             couple.properties.add(Property("Мапа", R.drawable.ic_building_green, PropertyType.BUILDING))
@@ -54,7 +59,13 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
 
     override fun onPropertyClick(property: Property, adapterPosition: Int) {
         when(property.type) {
-            PropertyType.TASK -> viewState.showMessage("Click: Task")
+            PropertyType.TASK_ADD -> {
+                val unwrappedGroup = group ?: return
+                val unwrappedSubject = schedule?.get(adapterPosition)?.name ?: return
+                val unwrappedType = schedule?.get(adapterPosition)?.type ?: return
+                viewState.openTaskAddScreen(unwrappedGroup, unwrappedSubject, unwrappedType)
+            }
+            PropertyType.TASK_SHOW -> viewState.showMessage("Show task!")
             PropertyType.BUILDING -> loadBuilding(adapterPosition)
             else -> return
         }

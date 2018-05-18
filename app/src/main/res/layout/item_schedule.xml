@@ -70,7 +70,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:textColor="@color/c_000000"
                 app:layout_constraintLeft_toLeftOf="@+id/schedule_time_text"
-                app:layout_constraintRight_toRightOf="@+id/schedule_auditory_text"
+                app:layout_constraintRight_toLeftOf="@+id/schedule_image_task"
                 app:layout_constraintTop_toBottomOf="@+id/schedule_time_text"
                 tools:text="Комп'ютерна інженерія"/>
 
@@ -88,13 +88,27 @@
                 tools:text="Комп'ютерна інженерія"/>
 
             <ImageView
+                android:id="@+id/schedule_image_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_task_blue"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                app:layout_constraintTop_toTopOf="@+id/schedule_name_text"
+                app:layout_constraintBottom_toTopOf="@+id/schedule_image_open"
+                app:layout_constraintLeft_toRightOf="@+id/schedule_teacher_text"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <ImageView
                 android:id="@+id/schedule_image_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_down"
-                android:paddingBottom="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
                 app:layout_constraintTop_toTopOf="@+id/schedule_teacher_text"
+                app:layout_constraintBottom_toBottomOf="@+id/schedule_teacher_text"
                 app:layout_constraintLeft_toRightOf="@+id/schedule_teacher_text"
                 app:layout_constraintRight_toRightOf="parent"/>
 

@@ -121,7 +121,7 @@ class TaskListFragment : BaseFragment(), TaskListView {
     }
 
     override fun openActionTaskScreen() {
-        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(null))
+        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = null, group = null, subject = null, type = null))
     }
 
     override fun openDetailTaskScreen(task: Task) {

@@ -47,6 +47,20 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         viewState.setConfirmButtonEnabled(true)
     }
 
+    fun setGroupAndSubjectInfo(group: String?, subject: String?, type: String?) {
+        selectedGroup = group ?: return
+        selectedSubject = subject ?: return
+        val unwrappedType = type ?: return
+        selectedType = CoupleType.values().first { it.title == unwrappedType }
+
+        selectedGroup?.let { unwrappedGroup ->
+            selectedSubject?.let { unwrappedSubject ->
+                viewState.setGroupAndSubject(unwrappedGroup, unwrappedSubject, selectedType)
+            }
+        }
+
+    }
+
     fun prepareToShowGroup() {
         val info = infoTypes ?: return
         val groupNames = info.mapNotNull { it.title }

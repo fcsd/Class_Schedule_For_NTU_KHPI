@@ -76,9 +76,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_down"
-                android:paddingBottom="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
                 app:layout_constraintTop_toTopOf="@+id/task_description_text"
+                app:layout_constraintBottom_toBottomOf="@+id/task_description_text"
                 app:layout_constraintLeft_toRightOf="@+id/task_description_text"
                 app:layout_constraintRight_toRightOf="parent"/>
 

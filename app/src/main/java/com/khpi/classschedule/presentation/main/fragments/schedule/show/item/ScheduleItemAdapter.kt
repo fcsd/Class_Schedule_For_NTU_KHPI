@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.PropertyType
 import com.khpi.classschedule.data.models.ScheduleItem
+import com.khpi.classschedule.utils.setVisibility
 import com.khpi.classschedule.views.BasePropertyAdapter
 import kotlinx.android.synthetic.main.item_schedule.view.*
 
@@ -41,10 +43,17 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
             itemView.schedule_type_text.text = item.type
             itemView.schedule_auditory_text.text = item.auditory
 
+            val propertyTypes = item.properties.map { it.type }
+            if (propertyTypes.contains(PropertyType.TASK_ADD)) {
+                itemView.schedule_image_task.setVisibility(false)
+            } else if (propertyTypes.contains(PropertyType.TASK_SHOW)) {
+                itemView.schedule_image_task.setVisibility(true)
+            }
+
             itemView.schedule_image_open.setOnClickListener {
                 itemView.schedule_content_layout.alpha = 0.3f
                 itemView.recycler_schedule_item.startAnimation(
-                        AnimationUtils.loadAnimation(itemView.context, R.anim.right_in))
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.up))
                 itemView.recycler_schedule_item.visibility = View.VISIBLE
             }
         }
@@ -52,7 +61,7 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
         override fun onCloseClick() {
             itemView.schedule_content_layout.alpha = 1f
             itemView.recycler_schedule_item.startAnimation(
-                    AnimationUtils.loadAnimation(itemView.context, R.anim.right_out))
+                    AnimationUtils.loadAnimation(itemView.context, R.anim.down))
             itemView.recycler_schedule_item.visibility = View.GONE
         }
     }

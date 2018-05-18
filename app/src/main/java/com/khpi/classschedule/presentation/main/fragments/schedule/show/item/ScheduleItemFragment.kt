@@ -13,6 +13,7 @@ import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemFragment
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import kotlinx.android.synthetic.main.fragment_schedule_item.*
 
 class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
@@ -58,4 +59,9 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     override fun openBuildingScreen(shortName: String) {
         (activity as MainActivity).replaceFragment(BuildingItemFragment.newInstance(shortName))
     }
+
+    override fun openTaskAddScreen(group: String, subject: String, type: String) {
+        (activity as MainActivity).replaceFragment(TaskActionFragment.newInstance(task = null, group = group, subject = subject, type = type))
+    }
+
 }
