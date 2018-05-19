@@ -60,7 +60,7 @@ class ScheduleRepository(context: Context, private val gson : Gson) {
         removeScheduleInfo(prefix, id)
     }
 
-    private fun saveScheduleInfo(prefix: String, id: Int, scheduleInfo: BaseModel) {
+    fun saveScheduleInfo(prefix: String, id: Int, scheduleInfo: BaseModel) {
         val prefsEditor = sp.edit()
         val schedule = gson.toJson(scheduleInfo)
         prefsEditor.putString("$prefix $id info", schedule)

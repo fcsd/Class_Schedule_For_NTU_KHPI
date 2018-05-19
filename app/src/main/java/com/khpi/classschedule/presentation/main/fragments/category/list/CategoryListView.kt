@@ -12,6 +12,18 @@ interface CategoryListView : BaseView {
                                infoTeachers: MutableList<BaseModel>,
                                infoAuditories: MutableList<BaseModel>)
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showPinSchedulesInfo(infoGroups: MutableList<BaseModel>,
+                             infoTeachers: MutableList<BaseModel>,
+                             infoAuditories: MutableList<BaseModel>,
+                             listener: CategoryListPresenter)
+
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun changeToolbarSecondButtonForPin()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun changeToolbarSecondButtonForShow()
 }
 
 

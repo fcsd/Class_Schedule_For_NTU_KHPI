@@ -55,7 +55,6 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
         generalAdapter = CategoryItemAdapter(scheduleInfo, presenter)
         recycler_general.layoutManager = LinearLayoutManager(context)
         recycler_general.adapter = generalAdapter
-
     }
 
     override fun openFacultyScreen(type: ScheduleType) {
