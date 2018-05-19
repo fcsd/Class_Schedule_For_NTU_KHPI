@@ -2,7 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.list
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
@@ -16,9 +15,8 @@ import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
 import android.view.*
 import android.support.design.widget.TabLayout
-
-
-
+import android.widget.PopupMenu
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 
 class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
@@ -49,13 +47,14 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        (activity as? MainActivity)?.removeToolbarTitleFunctionForSchedule()
         (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
     }
 
     override fun configureView() {
         setHasOptionsMenu(true)
         val groupName = this.group?.title ?: return
-        (activity as? MainActivity)?.setToolbarTitle(groupName)
+        (activity as? MainActivity)?.setToolbarTitleForSchedule(groupName)
         presenter.setType(type)
         group?.let { presenter.loadScheduleById(it) }
 
@@ -73,8 +72,9 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     override fun showToolbarIcons() {
         val ctx = context ?: return
         (activity as? MainActivity)?.setRightFirstClickListener { presenter.changeCurrentWeek() }
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
-        (activity as? MainActivity)?.setRightSecondClickListener { v -> openEditPopup(v) }
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_dots))
+        (activity as? MainActivity)?.setToolbarTitleClickListener { presenter.loadAllSchedules() }
+        (activity as? MainActivity)?.setRightSecondClickListener { presenter.openCategoryScreen() }
     }
 
     override fun showSchedule(schedule: Schedule, currentWeek: Int, currentTab: Int) {
@@ -106,35 +106,31 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         schedule_tab.setupWithViewPager(schedule_view_pager)
     }
 
-    private fun openEditPopup(view: View) {
+    override fun showSchedulesPopup(schedules: MutableList<BaseModel>) {
 
+        val view = (activity as? MainActivity)?.getToolbarTitleView() ?: return
         val popupMenu = PopupMenu(context, view)
-        popupMenu.inflate(R.menu.menu_schedule)
-
-        popupMenu.setOnMenuItemClickListener { item ->
-
-            when (item.itemId) {
-
-                R.id.refresh_schedule -> {
-                    presenter.onRefreshClicked()
-                    true
-                }
-                R.id.remove_schedule -> {
-                    presenter.onRemoveClicked()
-                    true
-                }
-                else -> false
-            }
+        schedules.forEachIndexed { index, schedule ->
+            popupMenu.menu.add(Menu.NONE, index, Menu.NONE, schedule.title)
         }
 
+        popupMenu.setOnMenuItemClickListener { item ->
+            presenter.changeCurrentGroup(item.itemId)
+            false
+        }
         popupMenu.show()
-    }
-
-    override fun closeScreen() {
-        onBackPressed()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         menu.clear()
     }
+
+    override fun changeToolbarTitle(title: String) {
+        (activity as? MainActivity)?.setToolbarTitle(title)
+    }
+
+    override fun openCategoryScreen() {
+        (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance())
+    }
+
 }

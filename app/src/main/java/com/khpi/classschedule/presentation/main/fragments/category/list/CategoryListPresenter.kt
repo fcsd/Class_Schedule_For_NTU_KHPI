@@ -49,10 +49,6 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
         viewState.showPinSchedulesInfo(infoGroups, infoTeachers, infoAuditories, this)
     }
 
-    private fun findPinnedInfoOrNull(infos: List<BaseModel>): BaseModel? {
-        return infos.find { it.isPinned }
-    }
-
     override fun onRadioChanged(newPinnedInfo: BaseModel) {
         val oldPinnedInfo = this.oldPinnedInfo ?: return
 

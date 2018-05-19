@@ -10,5 +10,6 @@ enum class PropertyType {
     TASK_ADD,
     TASK_SHOW,
     BUILDING,
+    UPDATE,
     REMOVE
 }

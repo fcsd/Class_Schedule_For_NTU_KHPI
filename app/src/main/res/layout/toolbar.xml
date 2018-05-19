@@ -34,19 +34,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/_6sdp"
             android:fontFamily="sans-serif-medium"
             android:gravity="left"
             android:textColor="@color/c_ffffff"
             android:textSize="@dimen/_14sdp"
             android:singleLine="true"
             android:ellipsize="marquee"
+            android:maxWidth="@dimen/_170sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/btnToolbarBack"
-            app:layout_constraintRight_toLeftOf="@+id/btnToolbarRight1"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded"
-            tools:text="AAAAAA"/>
+            tools:text="AAAAAAFFFFFFFFFFFFFF"/>
 
         <ImageView
             android:id="@+id/btnToolbarRight1"

@@ -53,7 +53,7 @@ class TaskListAdapter(private val task: List<Task>,
             itemView.task_image_open.setOnClickListener {
                 itemView.task_content_layout.alpha = 0.3f
                 itemView.recycler_task_item.startAnimation(
-                        AnimationUtils.loadAnimation(itemView.context, R.anim.right_in))
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.up))
                 itemView.recycler_task_item.visibility = View.VISIBLE
             }
 
@@ -62,7 +62,7 @@ class TaskListAdapter(private val task: List<Task>,
         override fun onCloseClick() {
             itemView.task_content_layout.alpha = 1f
             itemView.recycler_task_item.startAnimation(
-                    AnimationUtils.loadAnimation(itemView.context, R.anim.right_out))
+                    AnimationUtils.loadAnimation(itemView.context, R.anim.down))
             itemView.recycler_task_item.visibility = View.GONE
         }
     }

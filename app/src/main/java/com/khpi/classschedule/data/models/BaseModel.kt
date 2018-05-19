@@ -6,6 +6,7 @@ data class BaseModel (
         var course: Int?,
         var isPinned: Boolean = false,
         val parentName: String?,
-        val scheduleType: ScheduleType?
+        val scheduleType: ScheduleType?,
+        var properties: MutableList<Property> = mutableListOf()
 )
 

@@ -1,16 +1,17 @@
 package com.khpi.classschedule.presentation.main.fragments.category.item
 
 import com.arellomobile.mvp.InjectViewState
+import com.khpi.classschedule.R
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
-import com.khpi.classschedule.data.models.BaseModel
-import com.khpi.classschedule.data.models.Schedule
-import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
+import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject
 
 @InjectViewState
-class CategoryItemPresenter : BasePresenter<CategoryItemView>() {
+class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAdapter.OnGeneralItemClickListener,
+        BasePropertyAdapter.OnScheduleItemClickListener {
 
     //@formatter:off
     @Inject lateinit var scheduleRepository: ScheduleRepository
@@ -33,23 +34,41 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>() {
 
     fun setScheduleInfo(scheduleInfo: List<BaseModel>?, type: ScheduleType?) {
         this.type = type
+
         scheduleInfo?.let {
             this.scheduleInfo = it.toMutableList()
-            viewState.showScheduleInfo(this.scheduleInfo)
+            this.scheduleInfo.forEach { info ->
+                info.properties = mutableListOf()
+                info.properties.add(Property("Оновити", R.drawable.ic_update, PropertyType.UPDATE))
+                info.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+            }
+
+            viewState.showScheduleInfo(this.scheduleInfo, this)
         }
     }
 
-    fun onItemClick(item: BaseModel) {
-        viewState.openScheduleScreen(item)
-    }
-
-    fun onRefreshClicked(adapterPosition: Int) {
+    private fun refreshSchedule(adapterPosition: Int) {
         val itemInfo = scheduleInfo[adapterPosition]
         val itemId = itemInfo.id ?: return
 
         viewState.showProgressDialog()
         loadScheduleForWeeks(itemInfo, "Schedule", itemId)
         loadScheduleForWeeks(itemInfo, "Schedule2", itemId)
+    }
+
+    private fun removeSchedule(adapterPosition: Int) {
+
+        val itemInfo = scheduleInfo[adapterPosition]
+        val itemId = itemInfo.id ?: return
+        val type = type ?: return
+        val prefix = getPrefixByType(type)
+        val messageType = getMessageByType(type)
+
+        scheduleRepository.removeSchedule(prefix, itemId)
+
+        scheduleInfo.removeAt(adapterPosition)
+        viewState.notifyDataSetChanged()
+        viewState.showMessage("Розклад $messageType ${itemInfo.title} був видален успішно")
     }
 
     private fun loadScheduleForWeeks(model: BaseModel, week: String, id: Int) {
@@ -97,7 +116,8 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>() {
                     parentName = baseModel.parentName,
                     title = name,
                     course = baseModel.course,
-                    scheduleType = type)
+                    scheduleType = type,
+                    isPinned = baseModel.isPinned)
 
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)
@@ -109,12 +129,24 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>() {
         }
     }
 
-    fun onAddClicked() {
+    override fun onItemClick(item: BaseModel) {
+        viewState.openScheduleScreen(item)
+    }
+
+    override fun onAddClick() {
         val unwrappedType = type ?: return
         when(unwrappedType) {
             ScheduleType.GROUP -> viewState.openFacultyScreen(unwrappedType)
             ScheduleType.TEACHER -> viewState.showMessage("Click: Teacher")
             ScheduleType.AUDITORY -> viewState.showMessage("Click: Auditory")
+        }
+    }
+
+    override fun onPropertyClick(property: Property, adapterPosition: Int) {
+        when(property.type) {
+            PropertyType.UPDATE -> refreshSchedule(adapterPosition)
+            PropertyType.REMOVE -> removeSchedule(adapterPosition)
+            else -> return
         }
     }
 }

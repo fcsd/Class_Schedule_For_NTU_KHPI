@@ -10,7 +10,7 @@ import com.khpi.classschedule.presentation.base.BaseView
 interface CategoryItemView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showScheduleInfo(scheduleInfo: List<BaseModel>)
+    fun showScheduleInfo(scheduleInfo: List<BaseModel>, callback: CategoryItemPresenter)
 
     @StateStrategyType(SkipStrategy::class)
     fun openScheduleScreen(baseSchedule: BaseModel)

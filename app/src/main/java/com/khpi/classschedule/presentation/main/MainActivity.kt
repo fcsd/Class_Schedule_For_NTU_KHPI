@@ -7,11 +7,13 @@ import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,6 +25,8 @@ class MainActivity : BaseActivity(), MainView {
     @InjectPresenter lateinit var presenter: MainPresenter
     //@formatter:on
 
+    private var pinnedInfo: BaseModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,19 +37,8 @@ class MainActivity : BaseActivity(), MainView {
         setSupportActionBar(toolbar)
         btnToolbarBack.setOnClickListener { super.onBackPressed() }
 
-        val taskId = intent.getIntExtra(Constants.REQUEST_OPEN_TASK_INFO, -1)
-
-        if (taskId == -1) {
-            setVisibleViews(schedule_text, task_text, building_text, settings_text)
-            replaceFragment(CategoryListFragment.newInstance())
-        } else {
-            setVisibleViews(task_text, schedule_text, building_text, settings_text)
-            replaceFragment(TaskItemFragment.newInstance(taskId))
-        }
-
         schedule_fragment.setOnClickListener {
-            setVisibleViews(schedule_text, task_text, building_text, settings_text)
-            replaceFragment(CategoryListFragment.newInstance(), true)
+            pinnedInfo?.let { openScheduleScreen(it) } ?: openCategoryScreen()
         }
 
         task_fragment.setOnClickListener {
@@ -75,8 +68,26 @@ class MainActivity : BaseActivity(), MainView {
         tvToolbarTitle.text = title
     }
 
+    fun setToolbarTitleForSchedule(title: String) {
+        tvToolbarTitle.text = title
+        tvToolbarTitle.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.ic_arrow_down_white,0)
+    }
+
+    fun removeToolbarTitleFunctionForSchedule() {
+        tvToolbarTitle.setOnClickListener(null)
+        tvToolbarTitle.setCompoundDrawablesWithIntrinsicBounds(0,0, 0,0)
+    }
+
+    fun setToolbarTitleClickListener(function: (View) -> Unit) {
+        tvToolbarTitle.setOnClickListener(function)
+    }
+
     fun getToolbarTitle(): String {
         return tvToolbarTitle.text.toString()
+    }
+
+    fun getToolbarTitleView(): View {
+        return tvToolbarTitle
     }
 
     fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
@@ -117,4 +128,24 @@ class MainActivity : BaseActivity(), MainView {
     override fun showProgressDialog() {
         progress_bar.visibility = View.VISIBLE
     }
+
+    override fun openCategoryScreen() {
+        replaceFragment(CategoryListFragment.newInstance(), true)
+    }
+
+    override fun openScheduleScreen(pinnedInfo: BaseModel) {
+
+        this.pinnedInfo = pinnedInfo
+        val taskId = intent.getIntExtra(Constants.REQUEST_OPEN_TASK_INFO, -1)
+
+        if (taskId == -1) {
+            val type = pinnedInfo.scheduleType ?: return
+            setVisibleViews(schedule_text, task_text, building_text, settings_text)
+            replaceFragment(ScheduleListFragment.newInstance(pinnedInfo, type), true)
+        } else {
+            setVisibleViews(task_text, schedule_text, building_text, settings_text)
+            replaceFragment(TaskItemFragment.newInstance(taskId), true)
+        }
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.khpi.classschedule.presentation.main.fragments.category.item
 
-
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import kotlinx.android.synthetic.main.fragment_category_item.*
-
 
 class CategoryItemFragment : BaseFragment(), CategoryItemView {
 
@@ -51,8 +49,8 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
         presenter.setScheduleInfo(scheduleInfo, type)
     }
 
-    override fun showScheduleInfo(scheduleInfo: List<BaseModel>) {
-        generalAdapter = CategoryItemAdapter(scheduleInfo, presenter)
+    override fun showScheduleInfo(scheduleInfo: List<BaseModel>, callback: CategoryItemPresenter) {
+        generalAdapter = CategoryItemAdapter(scheduleInfo, callback, callback)
         recycler_general.layoutManager = LinearLayoutManager(context)
         recycler_general.adapter = generalAdapter
     }
@@ -63,9 +61,7 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
 
     override fun openScheduleScreen(baseSchedule: BaseModel) {
         baseSchedule.scheduleType?.let {
-            (activity as? MainActivity)?.replaceFragment(
-                    ScheduleListFragment.newInstance(baseSchedule, it))
-        }
+            (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(baseSchedule, it)) }
     }
 
     override fun notifyDataSetChanged() {

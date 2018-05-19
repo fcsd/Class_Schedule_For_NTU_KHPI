@@ -27,6 +27,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     private var scheduleSecondWeek: Schedule? = null
     private var group: BaseModel? = null
     private var type: ScheduleType? = null
+    private var schedules: MutableList<BaseModel> = mutableListOf()
 
     private var currentWeek = 1
     private var currentTab = 0
@@ -45,7 +46,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         val id = group.id ?: return
         val groupPair = scheduleRepository.getSchedule(Constants.GROUP_PREFIX, id)
         scheduleFirstWeek = groupPair?.first ?: run {
-            loadScheduleFromInternet(id, isUpdate = false)
+            loadScheduleFromInternet(id)
             return
         }
 
@@ -55,13 +56,13 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         configureSchedule()
     }
 
-    private fun loadScheduleFromInternet(id: Int, isUpdate: Boolean) {
+    private fun loadScheduleFromInternet(id: Int) {
         viewState.showProgressDialog()
-        loadScheduleForWeeks("Schedule", id, isUpdate)
-        loadScheduleForWeeks("Schedule2", id, isUpdate)
+        loadScheduleForWeeks("Schedule", id)
+        loadScheduleForWeeks("Schedule2", id)
     }
 
-    private fun loadScheduleForWeeks(week: String, id: Int, isUpdate: Boolean) {
+    private fun loadScheduleForWeeks(week: String, id: Int) {
         scheduleFirstWeek = null
         scheduleSecondWeek = null
 
@@ -88,7 +89,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
                         setNormalFormForSchedule(friday))
             }
 
-            synchronizeThreads(group, scheduleFirstWeek, scheduleSecondWeek, isUpdate)
+            synchronizeThreads(group, scheduleFirstWeek, scheduleSecondWeek)
 
         }, {
             val errorMessage = it ?: "Unknown error"
@@ -99,8 +100,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     private fun synchronizeThreads(baseModel: BaseModel?,
                                    scheduleFirstWeek: Schedule?,
-                                   scheduleSecondWeek: Schedule?,
-                                   isUpdate: Boolean) {
+                                   scheduleSecondWeek: Schedule?) {
         if (scheduleFirstWeek != null && scheduleSecondWeek != null) {
 
             val id = baseModel?.id ?: return
@@ -120,15 +120,10 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)
 
-            scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate)
+            scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = false)
 
             viewState.dismissProgressDialog()
-
-            if (isUpdate) {
-                viewState.showMessage("Розклад $messageType $name був оновлений успiшно")
-            } else {
-                viewState.showMessage("Розклад $messageType $name був збережеий успiшно")
-            }
+            viewState.showMessage("Розклад $messageType $name був збережеий успiшно")
 
             viewState.showToolbarIcons()
             configureSchedule()
@@ -148,20 +143,6 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         showSchedule()
     }
 
-    fun onRemoveClicked() {
-
-        val type = type ?: return
-        val id = group?.id ?: return
-
-        val prefix = getPrefixByType(type)
-        val messageType = getMessageByType(type)
-
-        scheduleRepository.removeSchedule(prefix, id)
-
-        viewState.showMessage("Розклад $messageType ${group?.title} був видален успішно")
-        viewState.closeScreen()
-    }
-
     private fun configureSchedule() {
         val dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
         currentTab = if (dayOfWeek == 1 || dayOfWeek == 7) {
@@ -179,12 +160,27 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         }
     }
 
-    fun onRefreshClicked() {
-        val id = group?.id ?: return
-        loadScheduleFromInternet(id, isUpdate = true)
-    }
-
     fun setCurrentItem(position: Int) {
         currentTab = position
+    }
+
+    fun loadAllSchedules() {
+        schedules = scheduleRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
+        schedules.addAll(scheduleRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX))
+        schedules.addAll(scheduleRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX))
+        viewState.showSchedulesPopup(schedules)
+    }
+
+    fun openCategoryScreen() {
+        viewState.openCategoryScreen()
+    }
+
+    fun changeCurrentGroup(position: Int) {
+        val info = schedules[position]
+        val title = info.title ?: return
+
+        setType(info.scheduleType)
+        loadScheduleById(info)
+        viewState.changeToolbarTitle(title)
     }
 }

@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.base
 import com.arellomobile.mvp.MvpPresenter
 import com.khpi.classschedule.App
 import com.khpi.classschedule.Constants
+import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleItem
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.di.AppComponent
@@ -58,5 +59,9 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>() {
         }
 
         return withoutEmptySchedule.sortedBy { it.couple }
+    }
+
+    protected fun findPinnedInfoOrNull(infos: List<BaseModel>): BaseModel? {
+        return infos.find { it.isPinned }
     }
 }
