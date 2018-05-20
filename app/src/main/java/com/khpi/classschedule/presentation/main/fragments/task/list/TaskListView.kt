@@ -17,9 +17,6 @@ interface TaskListView : BaseView {
     fun openDetailTaskScreen(task: Task)
 
     @StateStrategyType(SkipStrategy::class)
-    fun disableTaskNotification(task: Task)
-
-    @StateStrategyType(SkipStrategy::class)
     fun configureViewForAdding(resId: Int, action: () -> Unit)
 
     @StateStrategyType(SkipStrategy::class)

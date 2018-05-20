@@ -5,6 +5,7 @@ import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
+import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import com.khpi.classschedule.views.BasePropertyAdapter
@@ -17,6 +18,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
     //@formatter:off
     @Inject lateinit var scheduleRepository: ScheduleRepository
     @Inject lateinit var scheduleManager: ScheduleManager
+    @Inject lateinit var taskRepository: TaskRepository
     //@formatter:on
 
     init {
@@ -60,12 +62,13 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
     private fun removeSchedule(adapterPosition: Int) {
 
         val itemInfo = scheduleInfo[adapterPosition]
-        val itemId = itemInfo.id ?: return
+        val id = itemInfo.id ?: return
         val type = type ?: return
+        val group = itemInfo.title ?: return
         val prefix = getPrefixByType(type)
         val messageType = getMessageByType(type)
 
-        scheduleRepository.removeSchedule(prefix, itemId)
+        scheduleRepository.removeSchedule(prefix, id)
 
         scheduleInfo.removeAt(adapterPosition)
 
@@ -73,8 +76,18 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             setFirstSchedulePinned()
         }
 
+        removeTasksByGroup(prefix, group)
+
         viewState.notifyDataSetChanged()
         viewState.showMessage("Розклад $messageType ${itemInfo.title} був видален успішно")
+    }
+
+    private fun removeTasksByGroup(prefix: String, group: String) {
+        val tasks = taskRepository.getTasksByGroup(prefix, group)
+        tasks?.forEach { task ->
+            taskRepository.removeTask(prefix, task.id)
+            viewState.disableTaskNotification(task)
+        }
     }
 
     private fun setFirstSchedulePinned() {
@@ -90,6 +103,9 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             val prefix = getPrefixByType(type)
             newPinned.isPinned = true
             scheduleRepository.saveScheduleInfo(prefix, id, newPinned)
+            viewState.requestChangePinToActivity(newPinned)
+        } else {
+            viewState.requestChangePinToActivity(null)
         }
     }
 

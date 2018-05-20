@@ -108,4 +108,9 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         teacherPinFragment?.notifyDataSetChanged()
         auditotyPinFragment?.notifyDataSetChanged()
     }
+
+    override fun requestChangePinToActivity(newInfo: BaseModel) {
+        (activity as? MainActivity)?.changePin(newInfo)
+    }
+
 }

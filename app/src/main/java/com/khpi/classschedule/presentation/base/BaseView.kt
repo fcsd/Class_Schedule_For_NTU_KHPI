@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.base
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.khpi.classschedule.data.models.Task
 
 interface BaseView : MvpView {
     fun configureView()
@@ -30,4 +31,7 @@ interface BaseView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun overrideBackAnimation()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun disableTaskNotification(task: Task)
 }

@@ -1,5 +1,9 @@
 package com.khpi.classschedule.presentation.main
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -8,12 +12,14 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
+import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -149,4 +155,14 @@ class MainActivity : BaseActivity(), MainView {
         }
     }
 
+    override fun disableTaskNotification(task: Task) {
+        val notificationIntent = Intent(this, TaskActionAlarmAdapter::class.java)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getBroadcast(this, task.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        alarmManager.cancel(pendingIntent)
+    }
+
+    fun changePin(newPinned: BaseModel?) {
+        pinnedInfo = newPinned
+    }
 }

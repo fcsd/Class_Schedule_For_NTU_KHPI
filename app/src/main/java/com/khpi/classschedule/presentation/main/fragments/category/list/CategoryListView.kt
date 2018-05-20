@@ -24,6 +24,9 @@ interface CategoryListView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun changeToolbarSecondButtonForShow()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun requestChangePinToActivity(newInfo: BaseModel)
 }
 
 

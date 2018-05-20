@@ -67,4 +67,9 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
     override fun notifyDataSetChanged() {
         generalAdapter.notifyDataSetChanged()
     }
+
+    override fun requestChangePinToActivity(newPinned: BaseModel?) {
+        (activity as? MainActivity)?.changePin(newPinned)
+    }
+
 }

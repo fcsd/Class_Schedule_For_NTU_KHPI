@@ -111,14 +111,6 @@ class TaskListFragment : BaseFragment(), TaskListView {
         popupMenu.show()
     }
 
-    override fun disableTaskNotification(task: Task) {
-        val ctx = context ?: return
-        val notificationIntent = Intent(ctx, TaskActionAlarmAdapter::class.java)
-        val alarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = PendingIntent.getBroadcast(ctx, task.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.cancel(pendingIntent)
-    }
-
     override fun openActionTaskScreen() {
         (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = null, group = null, subject = null, type = null))
     }

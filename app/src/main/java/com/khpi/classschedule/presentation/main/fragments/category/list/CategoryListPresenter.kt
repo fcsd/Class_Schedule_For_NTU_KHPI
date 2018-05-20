@@ -82,6 +82,7 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
         scheduleRepository.saveScheduleInfo(newPrefix, newId, newInfo)
         viewState.changeToolbarSecondButtonForShow()
         viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories)
+        viewState.requestChangePinToActivity(newInfo)
         viewState.showMessage("Ви успішно закріпили новий розклад")
     }
 }

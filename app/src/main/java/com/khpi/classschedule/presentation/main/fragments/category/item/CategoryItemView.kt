@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseView
 
 interface CategoryItemView : BaseView {
@@ -17,4 +18,7 @@ interface CategoryItemView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun openFacultyScreen(type: ScheduleType)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun requestChangePinToActivity(newPinned: BaseModel?)
 }
