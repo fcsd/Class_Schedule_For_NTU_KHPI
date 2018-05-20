@@ -42,6 +42,11 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
         presenter.onViewLoaded()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
+    }
+
     override fun configureView() {
         val ctx = context?: return
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.task_detail))

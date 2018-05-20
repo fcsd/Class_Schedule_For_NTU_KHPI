@@ -31,7 +31,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
 
     fun loadGroupListById(facultyId: Int) {
 
-        viewState.showProgressDialog()
+        viewState.setCustomProgressBarVisibility(true)
         scheduleManager.getGroupListById(facultyId, { groups ->
 
             when (type) {
@@ -42,7 +42,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
 
         }, {
             val errorMessage = it ?: "Unknown error"
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showError(errorMessage)
         })
     }
@@ -54,7 +54,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
         val groupsByFourthCourse = groups.filter { it.course == 4 }
         val groupsByFifthCourse = groups.filter { it.course == 5 }
         val groupsBySixthCourse = groups.filter { it.course == 6 }
-        viewState.dismissProgressDialog()
+        viewState.setCustomProgressBarVisibility(false)
         viewState.showGroupsByCourse(groupsByFirstCourse, groupsBySecondCourse, groupsByThirdCourse,
                 groupsByFourthCourse, groupsByFifthCourse, groupsBySixthCourse, ScheduleType.GROUP, currentTab)
     }

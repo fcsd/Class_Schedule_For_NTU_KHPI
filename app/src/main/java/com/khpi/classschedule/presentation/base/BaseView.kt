@@ -18,10 +18,7 @@ interface BaseView : MvpView {
     fun showMessage(message: String)
 
     @StateStrategyType(SkipStrategy::class)
-    fun dismissProgressDialog()
-
-    @StateStrategyType(SkipStrategy::class)
-    fun showProgressDialog()
+    fun setCustomProgressBarVisibility(visibility: Boolean)
 
     @StateStrategyType(SkipStrategy::class)
     fun notifyDataSetChanged()

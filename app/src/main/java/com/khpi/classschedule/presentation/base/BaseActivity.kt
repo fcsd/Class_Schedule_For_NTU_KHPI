@@ -8,6 +8,7 @@ import android.view.ViewStub
 import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.khpi.classschedule.R
+import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.views.SnackbarMessenger
 import kotlin.reflect.KClass
 
@@ -26,13 +27,15 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
     }
 
     fun replaceFragment(@IdRes contentId: Int, fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
-
         if ((supportFragmentManager.findFragmentByTag(fragment.TAG) as? BaseFragment)?.isVisible == true) {
             return
         }
 
         if (isNeedClearBackStack) {
             clearBackStack()
+            (this as? MainActivity)?.setBackButtonVisibility(false)
+        } else {
+            (this as? MainActivity)?.setBackButtonVisibility(true)
         }
 
         supportFragmentManager.beginTransaction()
@@ -79,10 +82,13 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 
     fun goBack() {
         this.hideKeyboard()
-        if (supportFragmentManager.backStackEntryCount == 1) {
-            finish()
-        } else {
-            super.onBackPressed()
+        when {
+            supportFragmentManager.backStackEntryCount == 1 -> finish()
+            supportFragmentManager.backStackEntryCount == 2 -> {
+                (this as? MainActivity)?.setBackButtonVisibility(false)
+                super.onBackPressed()
+            }
+            else -> super.onBackPressed()
         }
         overrideBackAnimation()
     }

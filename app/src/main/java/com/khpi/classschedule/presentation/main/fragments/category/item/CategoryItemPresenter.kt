@@ -54,7 +54,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         val itemInfo = scheduleInfo[adapterPosition]
         val itemId = itemInfo.id ?: return
 
-        viewState.showProgressDialog()
+        viewState.setCustomProgressBarVisibility(true)
         loadScheduleForWeeks(itemInfo, "Schedule", itemId)
         loadScheduleForWeeks(itemInfo, "Schedule2", itemId)
     }
@@ -138,7 +138,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
 
         }, {
             val errorMessage = it ?: "Unknown error"
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showError(errorMessage)
         })
     }
@@ -162,7 +162,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
 
             scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = true)
 
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showMessage("Розклад $messageType $name був оновлений успiшно")
         }
     }

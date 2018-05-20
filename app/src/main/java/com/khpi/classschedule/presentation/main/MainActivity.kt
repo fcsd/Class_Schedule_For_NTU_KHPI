@@ -22,6 +22,7 @@ import com.khpi.classschedule.presentation.main.fragments.schedule.list.Schedule
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
+import com.khpi.classschedule.utils.setVisibility
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -75,17 +76,19 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     fun setToolbarTitleForSchedule(title: String) {
-        tvToolbarTitle.text = title
-        tvToolbarTitle.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.ic_arrow_down_white,0)
+        tvToolbarTitle.setVisibility(false)
+        tvToolbarTitleSchedule.setVisibility(true)
+        tvToolbarTitleSchedule.text = title
     }
 
     fun removeToolbarTitleFunctionForSchedule() {
+        tvToolbarTitleSchedule.setVisibility(false)
+        tvToolbarTitle.setVisibility(true)
         tvToolbarTitle.setOnClickListener(null)
-        tvToolbarTitle.setCompoundDrawablesWithIntrinsicBounds(0,0, 0,0)
     }
 
     fun setToolbarTitleClickListener(function: (View) -> Unit) {
-        tvToolbarTitle.setOnClickListener(function)
+        tvToolbarTitleSchedule.setOnClickListener(function)
     }
 
     fun getToolbarTitle(): String {
@@ -98,10 +101,6 @@ class MainActivity : BaseActivity(), MainView {
 
     fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
         replaceFragment(R.id.vgFrame, fragment, isNeedClearBackStack)
-    }
-
-    fun setLeftClickListener(function: (View) -> Unit) {
-        btnToolbarBack.setOnClickListener(function)
     }
 
     fun setRightFirstNavigationIcon(icon: Drawable?) {
@@ -125,14 +124,6 @@ class MainActivity : BaseActivity(), MainView {
 
     fun setRightSecondClickListener(function: (View) -> Unit) {
         btnToolbarRight2.setOnClickListener(function)
-    }
-
-    override fun dismissProgressDialog() {
-        progress_bar.visibility = View.GONE
-    }
-
-    override fun showProgressDialog() {
-        progress_bar.visibility = View.VISIBLE
     }
 
     override fun openCategoryScreen() {
@@ -164,5 +155,13 @@ class MainActivity : BaseActivity(), MainView {
 
     fun changePin(newPinned: BaseModel?) {
         pinnedInfo = newPinned
+    }
+
+    override fun setCustomProgressBarVisibility(visibility: Boolean) {
+        progress_bar.setVisibility(visibility)
+    }
+
+    fun setBackButtonVisibility(visibility: Boolean) {
+        btnToolbarBack.setVisibility(visibility)
     }
 }

@@ -24,18 +24,18 @@ class FacultyListPresenter : BasePresenter<FacultyListView>(), BaseAdapter.OnBas
     }
 
     fun loadFacultyList() {
-        viewState.showProgressDialog()
+        viewState.setCustomProgressBarVisibility(true)
         scheduleManager.getFacultyList( { faculties ->
 
             backupFaculties = faculties
             this.faculties = backupFaculties.toMutableList()
 
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.onFacultyLoaded(this.faculties, this)
 
         }, {
             val errorMessage = it ?: "Unknown error"
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showError(errorMessage)
         })
     }

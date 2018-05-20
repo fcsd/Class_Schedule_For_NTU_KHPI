@@ -19,12 +19,8 @@ abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
         (activity as? BaseView)?.showMessage(message)
     }
 
-    override fun showProgressDialog() {
-        (activity as? BaseView)?.showProgressDialog()
-    }
-
-    override fun dismissProgressDialog() {
-        (activity as? BaseView)?.dismissProgressDialog()
+    override fun setCustomProgressBarVisibility(visibility: Boolean) {
+        (activity as? BaseView)?.setCustomProgressBarVisibility(visibility)
     }
 
     override fun notifyDataSetChanged() {

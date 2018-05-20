@@ -57,7 +57,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     }
 
     private fun loadScheduleFromInternet(id: Int) {
-        viewState.showProgressDialog()
+        viewState.setCustomProgressBarVisibility(true)
         loadScheduleForWeeks("Schedule", id)
         loadScheduleForWeeks("Schedule2", id)
     }
@@ -93,7 +93,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
         }, {
             val errorMessage = it ?: "Unknown error"
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showError(errorMessage)
         })
     }
@@ -122,7 +122,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
             scheduleRepository.saveSchedule(prefix, id, scheduleFirstWeek, scheduleSecondWeek, scheduleInfo, isUpdate = false)
 
-            viewState.dismissProgressDialog()
+            viewState.setCustomProgressBarVisibility(false)
             viewState.showMessage("Розклад $messageType $name був збережеий успiшно")
 
             viewState.showToolbarIcons()
