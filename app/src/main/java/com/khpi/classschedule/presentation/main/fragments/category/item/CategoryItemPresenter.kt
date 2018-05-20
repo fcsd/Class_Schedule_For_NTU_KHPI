@@ -1,6 +1,7 @@
 package com.khpi.classschedule.presentation.main.fragments.category.item
 
 import com.arellomobile.mvp.InjectViewState
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
@@ -67,8 +68,29 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         scheduleRepository.removeSchedule(prefix, itemId)
 
         scheduleInfo.removeAt(adapterPosition)
+
+        if (itemInfo.isPinned) {
+            setFirstSchedulePinned()
+        }
+
         viewState.notifyDataSetChanged()
         viewState.showMessage("Розклад $messageType ${itemInfo.title} був видален успішно")
+    }
+
+    private fun setFirstSchedulePinned() {
+
+        val schedules = scheduleRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
+        schedules.addAll(scheduleRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX))
+        schedules.addAll(scheduleRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX))
+
+        if (schedules.isNotEmpty()) {
+            val newPinned = schedules.first()
+            val id = newPinned.id ?: return
+            val type = newPinned.scheduleType ?: return
+            val prefix = getPrefixByType(type)
+            newPinned.isPinned = true
+            scheduleRepository.saveScheduleInfo(prefix, id, newPinned)
+        }
     }
 
     private fun loadScheduleForWeeks(model: BaseModel, week: String, id: Int) {

@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.base
 import android.content.Context
 import android.content.Intent
 import android.support.annotation.IdRes
+import android.support.v4.app.FragmentManager
 import android.view.ViewStub
 import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -25,6 +26,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
     }
 
     fun replaceFragment(@IdRes contentId: Int, fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
+
         if ((supportFragmentManager.findFragmentByTag(fragment.TAG) as? BaseFragment)?.isVisible == true) {
             return
         }
@@ -43,7 +45,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
     private fun clearBackStack() {
         val range = 0 until supportFragmentManager.backStackEntryCount
         for (i in range) {
-            supportFragmentManager.popBackStackImmediate()
+            supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

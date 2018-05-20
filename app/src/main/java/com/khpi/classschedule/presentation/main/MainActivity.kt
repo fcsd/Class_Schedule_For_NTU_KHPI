@@ -130,6 +130,7 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun openCategoryScreen() {
+        setVisibleViews(schedule_text, task_text, building_text, settings_text)
         replaceFragment(CategoryListFragment.newInstance(), true)
     }
 
