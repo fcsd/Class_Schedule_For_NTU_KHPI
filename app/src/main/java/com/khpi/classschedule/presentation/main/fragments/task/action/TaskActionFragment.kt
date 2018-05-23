@@ -22,6 +22,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.khpi.classschedule.data.models.Task
 import android.app.PendingIntent
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.models.CoupleType
 import com.khpi.classschedule.presentation.main.MainActivity
 
@@ -38,6 +39,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
     private var group: String? = null
     private var subject: String? = null
     private var type: String? = null
+    private var prefix = ""
 
     companion object {
         fun newInstance(task: Task?, group: String?, subject: String?, type: String?): TaskActionFragment = TaskActionFragment().apply {
@@ -65,6 +67,8 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
 
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.saveTask() }
         name_content_text.setOnClickListener { presenter.prepareToShowGroup() }
+
+
         subject_content_text.setOnClickListener { presenter.prepareToShowSubject() }
         date_content_calendar.setOnClickListener { presenter.prepareToShowDatePicker() }
 
@@ -192,11 +196,27 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
                 .putExtra(TaskActionAlarmAdapter.NOTIFICATION_ID, task.id)
                 .putExtra(TaskActionAlarmAdapter.NOTIFICATION_TITLE, task.group)
                 .putExtra(TaskActionAlarmAdapter.NOTIFICATION_MESSAGE, task.description)
+                .putExtra(TaskActionAlarmAdapter.NOTIFICATION_CHANNEL, prefix)
 
         val pendingIntent = PendingIntent.getBroadcast(ctx, task.id,
                 notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         val alarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, task.notificationTime, pendingIntent)
+    }
+
+    override fun showTitleByType(prefix: String) {
+        this.prefix = prefix
+
+        when(prefix) {
+            Constants.GROUP_PREFIX -> {
+                name_title_text.text = context?.resources?.getString(R.string.group)
+                name_content_text.hint = context?.resources?.getString(R.string.choose_group)
+            }
+            Constants.TEACHER_PREFIX -> {
+                name_title_text.text = context?.resources?.getString(R.string.teacher)
+                name_content_text.hint = context?.resources?.getString(R.string.choose_teacher)
+            }
+        }
     }
 
     override fun closeScreen() {

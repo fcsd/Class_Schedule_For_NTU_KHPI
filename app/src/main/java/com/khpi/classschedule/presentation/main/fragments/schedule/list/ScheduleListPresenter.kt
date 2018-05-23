@@ -38,6 +38,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     fun setType(type: ScheduleType?) {
         this.type = type
+        viewState.changeScheduleType(type)
     }
 
     fun loadScheduleById(group: BaseModel) {

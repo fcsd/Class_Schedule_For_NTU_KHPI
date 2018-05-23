@@ -10,7 +10,8 @@ interface ParametersView: BaseView {
     fun setPreferencesValue(invert: Boolean,
                             everydayUpdate: Boolean,
                             vibrate: Boolean,
-                            sound: Boolean)
+                            sound: Boolean,
+                            prefix: String?)
 
     @StateStrategyType(SkipStrategy::class)
     fun setRemoveValue(remove: String)

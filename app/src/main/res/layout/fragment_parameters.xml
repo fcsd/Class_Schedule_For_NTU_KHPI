@@ -125,21 +125,6 @@
             android:text="@string/task"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/settings_task_switch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/task_params_title"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/task_params_type"
-            android:textOff="@string/task_params_students"
-            android:textOn="@string/task_params_teachers"
-            android:textSize="@dimen/_12sdp" />
-
         <LinearLayout
             android:id="@+id/layout_remove_task"
             android:orientation="vertical"
@@ -147,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_task_switch"
+            app:layout_constraintTop_toBottomOf="@+id/task_params_title"
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView
@@ -181,13 +166,62 @@
             android:background="@drawable/dotted" />
 
         <TextView
+            android:id="@+id/type_params_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            android:text="@string/user_type"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_12sdp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/type_params_title">
+
+            <RadioButton
+                android:id="@+id/radio_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user_student"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:paddingStart="@dimen/_12sdp"/>
+
+            <RadioButton
+                android:id="@+id/radio_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user_teacher"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:paddingStart="@dimen/_12sdp" />
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_type"
+            android:background="@drawable/dotted" />
+
+        <TextView
             android:id="@+id/settings_info_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            app:layout_constraintTop_toBottomOf="@+id/divider4"
             app:layout_constraintRight_toRightOf="parent"
             android:text="@string/info_title"
             android:textColor="@color/colorPrimary"
@@ -206,7 +240,7 @@
             android:textSize="@dimen/_12sdp" />
 
         <View
-            android:id="@+id/divider4"
+            android:id="@+id/divider5"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_12sdp"
@@ -222,7 +256,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
-            app:layout_constraintTop_toBottomOf="@+id/divider4"
+            app:layout_constraintTop_toBottomOf="@+id/divider5"
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="@color/colorPrimary"
             android:text="@string/developer_title"

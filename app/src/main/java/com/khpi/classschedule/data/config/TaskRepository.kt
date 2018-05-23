@@ -3,7 +3,6 @@ package com.khpi.classschedule.data.config
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.models.Task
 
 class TaskRepository(context: Context, private val gson : Gson) {
@@ -41,15 +40,15 @@ class TaskRepository(context: Context, private val gson : Gson) {
         return getAllTasks(prefix).filter { it.group == group }
     }
 
-    fun saveTask(task: Task, isUpdate: Boolean) {
+    fun saveTask(prefix: String, task: Task, isUpdate: Boolean) {
         val prefsEditor = sp.edit()
         val jsonTask = gson.toJson(task)
 
-        prefsEditor.putString("${Constants.GROUP_PREFIX} ${task.id} task", jsonTask)
+        prefsEditor.putString("$prefix ${task.id} task", jsonTask)
         prefsEditor.apply()
 
         if (!isUpdate) {
-            addKeyTask(Constants.GROUP_PREFIX, task.id)
+            addKeyTask(prefix, task.id)
         }
     }
 

@@ -34,4 +34,14 @@ class SettingsRepository(context: Context) {
     fun getRemovePosition(): Int {
         return sp.getInt("remove_task", 0)
     }
+
+    fun saveUserPrefix(prefix: String) {
+        val prefsEditor = sp.edit()
+        prefsEditor.putString("prefix", prefix)
+        prefsEditor.apply()
+    }
+
+    fun getUserPrefix(): String? {
+        return sp.getString("prefix", null)
+    }
 }

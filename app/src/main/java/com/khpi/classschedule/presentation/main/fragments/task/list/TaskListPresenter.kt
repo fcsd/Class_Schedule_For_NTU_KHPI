@@ -24,6 +24,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     }
 
     private var tasks = mutableListOf<Task>()
+    private var prefix: String = ""
 
     override fun onViewLoaded() {
         viewState.configureView()
@@ -31,9 +32,11 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
 
     fun loadActiveTask() {
 
-        if (scheduleRepository.isHasSavedGroupByType(Constants.GROUP_PREFIX)) {
+        prefix = settingsRepository.getUserPrefix() ?: return
 
-            tasks = taskRepository.getAllTasks(Constants.GROUP_PREFIX)
+        if (scheduleRepository.isHasSavedGroupByType(prefix)) {
+
+            tasks = taskRepository.getAllTasks(prefix)
             removeOutdatedTasks()
             if (tasks.isEmpty()) {
                 viewState.configureViewForAdding(R.string.add_task_empty, {
@@ -48,9 +51,15 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
             }
             viewState.showActiveTasks(tasks, this)
         } else {
-            viewState.configureViewForAdding(R.string.add_schedule_from_task, {
-                viewState.openAddScheduleScreen()
-            })
+            when(prefix) {
+                Constants.GROUP_PREFIX -> viewState.configureViewForAdding(R.string.add_group_schedule_from_task, {
+                    viewState.openAddScheduleScreen()
+                })
+                Constants.TEACHER_PREFIX -> viewState.configureViewForAdding(R.string.add_teacher_schedule_from_task, {
+                    viewState.openAddScheduleScreen()
+                })
+            }
+
         }
     }
 
@@ -70,7 +79,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         val iterator = tasks.iterator()
         for (task in iterator) {
             if (task.notificationTime + 1000 * 60 * 60 * 24 + mills < System.currentTimeMillis()) {
-                taskRepository.removeTask(Constants.GROUP_PREFIX, task.id)
+                taskRepository.removeTask(prefix, task.id)
                 viewState.disableTaskNotification(task)
                 iterator.remove()
             }
@@ -91,7 +100,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     }
 
     private fun removeTask(task: Task) {
-        taskRepository.removeTask(Constants.GROUP_PREFIX, task.id)
+        taskRepository.removeTask(prefix, task.id)
         tasks.remove(task)
         viewState.disableTaskNotification(task)
         viewState.notifyDataSetChanged()
@@ -114,7 +123,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         }
 
         val sortedIndex = sortedTask.map { it.id }
-        taskRepository.saveTaskSortedIndex(Constants.GROUP_PREFIX, sortedIndex)
+        taskRepository.saveTaskSortedIndex(prefix, sortedIndex)
 
         tasks.clear()
         tasks.addAll(sortedTask)

@@ -18,6 +18,7 @@ import com.khpi.classschedule.data.models.Developer
 import android.content.Intent
 import android.net.Uri
 
+
 class ParametersFragment : BaseFragment(), ParametersView {
 
     override var TAG = "ParametersFragment"
@@ -60,6 +61,13 @@ class ParametersFragment : BaseFragment(), ParametersView {
             presenter.changeSwitchValue(Constants.SOUND, isChecked)
         })
 
+        radio_type.setOnCheckedChangeListener({ _, checkedId ->
+            when (checkedId) {
+                R.id.radio_student -> presenter.onTypeChanged(Constants.GROUP_PREFIX)
+                R.id.radio_teacher -> presenter.onTypeChanged(Constants.TEACHER_PREFIX)
+            }
+        })
+
         layout_remove_task.setOnClickListener { presenter.loadTaskAlert() }
 
         settings_info_content.text = ctx.resources.getString(R.string.version_content, BuildConfig.VERSION_NAME)
@@ -72,11 +80,16 @@ class ParametersFragment : BaseFragment(), ParametersView {
         text_facebook.setOnClickListener { presenter.openDeveloperPage(Developer.BERK_ARSLAN.link) }
     }
 
-    override fun setPreferencesValue(invert: Boolean, everydayUpdate: Boolean, vibrate: Boolean, sound: Boolean) {
+    override fun setPreferencesValue(invert: Boolean, everydayUpdate: Boolean, vibrate: Boolean, sound: Boolean, prefix: String?) {
         settings_invert_switch.isChecked = invert
         settings_update_switch.isChecked = everydayUpdate
         settings_vibrate_switch.isChecked = vibrate
         settings_sound_switch.isChecked = sound
+
+        when(prefix) {
+            Constants.GROUP_PREFIX -> radio_student.isChecked = true
+            Constants.TEACHER_PREFIX -> radio_teacher.isChecked = true
+        }
     }
 
     override fun setRemoveValue(remove: String) {
@@ -96,5 +109,4 @@ class ParametersFragment : BaseFragment(), ParametersView {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         startActivity(browserIntent)
     }
-
 }

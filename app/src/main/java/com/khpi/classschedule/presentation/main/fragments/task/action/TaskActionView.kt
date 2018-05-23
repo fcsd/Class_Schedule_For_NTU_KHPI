@@ -25,6 +25,8 @@ interface TaskActionView : BaseView {
 
     fun setConfirmButtonEnabled(enabled: Boolean)
 
+    fun showTitleByType(prefix: String)
+
     @StateStrategyType(SkipStrategy::class)
     fun closeScreen()
 
@@ -36,5 +38,4 @@ interface TaskActionView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun setGroupAndSubject(group: String, subject: String, type: CoupleType)
-
 }

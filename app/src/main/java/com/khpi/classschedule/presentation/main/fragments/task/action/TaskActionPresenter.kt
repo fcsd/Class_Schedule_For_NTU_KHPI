@@ -1,8 +1,8 @@
 package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import com.arellomobile.mvp.InjectViewState
-import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.config.ScheduleRepository
+import com.khpi.classschedule.data.config.SettingsRepository
 import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
@@ -13,12 +13,13 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
     @Inject lateinit var taskRepository: TaskRepository
     @Inject lateinit var scheduleRepository: ScheduleRepository
+    @Inject lateinit var settingsRepository: SettingsRepository
 
     init {
         injector().inject(this)
     }
 
-    private var prefix: String? = null
+    private var prefix = ""
     private var infoTypes: MutableList<BaseModel>? = null
     private var currentTask: Task? = null
 
@@ -29,10 +30,11 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
     private var description = ""
 
     override fun onViewLoaded() {
-        prefix = getPrefixByType(ScheduleType.GROUP)
-        prefix?.let { infoTypes = scheduleRepository.getScheduleInfoByTypes(it) }
+        prefix = settingsRepository.getUserPrefix() ?: return
+        infoTypes = scheduleRepository.getScheduleInfoByTypes(prefix)
         checkAllFieldAreFilled()
         viewState.configureView()
+        viewState.showTitleByType(prefix)
     }
 
     fun loadInfoOfExistingTask(task: Task?) {
@@ -75,7 +77,7 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         }
 
         val id = infoTypes?.find { it.title == group }?.id ?: return
-        val schedulePair = prefix?.let { scheduleRepository.getSchedule(it, id) }
+        val schedulePair = scheduleRepository.getSchedule(prefix, id)
 
         val scheduleForFirstWeek = schedulePair?.first ?: return
         val scheduleForSecondWeek = schedulePair.second
@@ -157,13 +159,13 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
 
         currentTask?.let {
             val task = Task(it.id, group, subject, selectedType, notificationTime, description)
-            taskRepository.saveTask(task, true)
+            taskRepository.saveTask(prefix, task, true)
             viewState.showMessage("Завдання було оновлено")
             viewState.configureNotification(task)
         } ?: run {
-            val id = taskRepository.getLastTaskId(Constants.GROUP_PREFIX) + 1
+            val id = taskRepository.getLastTaskId(prefix) + 1
             val task = Task(id, group, subject, selectedType, notificationTime, description)
-            taskRepository.saveTask(task, false)
+            taskRepository.saveTask(prefix, task, false)
             viewState.showMessage("Завдання було створено")
             viewState.configureNotification(task)
         }

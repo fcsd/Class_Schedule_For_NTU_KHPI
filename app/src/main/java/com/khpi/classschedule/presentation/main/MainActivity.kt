@@ -77,6 +77,13 @@ class MainActivity : BaseActivity(), MainView {
 
     fun setToolbarTitleForSchedule(title: String) {
         tvToolbarTitle.setVisibility(false)
+
+        if (btnToolbarBack.visibility == View.GONE) {
+            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._210sdp).toInt()
+        } else {
+            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._170sdp).toInt()
+        }
+
         tvToolbarTitleSchedule.setVisibility(true)
         tvToolbarTitleSchedule.text = title
     }
@@ -118,6 +125,9 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     fun setRightSecondEnabled(enabled: Boolean, icon: Drawable?) {
+        if (btnToolbarRight2.visibility == View.GONE) {
+            btnToolbarRight2.setVisibility(true)
+        }
         btnToolbarRight2.isClickable = enabled
         btnToolbarRight2.setImageDrawable(icon)
     }

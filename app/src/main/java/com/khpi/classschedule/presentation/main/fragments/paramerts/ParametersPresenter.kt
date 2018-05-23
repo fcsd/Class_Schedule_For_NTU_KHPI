@@ -26,7 +26,8 @@ class ParametersPresenter : BasePresenter<ParametersView>() {
         val vibrate = settingsRepository.getPreferenceByKey(Constants.VIBRATE)
         val sound = settingsRepository.getPreferenceByKey(Constants.SOUND)
         val remove = TaskRemove.values()[settingsRepository.getRemovePosition()].title
-        viewState.setPreferencesValue(invert, everydayUpdate, vibrate, sound)
+        val prefix = settingsRepository.getUserPrefix()
+        viewState.setPreferencesValue(invert, everydayUpdate, vibrate, sound, prefix)
         viewState.setRemoveValue(remove)
     }
 
@@ -48,5 +49,9 @@ class ParametersPresenter : BasePresenter<ParametersView>() {
 
     fun openDeveloperPage(link: String) {
         viewState.openDeveloperPage(link)
+    }
+
+    fun onTypeChanged(prefix: String) {
+        settingsRepository.saveUserPrefix(prefix)
     }
 }

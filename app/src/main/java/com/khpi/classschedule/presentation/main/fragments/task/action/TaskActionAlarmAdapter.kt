@@ -28,9 +28,10 @@ class TaskActionAlarmAdapter : BroadcastReceiver() {
     }
 
     companion object {
-        var NOTIFICATION_ID = "notification_id"
-        var NOTIFICATION_TITLE = "notification_title"
-        var NOTIFICATION_MESSAGE = "notification_message"
+        val NOTIFICATION_ID = "notification_id"
+        val NOTIFICATION_TITLE = "notification_title"
+        val NOTIFICATION_MESSAGE = "notification_message"
+        val NOTIFICATION_CHANNEL = "notification_channel"
     }
 
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
@@ -40,6 +41,7 @@ class TaskActionAlarmAdapter : BroadcastReceiver() {
         val id = intent.getIntExtra(NOTIFICATION_ID, 0)
         val title = intent.getStringExtra(NOTIFICATION_TITLE)
         val message = intent.getStringExtra(NOTIFICATION_MESSAGE)
+        val channel = intent.getStringExtra(NOTIFICATION_CHANNEL)
 
         val fragmentIntent = Intent(context, MainActivity::class.java)
                 .putExtra(Constants.REQUEST_OPEN_TASK_INFO, id)
@@ -50,7 +52,7 @@ class TaskActionAlarmAdapter : BroadcastReceiver() {
         val vibrate = settingsRepository.getPreferenceByKey(Constants.VIBRATE)
         val sound = settingsRepository.getPreferenceByKey(Constants.SOUND)
 
-        val builder = NotificationCompat.Builder(context, "Notification")
+        val builder = NotificationCompat.Builder(context, channel)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setAutoCancel(false)

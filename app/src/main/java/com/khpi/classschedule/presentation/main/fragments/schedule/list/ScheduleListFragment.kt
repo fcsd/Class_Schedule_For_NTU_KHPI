@@ -126,11 +126,14 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     }
 
     override fun changeToolbarTitle(title: String) {
-        (activity as? MainActivity)?.setToolbarTitle(title)
+        (activity as? MainActivity)?.setToolbarTitleForSchedule(title)
+    }
+
+    override fun changeScheduleType(type: ScheduleType?) {
+        this.type = type
     }
 
     override fun openCategoryScreen() {
         (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance())
     }
-
 }
