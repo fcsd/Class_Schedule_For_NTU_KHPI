@@ -12,4 +12,10 @@ interface FacultyListView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun openGroupScreen(model: BaseModel)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun reopenCurrentScreen(model: BaseModel, newFragmentTag: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openScheduleScreen(model: BaseModel)
 }

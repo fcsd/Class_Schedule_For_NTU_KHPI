@@ -19,4 +19,8 @@ object Constants {
     val EVERYDAY_UPDATE = "everyday_update"
     val VIBRATE = "vibrate"
     val SOUND = "sound"
+
+    val FACULTY_FRAGMENT = "FacultyListFragment"
+    val DEPARTMENT_FRAGMENT = "DepartmentListFragment"
+    val TEACHER_FRAGMENT = "TeacherListFragment"
 }

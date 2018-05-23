@@ -61,7 +61,8 @@ class CategoryItemAdapter(private val scheduleInfo: List<BaseModel>,
 
             itemView.general_name_text.text = item.title
             itemView.general_parent_text.text = item.parentName
-            itemView.general_additional_text.text = itemView.context.resources.getString(R.string.course, item.course)
+            item.course?.let { itemView.general_additional_text.text =
+                    itemView.context.resources.getString(R.string.course, it) }
             itemView.general_pin_image.setVisibility(item.isPinned)
             itemView.setOnClickListener { listenerToParent.onItemClick(item) }
 

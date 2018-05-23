@@ -126,6 +126,20 @@
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
 
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_task_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
+            app:layout_constraintTop_toBottomOf="@+id/task_params_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/task_params_type"
+            android:textOff="@string/task_params_students"
+            android:textOn="@string/task_params_teachers"
+            android:textSize="@dimen/_12sdp" />
+
         <LinearLayout
             android:id="@+id/layout_remove_task"
             android:orientation="vertical"
@@ -133,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/schedule_params_title"
-            app:layout_constraintTop_toBottomOf="@+id/task_params_title"
+            app:layout_constraintTop_toBottomOf="@+id/settings_task_switch"
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView
@@ -153,6 +167,8 @@
                 android:textSize="@dimen/_12sdp" />
 
         </LinearLayout>
+
+
 
         <View
             android:id="@+id/divider3"

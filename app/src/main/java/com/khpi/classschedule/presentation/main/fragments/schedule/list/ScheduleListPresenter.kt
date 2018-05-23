@@ -44,7 +44,9 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         this.group = group
 
         val id = group.id ?: return
-        val groupPair = scheduleRepository.getSchedule(Constants.GROUP_PREFIX, id)
+        val type = this.type ?: return
+        val prefix = getPrefixByType(type)
+        val groupPair = scheduleRepository.getSchedule(prefix, id)
         scheduleFirstWeek = groupPair?.first ?: run {
             loadScheduleFromInternet(id)
             return
@@ -58,15 +60,27 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
     private fun loadScheduleFromInternet(id: Int) {
         viewState.setCustomProgressBarVisibility(true)
-        loadScheduleForWeeks("Schedule", id)
-        loadScheduleForWeeks("Schedule2", id)
+
+        when(type) {
+            ScheduleType.GROUP -> {
+                loadScheduleForWeeks("Schedule", id)
+                loadScheduleForWeeks("Schedule2", id)
+            }
+            ScheduleType.TEACHER -> {
+                loadScheduleForWeeks("ScheduleP", id)
+                loadScheduleForWeeks("Schedule2P", id)
+            }
+            ScheduleType.AUDITORY -> {
+                throw NotImplementedError()
+            }
+        }
     }
 
-    private fun loadScheduleForWeeks(week: String, id: Int) {
+    private fun loadScheduleForWeeks(action: String, id: Int) {
         scheduleFirstWeek = null
         scheduleSecondWeek = null
 
-        scheduleManager.getScheduleByWeekById(week, id, { schedule ->
+        scheduleManager.getScheduleByWeekById(action, id, { schedule ->
 
             val monday = schedule.monday ?: return@getScheduleByWeekById
             val tuesday = schedule.tuesday ?: return@getScheduleByWeekById
@@ -74,14 +88,15 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val thursday = schedule.thursday ?: return@getScheduleByWeekById
             val friday = schedule.friday ?: return@getScheduleByWeekById
 
-            when (week) {
-                "Schedule" -> scheduleFirstWeek = Schedule(
+            if (action.contains("2"))  {
+                scheduleSecondWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
                         setNormalFormForSchedule(thursday),
                         setNormalFormForSchedule(friday))
-                "Schedule2" -> scheduleSecondWeek = Schedule(
+            } else {
+                scheduleFirstWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
@@ -105,7 +120,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
 
             val id = baseModel?.id ?: return
             val name = baseModel.title ?: return
-            val course = baseModel.course ?: return
+            val course = baseModel.course
             val type = this.type ?: return
 
             val needPinned = !scheduleRepository.isHasSavedGroup()

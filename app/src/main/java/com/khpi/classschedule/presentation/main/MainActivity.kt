@@ -91,12 +91,12 @@ class MainActivity : BaseActivity(), MainView {
         tvToolbarTitleSchedule.setOnClickListener(function)
     }
 
-    fun getToolbarTitle(): String {
-        return tvToolbarTitle.text.toString()
+    fun getToolbarTitleSchedule(): String {
+        return tvToolbarTitleSchedule.text.toString()
     }
 
-    fun getToolbarTitleView(): View {
-        return tvToolbarTitle
+    fun getToolbarTitleScheduleView(): View {
+        return tvToolbarTitleSchedule
     }
 
     fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {

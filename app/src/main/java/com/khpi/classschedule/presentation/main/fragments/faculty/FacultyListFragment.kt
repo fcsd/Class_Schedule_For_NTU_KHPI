@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.khpi.classschedule.Constants
 
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
@@ -14,24 +15,31 @@ import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListFragment
+import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import com.khpi.classschedule.views.BaseAdapter
 import kotlinx.android.synthetic.main.fragment_faculty_list.*
 
 class FacultyListFragment : BaseFragment(), FacultyListView {
 
-    override var TAG = "FacultyListFragment"
+    override var TAG = ""
 
     //@formatter:off
     @InjectPresenter lateinit var presenter: FacultyListPresenter
     //@formatter:on
 
     private var type: ScheduleType? = null
+    private var id: Int? = null
+    private var title: String? = null
     private lateinit var facultyAdapter : BaseAdapter
     private lateinit var searchViewItem : MenuItem
 
     companion object {
-        fun newInstance(type: ScheduleType): FacultyListFragment = FacultyListFragment().apply {
+        fun newInstance(type: ScheduleType, tag: String, id: Int? = null, title: String? = null)
+                : FacultyListFragment = FacultyListFragment().apply {
             this.type = type
+            this.id = id
+            this.title = title
+            TAG = tag
         }
     }
 
@@ -45,10 +53,21 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
     }
 
     override fun configureView() {
-        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.faculty))
+        when (type) {
+            ScheduleType.GROUP -> (activity as? MainActivity)?.setToolbarTitle(getString(R.string.faculty))
+            ScheduleType.TEACHER -> {
+                when (tag) {
+                    Constants.FACULTY_FRAGMENT -> (activity as? MainActivity)?.setToolbarTitle(getString(R.string.faculty))
+                    Constants.DEPARTMENT_FRAGMENT -> (activity as? MainActivity)?.setToolbarTitle(getString(R.string.department))
+                    Constants.TEACHER_FRAGMENT -> title?.let { (activity as? MainActivity)?.setToolbarTitle(it) }
+                }
+            }
+            ScheduleType.AUDITORY -> throw NotImplementedError()
+        }
+
         (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
         setHasOptionsMenu(true)
-        presenter.loadFacultyList()
+        presenter.manageActionByTypeAndTag(type, TAG, id)
     }
 
     override fun onFacultyLoaded(faculties: MutableList<BaseModel>, callback: FacultyListPresenter) {
@@ -59,6 +78,15 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
 
     override fun openGroupScreen(model: BaseModel) {
         type?.let { (activity as? MainActivity)?.replaceFragment(GroupListFragment.newInstance(model, it)) }
+    }
+
+    override fun reopenCurrentScreen(model: BaseModel, newFragmentTag: String) {
+        val type = type ?: return
+        (activity as? MainActivity)?.replaceFragment(FacultyListFragment.newInstance(type, newFragmentTag, model.id, model.title))
+    }
+
+    override fun openScheduleScreen(model: BaseModel) {
+        type?.let { (activity as? MainActivity)?.replaceFragment(ScheduleListFragment.newInstance(model, it)) }
     }
 
     override fun onCreateOptionsMenu (menu: Menu, inflater : MenuInflater) {
@@ -95,4 +123,5 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
             super.onBackPressed()
         }
     }
+
 }

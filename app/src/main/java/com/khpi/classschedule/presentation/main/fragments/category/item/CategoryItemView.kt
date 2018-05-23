@@ -17,7 +17,7 @@ interface CategoryItemView : BaseView {
     fun openScheduleScreen(baseSchedule: BaseModel)
 
     @StateStrategyType(SkipStrategy::class)
-    fun openFacultyScreen(type: ScheduleType)
+    fun openFacultyScreen(type: ScheduleType, tag: String)
 
     @StateStrategyType(SkipStrategy::class)
     fun requestChangePinToActivity(newPinned: BaseModel?)

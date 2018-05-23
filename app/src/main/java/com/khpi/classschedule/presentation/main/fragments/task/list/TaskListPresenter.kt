@@ -54,6 +54,15 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         }
     }
 
+    fun showGivenTask(tasks: List<Task>) {
+        this.tasks = tasks.toMutableList()
+        this.tasks.forEach { task ->
+            task.properties = mutableListOf()
+            task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+        }
+        viewState.showActiveTasks(this.tasks, this)
+    }
+
     private fun removeOutdatedTasks() {
         val mills = TaskRemove.values()[settingsRepository.getRemovePosition()].timeMillis
         if (mills == 0L) return

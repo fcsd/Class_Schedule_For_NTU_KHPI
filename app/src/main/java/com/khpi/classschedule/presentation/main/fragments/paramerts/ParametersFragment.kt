@@ -18,7 +18,6 @@ import com.khpi.classschedule.data.models.Developer
 import android.content.Intent
 import android.net.Uri
 
-
 class ParametersFragment : BaseFragment(), ParametersView {
 
     override var TAG = "ParametersFragment"
@@ -60,6 +59,7 @@ class ParametersFragment : BaseFragment(), ParametersView {
         settings_sound_switch.setOnCheckedChangeListener({ _, isChecked ->
             presenter.changeSwitchValue(Constants.SOUND, isChecked)
         })
+
         layout_remove_task.setOnClickListener { presenter.loadTaskAlert() }
 
         settings_info_content.text = ctx.resources.getString(R.string.version_content, BuildConfig.VERSION_NAME)

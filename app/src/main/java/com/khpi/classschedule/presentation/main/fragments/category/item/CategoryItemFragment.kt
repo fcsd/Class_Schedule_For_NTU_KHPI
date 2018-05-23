@@ -55,8 +55,8 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
         recycler_general.adapter = generalAdapter
     }
 
-    override fun openFacultyScreen(type: ScheduleType) {
-        (activity as? MainActivity)?.replaceFragment(FacultyListFragment.newInstance(type))
+    override fun openFacultyScreen(type: ScheduleType, tag: String) {
+        (activity as? MainActivity)?.replaceFragment(FacultyListFragment.newInstance(type, tag))
     }
 
     override fun openScheduleScreen(baseSchedule: BaseModel) {

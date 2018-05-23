@@ -35,9 +35,12 @@ class TaskListFragment : BaseFragment(), TaskListView {
     //@formatter:on
 
     private lateinit var taskAdapter : TaskListAdapter
+    private var tasks: List<Task>? = null
 
     companion object {
-        fun newInstance(): TaskListFragment = TaskListFragment()
+        fun newInstance(tasks: List<Task>? = null): TaskListFragment = TaskListFragment().apply {
+            this.tasks = tasks
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +61,8 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
     override fun configureView() {
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.task))
-        presenter.loadActiveTask()
+        tasks?.let { presenter.showGivenTask(it) } ?: presenter.loadActiveTask()
+
     }
 
     override fun configureViewForAdding(resId: Int, action: () -> Unit) {

@@ -23,11 +23,12 @@ class ScheduleManager(private val requestApi: RequestApi) {
                         })
     }
 
-    fun getGroupListById(facultyId : Int,
+    fun getActionListById(action: String,
+                         facultyId : Int,
                          onSuccess: (response: ArrayList<BaseModel>) -> Unit,
                          onFailure: (exception: String?) -> Unit) {
 
-        requestApi.getGroupListById(facultyId)
+        requestApi.getActionListById(action, facultyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -38,12 +39,12 @@ class ScheduleManager(private val requestApi: RequestApi) {
                         })
     }
 
-    fun getScheduleByWeekById(week: String,
+    fun getScheduleByWeekById(action: String,
                               groupId : Int,
                               onSuccess: (response: FullSchedule) -> Unit,
                               onFailure: (exception: String?) -> Unit) {
 
-        requestApi.getScheduleByWeekById(week, groupId)
+        requestApi.getScheduleByWeekById(action, groupId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

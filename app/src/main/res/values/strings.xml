@@ -18,7 +18,8 @@
     <string name="buildings_map">Карта</string>
 
     <string name="category">Категорії</string>
-    <string name="faculty">Факультети</string>
+    <string name="faculty">Факультети</string>\
+    <string name="department">Кафедри</string>
 
     <string name="first_course">Курс 1</string>
     <string name="second_course">Курс 2</string>
@@ -77,6 +78,9 @@
     <string name="info_title">Про додаток</string>
     <string name="version_content">v%s, останнє оновлення 14.05.2018</string>
     <string name="developer_title">Сумісна колаборація студентів НТУ \"ХПІ\"</string>
+    <string name="task_params_type">Показувати завдання для </string>
+    <string name="task_params_students">студентів</string>
+    <string name="task_params_teachers">викладачів</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

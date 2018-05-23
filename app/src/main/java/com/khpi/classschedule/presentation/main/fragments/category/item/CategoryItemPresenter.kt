@@ -174,8 +174,8 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
     override fun onAddClick() {
         val unwrappedType = type ?: return
         when(unwrappedType) {
-            ScheduleType.GROUP -> viewState.openFacultyScreen(unwrappedType)
-            ScheduleType.TEACHER -> viewState.showMessage("Click: Teacher")
+            ScheduleType.GROUP -> viewState.openFacultyScreen(unwrappedType, Constants.FACULTY_FRAGMENT)
+            ScheduleType.TEACHER -> viewState.openFacultyScreen(unwrappedType, Constants.FACULTY_FRAGMENT)
             ScheduleType.AUDITORY -> viewState.showMessage("Click: Auditory")
         }
     }

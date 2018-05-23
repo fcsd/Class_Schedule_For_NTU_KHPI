@@ -10,10 +10,13 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.ScheduleItem
 import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.building.item.BuildingItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
+import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
+import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.fragment_schedule_item.*
 
 class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
@@ -46,7 +49,7 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     override fun configureView() {
         val schedule = this.schedule ?: return
         val type = this.type ?: return
-        val toolbarTitle = (activity as? MainActivity)?.getToolbarTitle() ?: return
+        val toolbarTitle = (activity as? MainActivity)?.getToolbarTitleSchedule() ?: return
         presenter.prepareToShowSchedule(schedule, type, toolbarTitle)
     }
 
@@ -63,5 +66,14 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     override fun openTaskAddScreen(group: String, subject: String, type: String) {
         (activity as MainActivity).replaceFragment(TaskActionFragment.newInstance(task = null, group = group, subject = subject, type = type))
     }
+
+    override fun openTaskDetailScreen(taskId: Int) {
+        (activity as MainActivity).replaceFragment(TaskItemFragment.newInstance(taskId))
+    }
+
+    override fun openTaskListScreen(tasksBySubject: List<Task>) {
+        (activity as MainActivity).replaceFragment(TaskListFragment.newInstance(tasksBySubject))
+    }
+
 
 }

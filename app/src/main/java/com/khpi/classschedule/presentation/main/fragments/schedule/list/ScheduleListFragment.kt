@@ -108,7 +108,7 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
     override fun showSchedulesPopup(schedules: MutableList<BaseModel>) {
 
-        val view = (activity as? MainActivity)?.getToolbarTitleView() ?: return
+        val view = (activity as? MainActivity)?.getToolbarTitleScheduleView() ?: return
         val popupMenu = PopupMenu(context, view)
         schedules.forEachIndexed { index, schedule ->
             popupMenu.menu.add(Menu.NONE, index, Menu.NONE, schedule.title)

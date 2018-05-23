@@ -4,10 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.R
 import com.khpi.classschedule.business.BuildingManager
 import com.khpi.classschedule.data.config.TaskRepository
-import com.khpi.classschedule.data.models.Property
-import com.khpi.classschedule.data.models.PropertyType
-import com.khpi.classschedule.data.models.ScheduleItem
-import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
 import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject
@@ -26,6 +23,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
 
     private var schedule: List<ScheduleItem>? = null
     private var group: String? = null
+    private var type: ScheduleType? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
@@ -34,6 +32,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
     fun prepareToShowSchedule(schedule: List<ScheduleItem>, type: ScheduleType, group: String) {
 
         this.group = group
+        this.type = type
 
         val prefix = getPrefixByType(type)
         val tasks = taskRepository.getTasksByGroup(prefix, group)
@@ -58,16 +57,29 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
     }
 
     override fun onPropertyClick(property: Property, adapterPosition: Int) {
+        val unwrappedGroup = group ?: return
+        val unwrappedSubject = schedule?.get(adapterPosition)?.name ?: return
+        val unwrappedType = schedule?.get(adapterPosition)?.type ?: return
+
         when(property.type) {
-            PropertyType.TASK_ADD -> {
-                val unwrappedGroup = group ?: return
-                val unwrappedSubject = schedule?.get(adapterPosition)?.name ?: return
-                val unwrappedType = schedule?.get(adapterPosition)?.type ?: return
-                viewState.openTaskAddScreen(unwrappedGroup, unwrappedSubject, unwrappedType)
-            }
-            PropertyType.TASK_SHOW -> viewState.showMessage("Show task!")
+            PropertyType.TASK_ADD -> viewState.openTaskAddScreen(unwrappedGroup, unwrappedSubject, unwrappedType)
+            PropertyType.TASK_SHOW -> loadTasksBySubject(unwrappedGroup, unwrappedSubject)
             PropertyType.BUILDING -> loadBuilding(adapterPosition)
             else -> return
+        }
+    }
+
+    private fun loadTasksBySubject(group: String, subject: String) {
+        val type = type ?: return
+        val prefix = getPrefixByType(type)
+        val tasks = taskRepository.getTasksByGroup(prefix, group)
+        val tasksBySubject = tasks?.filter { it.subject == subject } ?: return
+        if (tasksBySubject.isNotEmpty()) {
+            if (tasksBySubject.size == 1) {
+                viewState.openTaskDetailScreen(tasksBySubject.first().id)
+            } else {
+                viewState.openTaskListScreen(tasksBySubject)
+            }
         }
     }
 

@@ -32,7 +32,7 @@ class GroupListPresenter : BasePresenter<GroupListView>() {
     fun loadGroupListById(facultyId: Int) {
 
         viewState.setCustomProgressBarVisibility(true)
-        scheduleManager.getGroupListById(facultyId, { groups ->
+        scheduleManager.getActionListById("GroupByFacultyList", facultyId, { groups ->
 
             when (type) {
                 ScheduleType.GROUP -> replaceGroupByCourse(groups)
