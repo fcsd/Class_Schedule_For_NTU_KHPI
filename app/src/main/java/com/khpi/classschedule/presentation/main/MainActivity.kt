@@ -17,6 +17,7 @@ import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListFragment
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
+import com.khpi.classschedule.presentation.main.fragments.first.FirstFragment
 import com.khpi.classschedule.presentation.main.fragments.paramerts.ParametersFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
@@ -136,9 +137,14 @@ class MainActivity : BaseActivity(), MainView {
         btnToolbarRight2.setOnClickListener(function)
     }
 
-    override fun openCategoryScreen() {
+    override fun openCategoryScreen()
+    {
         setVisibleViews(schedule_text, task_text, building_text, settings_text)
         replaceFragment(CategoryListFragment.newInstance(), true)
+    }
+
+    override fun openFirstScreen() {
+        replaceFragment(FirstFragment.newInstance(), true)
     }
 
     override fun openScheduleScreen(pinnedInfo: BaseModel) {
@@ -173,5 +179,16 @@ class MainActivity : BaseActivity(), MainView {
 
     fun setBackButtonVisibility(visibility: Boolean) {
         btnToolbarBack.setVisibility(visibility)
+    }
+
+    fun setNavigationVisibility(visibility: Boolean) {
+        schedule_fragment.setVisibility(visibility)
+        task_fragment.setVisibility(visibility)
+        building_fragment.setVisibility(visibility)
+        settings_fragment.setVisibility(visibility)
+    }
+
+    fun openCategory() {
+        presenter.openCategory()
     }
 }

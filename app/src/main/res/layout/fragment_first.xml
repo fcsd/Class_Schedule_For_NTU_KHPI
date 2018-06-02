@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.fragments.first.FirstFragment">
+
+    <TextView
+        android:id="@+id/first_params_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:text="@string/user_message"
+        android:textSize="@dimen/_12sdp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="@+id/first_params_title"
+        android:layout_marginEnd="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_params_title">
+
+        <RadioButton
+            android:id="@+id/radio_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_student"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"/>
+
+        <RadioButton
+            android:id="@+id/radio_teacher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_teacher"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp" />
+
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

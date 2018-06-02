@@ -7,6 +7,7 @@
     <string name="task">Завдання</string>
     <string name="buildings">Корпуси</string>
     <string name="settings">Параметри</string>
+    <string name="choose_youself">Оберіть себе</string>
 
     <string name="search">Знайти</string>
     <string name="search.buildings">Введіть корпус</string>
@@ -81,9 +82,13 @@
     <string name="info_title">Про додаток</string>
     <string name="version_content">v%s, останнє оновлення 14.05.2018</string>
     <string name="developer_title">Сумісна колаборація студентів НТУ \"ХПІ\"</string>
+    <string name="user_message">Нижче оберіть, будь ласка, студент Ви або викладач</string>
     <string name="user_type">Тип користувача</string>
     <string name="user_student">Я студент</string>
     <string name="user_teacher">Я викладач</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

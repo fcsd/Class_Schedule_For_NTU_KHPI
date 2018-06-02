@@ -14,4 +14,6 @@ interface MainView : BaseView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun openScheduleScreen(pinnedInfo: BaseModel)
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun openFirstScreen()
 }
