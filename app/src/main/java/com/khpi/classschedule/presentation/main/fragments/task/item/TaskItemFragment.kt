@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
@@ -49,6 +50,7 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
 
     override fun configureView() {
         val ctx = context?: return
+        (activity as? MainActivity)?.requestVisibleViews(Screen.TASK)
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.task_detail))
         (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_content_edit))
@@ -64,6 +66,7 @@ class TaskItemFragment : BaseFragment(), TaskItemView {
     }
 
     override fun openActionTaskScreen(task: Task) {
-        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = task, group = null, subject = null, type = null))
+        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = task, group = null,
+                subject = null, type = null, scheduleType = task.scheduleType))
     }
 }

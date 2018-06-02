@@ -46,6 +46,7 @@ class ParametersFragment : BaseFragment(), ParametersView {
         val ctx = context ?: return
 
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.settings))
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
         presenter.loadDefaultValue()
 
         settings_invert_switch.setOnCheckedChangeListener({ _, isChecked ->

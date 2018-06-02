@@ -38,6 +38,13 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>() {
         ScheduleType.AUDITORY -> Constants.AUDITORY_PREFIX
     }
 
+    protected fun getTypeByPrefix(prefix: String): ScheduleType? = when (prefix) {
+        Constants.GROUP_PREFIX -> ScheduleType.GROUP
+        Constants.TEACHER_PREFIX -> ScheduleType.TEACHER
+        Constants.AUDITORY_PREFIX -> ScheduleType.AUDITORY
+        else -> null
+    }
+
     protected fun getMessageByType(type: ScheduleType): String = when (type) {
         ScheduleType.GROUP -> "групи"
         ScheduleType.TEACHER -> "викладача"

@@ -63,8 +63,9 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
         (activity as MainActivity).replaceFragment(BuildingItemFragment.newInstance(shortName))
     }
 
-    override fun openTaskAddScreen(group: String, subject: String, type: String) {
-        (activity as MainActivity).replaceFragment(TaskActionFragment.newInstance(task = null, group = group, subject = subject, type = type))
+    override fun openTaskAddScreen(group: String, subject: String, type: String, scheduleType: ScheduleType) {
+        (activity as MainActivity).replaceFragment(TaskActionFragment.newInstance(task = null, group = group,
+                subject = subject, type = type, scheduleType = scheduleType))
     }
 
     override fun openTaskDetailScreen(taskId: Int) {

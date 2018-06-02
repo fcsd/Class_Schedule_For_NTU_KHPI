@@ -15,6 +15,7 @@ import com.khpi.classschedule.presentation.main.fragments.category.item.Category
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinFragment
 
 class CategoryListFragment : BaseFragment(), CategoryListView {
@@ -48,6 +49,7 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
     }
 
     override fun configureView() {
+        (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.category))
         changeToolbarSecondButtonForShow()
         presenter.loadSchedules()
@@ -56,6 +58,10 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
     override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                         infoTeachers: MutableList<BaseModel>,
                                         infoAuditories: MutableList<BaseModel>) {
+
+        if (infoGroups.size + infoTeachers.size + infoAuditories.size < 2) {
+            (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
+        }
 
         val adapter = BasePagerAdapter(childFragmentManager)
 

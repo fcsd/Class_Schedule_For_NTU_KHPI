@@ -3,6 +3,7 @@ package com.khpi.classschedule.presentation.main.fragments.schedule.item
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.ScheduleItem
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseView
 
@@ -14,7 +15,7 @@ interface ScheduleItemView : BaseView {
     fun openBuildingScreen(shortName: String)
 
     @StateStrategyType(SkipStrategy::class)
-    fun openTaskAddScreen(group: String, subject: String, type: String)
+    fun openTaskAddScreen(group: String, subject: String, type: String, scheduleType: ScheduleType)
 
     @StateStrategyType(SkipStrategy::class)
     fun openTaskDetailScreen(taskId: Int)

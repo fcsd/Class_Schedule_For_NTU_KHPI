@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.presentation.base.BaseActivity
 import com.khpi.classschedule.presentation.base.BaseFragment
@@ -62,6 +63,15 @@ class MainActivity : BaseActivity(), MainView {
         settings_fragment.setOnClickListener {
             setVisibleViews(settings_text, schedule_text, task_text, building_text)
             replaceFragment(ParametersFragment.newInstance(), true)
+        }
+    }
+
+    fun requestVisibleViews(type: Screen) {
+        when (type) {
+            Screen.SCHEDULE -> setVisibleViews(schedule_text, task_text, building_text, settings_text)
+            Screen.TASK -> setVisibleViews(task_text, schedule_text, building_text, settings_text)
+            Screen.BUILDING -> setVisibleViews(building_text, schedule_text, task_text, settings_text)
+            Screen.SETTINGS -> setVisibleViews(settings_text, schedule_text, task_text, building_text)
         }
     }
 

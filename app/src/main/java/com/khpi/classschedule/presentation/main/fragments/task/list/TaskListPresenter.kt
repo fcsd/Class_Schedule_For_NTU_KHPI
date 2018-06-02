@@ -33,6 +33,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     fun loadActiveTask() {
 
         prefix = settingsRepository.getUserPrefix() ?: return
+        val scheduleType = getTypeByPrefix(prefix) ?: return
 
         if (scheduleRepository.isHasSavedGroupByType(prefix)) {
 
@@ -40,7 +41,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
             removeOutdatedTasks()
             if (tasks.isEmpty()) {
                 viewState.configureViewForAdding(R.string.add_task_empty, {
-                    viewState.openActionTaskScreen()
+                    viewState.openActionTaskScreen(scheduleType)
                 })
                 return
             }
@@ -87,7 +88,8 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     }
 
     fun onAddClicked() {
-        viewState.openActionTaskScreen()
+        val scheduleType = getTypeByPrefix(prefix) ?: return
+        viewState.openActionTaskScreen(scheduleType)
     }
 
     override fun onItemClick(item: Task) {
@@ -105,6 +107,15 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         viewState.disableTaskNotification(task)
         viewState.notifyDataSetChanged()
         viewState.showMessage("Завдання було видалено успішно")
+
+        if (tasks.size < 1) {
+            viewState.hideSortingButton()
+        }
+
+        if (tasks.isEmpty()) {
+            val scheduleType = getTypeByPrefix(prefix) ?: return
+            viewState.configureViewForAdding(R.string.add_task_empty, { viewState.openActionTaskScreen(scheduleType) })
+        }
     }
 
 

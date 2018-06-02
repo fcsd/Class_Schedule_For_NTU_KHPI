@@ -14,6 +14,7 @@ data class Task(
         val type: CoupleType,
         val notificationTime: Long,
         val description: String,
+        val scheduleType: ScheduleType,
         var properties: MutableList<Property> = mutableListOf()
 )
 

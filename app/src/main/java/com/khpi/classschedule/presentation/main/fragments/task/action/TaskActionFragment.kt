@@ -24,6 +24,8 @@ import com.khpi.classschedule.data.models.Task
 import android.app.PendingIntent
 import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.models.CoupleType
+import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.presentation.main.MainActivity
 
 class TaskActionFragment : BaseFragment(), TaskActionView {
@@ -39,14 +41,17 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
     private var group: String? = null
     private var subject: String? = null
     private var type: String? = null
-    private var prefix = ""
+    private var scheduleType: ScheduleType? = null
 
     companion object {
-        fun newInstance(task: Task?, group: String?, subject: String?, type: String?): TaskActionFragment = TaskActionFragment().apply {
+        fun newInstance(task: Task?, group: String?, subject: String?, type: String?, scheduleType: ScheduleType):
+                TaskActionFragment = TaskActionFragment().apply {
             this.task = task
             this.group = group
             this.subject = subject
             this.type = type
+            this.scheduleType = scheduleType
+
         }
     }
 
@@ -62,6 +67,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
 
     override fun configureView() {
         val ctx = context?: return
+        (activity as? MainActivity)?.requestVisibleViews(Screen.TASK)
         task?.let { (activity as? MainActivity)?.setToolbarTitle(getString(R.string.edit_task)) }
                 ?: (activity as? MainActivity)?.setToolbarTitle(getString(R.string.create_task))
 
@@ -88,6 +94,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         recycler_type.addItemDecoration(TaskActionDecorator(ctx))
         recycler_type.adapter = taskCreateAdapter
 
+        presenter.setScheduleType(scheduleType)
         presenter.loadInfoOfExistingTask(task)
         presenter.setGroupAndSubjectInfo(group, subject, type)
     }
@@ -188,7 +195,7 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
         (activity as? MainActivity)?.setRightSecondEnabled(enabled, icon)
     }
 
-    override fun configureNotification(task: Task) {
+    override fun configureNotification(task: Task, prefix: String) {
 
         val ctx = context ?: return
 
@@ -205,7 +212,6 @@ class TaskActionFragment : BaseFragment(), TaskActionView {
     }
 
     override fun showTitleByType(prefix: String) {
-        this.prefix = prefix
 
         when(prefix) {
             Constants.GROUP_PREFIX -> {

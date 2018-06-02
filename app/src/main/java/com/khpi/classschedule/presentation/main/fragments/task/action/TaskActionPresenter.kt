@@ -19,7 +19,7 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         injector().inject(this)
     }
 
-    private var prefix = ""
+    private var scheduleType: ScheduleType? = null
     private var infoTypes: MutableList<BaseModel>? = null
     private var currentTask: Task? = null
 
@@ -28,13 +28,19 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
     private var selectedType = CoupleType.LECTURE
     private var notificationTime: Long? = null
     private var description = ""
+    private var prefix = ""
 
     override fun onViewLoaded() {
-        prefix = settingsRepository.getUserPrefix() ?: return
-        infoTypes = scheduleRepository.getScheduleInfoByTypes(prefix)
         checkAllFieldAreFilled()
         viewState.configureView()
-        viewState.showTitleByType(prefix)
+    }
+
+    fun setScheduleType(scheduleType: ScheduleType?) {
+        this.scheduleType = scheduleType
+        scheduleType?.let {
+            prefix = getPrefixByType(it)
+            viewState.showTitleByType(prefix)
+        }
     }
 
     fun loadInfoOfExistingTask(task: Task?) {
@@ -60,10 +66,10 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
                 viewState.setGroupAndSubject(unwrappedGroup, unwrappedSubject, selectedType)
             }
         }
-
     }
 
     fun prepareToShowGroup() {
+        infoTypes = scheduleRepository.getScheduleInfoByTypes(prefix)
         val info = infoTypes ?: return
         val groupNames = info.mapNotNull { it.title }
         viewState.showPopupGroup(groupNames)
@@ -156,18 +162,19 @@ class TaskActionPresenter : BasePresenter<TaskActionView>() {
         val group = selectedGroup ?: return
         val subject = selectedSubject ?: return
         val notificationTime = notificationTime ?: return
+        val scheduleType = this.scheduleType ?: return
 
         currentTask?.let {
-            val task = Task(it.id, group, subject, selectedType, notificationTime, description)
+            val task = Task(it.id, group, subject, selectedType, notificationTime, description, scheduleType)
             taskRepository.saveTask(prefix, task, true)
             viewState.showMessage("Завдання було оновлено")
-            viewState.configureNotification(task)
+            viewState.configureNotification(task, prefix)
         } ?: run {
             val id = taskRepository.getLastTaskId(prefix) + 1
-            val task = Task(id, group, subject, selectedType, notificationTime, description)
+            val task = Task(id, group, subject, selectedType, notificationTime, description, scheduleType)
             taskRepository.saveTask(prefix, task, false)
             viewState.showMessage("Завдання було створено")
-            viewState.configureNotification(task)
+            viewState.configureNotification(task, prefix)
         }
 
         viewState.closeScreen()

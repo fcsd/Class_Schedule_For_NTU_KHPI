@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_schedule_list.*
 import android.view.*
 import android.support.design.widget.TabLayout
 import android.widget.PopupMenu
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 
 class ScheduleListFragment : BaseFragment(), ScheduleListView {
@@ -54,8 +55,9 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     override fun configureView() {
         setHasOptionsMenu(true)
         val groupName = this.group?.title ?: return
+        (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitleForSchedule(groupName)
-        presenter.setType(type)
+        presenter.setType(group)
         group?.let { presenter.loadScheduleById(it) }
 
         schedule_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -129,8 +131,9 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         (activity as? MainActivity)?.setToolbarTitleForSchedule(title)
     }
 
-    override fun changeScheduleType(type: ScheduleType?) {
-        this.type = type
+    override fun changeScheduleType(info: BaseModel?) {
+        this.group = info
+        this.type = info?.scheduleType
     }
 
     override fun openCategoryScreen() {

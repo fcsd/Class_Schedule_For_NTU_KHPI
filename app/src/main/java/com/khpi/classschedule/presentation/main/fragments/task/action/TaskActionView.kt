@@ -34,7 +34,7 @@ interface TaskActionView : BaseView {
     fun updateTaskInfo(task: Task)
 
     @StateStrategyType(SkipStrategy::class)
-    fun configureNotification(task: Task)
+    fun configureNotification(task: Task, prefix: String)
 
     @StateStrategyType(SkipStrategy::class)
     fun setGroupAndSubject(group: String, subject: String, type: CoupleType)

@@ -49,7 +49,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
                     couple.properties.add(Property("Завдання", R.drawable.ic_add_blue, PropertyType.TASK_ADD))
                 }
             }
-            couple.properties.add(Property("Мапа", R.drawable.ic_building_green, PropertyType.BUILDING))
+            couple.properties.add(Property("Мапа", R.drawable.ic_map, PropertyType.BUILDING))
         }
 
         this.schedule = schedule
@@ -60,9 +60,11 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
         val unwrappedGroup = group ?: return
         val unwrappedSubject = schedule?.get(adapterPosition)?.name ?: return
         val unwrappedType = schedule?.get(adapterPosition)?.type ?: return
+        val unwrappedScheduleType = type ?: return
 
         when(property.type) {
-            PropertyType.TASK_ADD -> viewState.openTaskAddScreen(unwrappedGroup, unwrappedSubject, unwrappedType)
+            PropertyType.TASK_ADD -> viewState.openTaskAddScreen(unwrappedGroup, unwrappedSubject,
+                    unwrappedType, unwrappedScheduleType)
             PropertyType.TASK_SHOW -> loadTasksBySubject(unwrappedGroup, unwrappedSubject)
             PropertyType.BUILDING -> loadBuilding(adapterPosition)
             else -> return

@@ -1,10 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.task.list
 
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -15,12 +11,13 @@ import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.data.models.TaskSort
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
-import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionAlarmAdapter
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.utils.setVisibility
@@ -60,12 +57,14 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
 
     override fun configureView() {
+        (activity as? MainActivity)?.requestVisibleViews(Screen.TASK)
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.task))
         tasks?.let { presenter.showGivenTask(it) } ?: presenter.loadActiveTask()
 
     }
 
     override fun configureViewForAdding(resId: Int, action: () -> Unit) {
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
         recycler_task.setVisibility(false)
         layout_task_add.setVisibility(true)
         description_task_text.text = resources.getString(resId)
@@ -115,8 +114,9 @@ class TaskListFragment : BaseFragment(), TaskListView {
         popupMenu.show()
     }
 
-    override fun openActionTaskScreen() {
-        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = null, group = null, subject = null, type = null))
+    override fun openActionTaskScreen(scheduleType: ScheduleType) {
+        (activity as? MainActivity)?.replaceFragment(TaskActionFragment.newInstance(task = null, group = null,
+                subject = null, type = null, scheduleType = scheduleType))
     }
 
     override fun openDetailTaskScreen(task: Task) {
@@ -129,5 +129,9 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
     override fun notifyDataSetChanged() {
         taskAdapter.notifyDataSetChanged()
+    }
+
+    override fun hideSortingButton() {
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
     }
 }

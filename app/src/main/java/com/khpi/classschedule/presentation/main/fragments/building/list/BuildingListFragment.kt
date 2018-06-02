@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView
 import android.view.*
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.data.models.ShortBuilding
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
@@ -39,6 +40,7 @@ class BuildingListFragment : BaseFragment(), BuildingListView {
     }
 
     override fun configureView() {
+        (activity as? MainActivity)?.requestVisibleViews(Screen.BUILDING)
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.buildings_list_title))
         (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
         setHasOptionsMenu(true)

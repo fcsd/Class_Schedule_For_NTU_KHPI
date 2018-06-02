@@ -31,9 +31,9 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <ImageView
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_add_blue"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/ic_add_circle_blue"
             android:layout_gravity="center"/>
 
         <TextView

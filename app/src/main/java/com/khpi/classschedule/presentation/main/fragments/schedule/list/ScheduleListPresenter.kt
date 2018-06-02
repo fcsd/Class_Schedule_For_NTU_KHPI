@@ -36,9 +36,10 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         viewState.configureView()
     }
 
-    fun setType(type: ScheduleType?) {
-        this.type = type
-        viewState.changeScheduleType(type)
+    fun setType(info: BaseModel?) {
+        this.group = info
+        this.type = info?.scheduleType
+        viewState.changeScheduleType(info)
     }
 
     fun loadScheduleById(group: BaseModel) {
@@ -195,8 +196,8 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         val info = schedules[position]
         val title = info.title ?: return
 
-        setType(info.scheduleType)
-        loadScheduleById(info)
+        setType(info)
         viewState.changeToolbarTitle(title)
+        loadScheduleById(info)
     }
 }

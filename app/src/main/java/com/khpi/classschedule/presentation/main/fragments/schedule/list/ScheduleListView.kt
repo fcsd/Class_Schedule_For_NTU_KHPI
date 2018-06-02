@@ -1,11 +1,9 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.list
 
-import android.view.View
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
-import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseView
 
 interface ScheduleListView : BaseView {
@@ -26,5 +24,5 @@ interface ScheduleListView : BaseView {
     fun changeToolbarTitle(title: String)
 
     @StateStrategyType(SkipStrategy::class)
-    fun changeScheduleType(type: ScheduleType?)
+    fun changeScheduleType(info: BaseModel?)
 }
