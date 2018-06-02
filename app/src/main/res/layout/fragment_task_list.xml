@@ -44,7 +44,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp" />
 
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

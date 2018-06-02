@@ -57,18 +57,7 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         val groupName = this.group?.title ?: return
         (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitleForSchedule(groupName)
-        presenter.setType(group)
-        group?.let { presenter.loadScheduleById(it) }
-
-        schedule_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                presenter.setCurrentItem(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-
-            override fun onTabReselected(tab: TabLayout.Tab) { }
-        })
+        group?.let { presenter.loadScheduleById(it, type) }
     }
 
     override fun showToolbarIcons() {
@@ -106,6 +95,16 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
         schedule_view_pager.currentItem = currentTab
         schedule_tab.visibility = View.VISIBLE
         schedule_tab.setupWithViewPager(schedule_view_pager)
+
+        schedule_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun showSchedulesPopup(schedules: MutableList<BaseModel>) {
@@ -132,8 +131,8 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
     }
 
     override fun changeScheduleType(info: BaseModel?) {
-        this.group = info
-        this.type = info?.scheduleType
+        group = info
+        type = info?.scheduleType
     }
 
     override fun openCategoryScreen() {

@@ -61,6 +61,10 @@
     <string name="add_teacher_schedule_from_task">Додайте розклад викладача, щоб додати завдання</string>
     <string name="add_task_empty">Додайте перше завдання</string>
 
+    <string name="add_first_group">Додайте перший розклад групи</string>
+    <string name="add_first_teacher">Додайте перший розклад викладача</string>
+    <string name="add_first_auditory">Додайте перший розклад аудиторії</string>
+
     <string name="remove_schedule">Видалити розклад</string>
     <string name="refresh_schedule">Оновити розклад</string>
     <string name="edit_task">Редагувати завдання</string>

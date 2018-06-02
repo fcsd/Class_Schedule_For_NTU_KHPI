@@ -6,11 +6,13 @@ import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
+import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinAdapter
 import javax.inject.Inject
 
 @InjectViewState
-class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdapter.OnCategoryPinItemClickListener {
+class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdapter.OnCategoryPinItemClickListener,
+        CategoryItemPresenter.OnRemovedSchedule {
 
     //@formatter:off
     @Inject lateinit var scheduleRepository: ScheduleRepository
@@ -25,16 +27,17 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
     private var infoAuditories: MutableList<BaseModel> = mutableListOf()
     private var backupPinnedInfo: BaseModel? = null
     private var oldPinnedInfo: BaseModel? = null
+    private var currentTab = 0
 
     override fun onViewLoaded() {
         viewState.configureView()
     }
 
-    fun loadSchedules() {
+    fun loadSchedules(currentTab: Int) {
         infoGroups = scheduleRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
         infoTeachers = scheduleRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
         infoAuditories = scheduleRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
-        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories)
+        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab, this)
     }
 
     fun loadPinSchedulesInfo() {
@@ -46,7 +49,7 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
 
         backupPinnedInfo = oldPinnedInfo
         viewState.changeToolbarSecondButtonForPin()
-        viewState.showPinSchedulesInfo(infoGroups, infoTeachers, infoAuditories, this)
+        viewState.showPinSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab, this)
     }
 
     override fun onRadioChanged(newPinnedInfo: BaseModel) {
@@ -81,8 +84,16 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
         scheduleRepository.saveScheduleInfo(oldPrefix, oldId, oldInfo)
         scheduleRepository.saveScheduleInfo(newPrefix, newId, newInfo)
         viewState.changeToolbarSecondButtonForShow()
-        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories)
+        loadSchedules(currentTab)
         viewState.requestChangePinToActivity(newInfo)
         viewState.showMessage("Ви успішно закріпили новий розклад")
+    }
+
+    fun setCurrentItem(position: Int) {
+        currentTab = position
+    }
+
+    override fun onRemovedSchedule() {
+        loadSchedules(currentTab)
     }
 }

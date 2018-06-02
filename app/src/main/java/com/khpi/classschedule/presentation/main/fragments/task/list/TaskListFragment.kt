@@ -123,8 +123,8 @@ class TaskListFragment : BaseFragment(), TaskListView {
         (activity as? MainActivity)?.replaceFragment(TaskItemFragment.newInstance(task.id))
     }
 
-    override fun openAddScheduleScreen() {
-        (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance())
+    override fun openAddScheduleScreen(visibleTab: Int) {
+        (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance(visibleTab))
     }
 
     override fun notifyDataSetChanged() {

@@ -21,7 +21,7 @@ interface TaskListView : BaseView {
     fun configureViewForAdding(resId: Int, action: () -> Unit)
 
     @StateStrategyType(SkipStrategy::class)
-    fun openAddScheduleScreen()
+    fun openAddScheduleScreen(visibleTab: Int)
 
     @StateStrategyType(SkipStrategy::class)
     fun hideSortingButton()

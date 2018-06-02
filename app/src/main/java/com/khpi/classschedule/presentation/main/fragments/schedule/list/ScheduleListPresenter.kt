@@ -36,17 +36,11 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         viewState.configureView()
     }
 
-    fun setType(info: BaseModel?) {
-        this.group = info
-        this.type = info?.scheduleType
-        viewState.changeScheduleType(info)
-    }
-
-    fun loadScheduleById(group: BaseModel) {
+    fun loadScheduleById(group: BaseModel, type: ScheduleType?) {
         this.group = group
 
         val id = group.id ?: return
-        val type = this.type ?: return
+        this.type = type ?: return
         val prefix = getPrefixByType(type)
         val groupPair = scheduleRepository.getSchedule(prefix, id)
         scheduleFirstWeek = groupPair?.first ?: run {
@@ -195,9 +189,11 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     fun changeCurrentGroup(position: Int) {
         val info = schedules[position]
         val title = info.title ?: return
+        this.type = info.scheduleType ?: return
 
-        setType(info)
+        group = info
+        viewState.changeScheduleType(info)
         viewState.changeToolbarTitle(title)
-        loadScheduleById(info)
+        loadScheduleById(info, type)
     }
 }

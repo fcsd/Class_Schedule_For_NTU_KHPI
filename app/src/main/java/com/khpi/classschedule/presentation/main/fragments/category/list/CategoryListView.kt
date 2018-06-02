@@ -10,12 +10,15 @@ interface CategoryListView : BaseView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                infoTeachers: MutableList<BaseModel>,
-                               infoAuditories: MutableList<BaseModel>)
+                               infoAuditories: MutableList<BaseModel>,
+                               currentTab: Int,
+                               listener: CategoryListPresenter)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showPinSchedulesInfo(infoGroups: MutableList<BaseModel>,
                              infoTeachers: MutableList<BaseModel>,
                              infoAuditories: MutableList<BaseModel>,
+                             currentTab: Int,
                              listener: CategoryListPresenter)
 
 

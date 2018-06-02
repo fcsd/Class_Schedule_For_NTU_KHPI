@@ -54,10 +54,10 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         } else {
             when(prefix) {
                 Constants.GROUP_PREFIX -> viewState.configureViewForAdding(R.string.add_group_schedule_from_task, {
-                    viewState.openAddScheduleScreen()
+                    viewState.openAddScheduleScreen(0)
                 })
                 Constants.TEACHER_PREFIX -> viewState.configureViewForAdding(R.string.add_teacher_schedule_from_task, {
-                    viewState.openAddScheduleScreen()
+                    viewState.openAddScheduleScreen(1)
                 })
             }
 

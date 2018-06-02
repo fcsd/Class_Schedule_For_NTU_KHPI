@@ -12,8 +12,10 @@ import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListPresenter
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
+import com.khpi.classschedule.utils.setVisibility
 import kotlinx.android.synthetic.main.fragment_category_item.*
 
 class CategoryItemFragment : BaseFragment(), CategoryItemView {
@@ -26,10 +28,13 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
 
     private var scheduleInfo: List<BaseModel>? = null
     private var type: ScheduleType? = null
+    private var listener: CategoryListPresenter? = null
     private lateinit var generalAdapter: CategoryItemAdapter
 
     companion object {
-        fun newInstance(scheduleInfo: List<BaseModel>, type: ScheduleType): CategoryItemFragment = CategoryItemFragment().apply {
+        fun newInstance(scheduleInfo: List<BaseModel>, type: ScheduleType, listener: CategoryListPresenter):
+                CategoryItemFragment = CategoryItemFragment().apply {
+            this.listener = listener
             this.scheduleInfo = scheduleInfo
             this.type = type
         }
@@ -46,13 +51,29 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
     }
 
     override fun configureView() {
-        presenter.setScheduleInfo(scheduleInfo, type)
+        presenter.setScheduleInfo(scheduleInfo, type, listener)
     }
 
     override fun showScheduleInfo(scheduleInfo: List<BaseModel>, callback: CategoryItemPresenter) {
-        generalAdapter = CategoryItemAdapter(scheduleInfo, callback, callback)
-        recycler_general.layoutManager = LinearLayoutManager(context)
-        recycler_general.adapter = generalAdapter
+
+        if (scheduleInfo.isEmpty()) {
+            layout_general_add.setVisibility(true)
+            recycler_general.setVisibility(false)
+
+            val message = when(type) {
+                ScheduleType.GROUP -> getString(R.string.add_first_group)
+                ScheduleType.TEACHER -> getString(R.string.add_first_teacher)
+                ScheduleType.AUDITORY -> getString(R.string.add_first_auditory)
+                else -> null
+            }
+
+            description_general_text.text = message
+            layout_general_add.setOnClickListener { presenter.onAddClick() }
+        } else {
+            generalAdapter = CategoryItemAdapter(scheduleInfo, callback, callback)
+            recycler_general.layoutManager = LinearLayoutManager(context)
+            recycler_general.adapter = generalAdapter
+        }
     }
 
     override fun openFacultyScreen(type: ScheduleType, tag: String) {

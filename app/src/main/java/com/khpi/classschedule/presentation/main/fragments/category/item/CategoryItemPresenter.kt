@@ -8,6 +8,7 @@ import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.*
 import com.khpi.classschedule.presentation.base.BasePresenter
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListPresenter
 import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
 
     private var scheduleInfo = mutableListOf<BaseModel>()
     private var type: ScheduleType? = null
+    private var listener: CategoryListPresenter? = null
 
     private var scheduleFirstWeek: Schedule? = null
     private var scheduleSecondWeek: Schedule? = null
@@ -35,8 +37,9 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         viewState.configureView()
     }
 
-    fun setScheduleInfo(scheduleInfo: List<BaseModel>?, type: ScheduleType?) {
+    fun setScheduleInfo(scheduleInfo: List<BaseModel>?, type: ScheduleType?, listener: CategoryListPresenter?) {
         this.type = type
+        this.listener = listener
 
         scheduleInfo?.let {
             this.scheduleInfo = it.toMutableList()
@@ -55,8 +58,20 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         val itemId = itemInfo.id ?: return
 
         viewState.setCustomProgressBarVisibility(true)
-        loadScheduleForWeeks(itemInfo, "Schedule", itemId)
-        loadScheduleForWeeks(itemInfo, "Schedule2", itemId)
+
+        when(type) {
+            ScheduleType.GROUP -> {
+                loadScheduleForWeeks(itemInfo, "Schedule", itemId)
+                loadScheduleForWeeks(itemInfo, "Schedule2", itemId)
+            }
+            ScheduleType.TEACHER -> {
+                loadScheduleForWeeks(itemInfo, "ScheduleP", itemId)
+                loadScheduleForWeeks(itemInfo, "Schedule2P", itemId)
+            }
+            ScheduleType.AUDITORY -> {
+                throw NotImplementedError()
+            }
+        }
     }
 
     private fun removeSchedule(adapterPosition: Int) {
@@ -77,6 +92,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         }
 
         removeTasksByGroup(prefix, group)
+        listener?.onRemovedSchedule()
 
         viewState.notifyDataSetChanged()
         viewState.showMessage("Розклад $messageType ${itemInfo.title} був видален успішно")
@@ -109,9 +125,9 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         }
     }
 
-    private fun loadScheduleForWeeks(model: BaseModel, week: String, id: Int) {
+    private fun loadScheduleForWeeks(model: BaseModel, action: String, id: Int) {
 
-        scheduleManager.getScheduleByWeekById(week, id, { schedule ->
+        scheduleManager.getScheduleByWeekById(action, id, { schedule ->
 
             val monday = schedule.monday ?: return@getScheduleByWeekById
             val tuesday = schedule.tuesday ?: return@getScheduleByWeekById
@@ -119,14 +135,15 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             val thursday = schedule.thursday ?: return@getScheduleByWeekById
             val friday = schedule.friday ?: return@getScheduleByWeekById
 
-            when (week) {
-                "Schedule" -> scheduleFirstWeek = Schedule(
+            if (action.contains("2"))  {
+                scheduleSecondWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
                         setNormalFormForSchedule(thursday),
                         setNormalFormForSchedule(friday))
-                "Schedule2" -> scheduleSecondWeek = Schedule(
+            } else {
+                scheduleFirstWeek = Schedule(
                         setNormalFormForSchedule(monday),
                         setNormalFormForSchedule(tuesday),
                         setNormalFormForSchedule(wednesday),
@@ -186,5 +203,9 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             PropertyType.REMOVE -> removeSchedule(adapterPosition)
             else -> return
         }
+    }
+
+    interface OnRemovedSchedule {
+        fun onRemovedSchedule()
     }
 }

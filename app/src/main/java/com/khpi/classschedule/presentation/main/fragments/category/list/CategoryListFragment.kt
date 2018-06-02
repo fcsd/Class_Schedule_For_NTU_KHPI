@@ -1,6 +1,7 @@
 package com.khpi.classschedule.presentation.main.fragments.category.list
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +27,12 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
     @InjectPresenter lateinit var presenter: CategoryListPresenter
     //@formatter:on
 
+    private var currentTab = 0
+
     companion object {
-        fun newInstance(): CategoryListFragment = CategoryListFragment()
+        fun newInstance(currentTab: Int = 0): CategoryListFragment = CategoryListFragment().apply {
+            this.currentTab = currentTab
+        }
     }
 
     var groupPinFragment: CategoryPinFragment? = null
@@ -52,12 +57,14 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.category))
         changeToolbarSecondButtonForShow()
-        presenter.loadSchedules()
+        presenter.loadSchedules(currentTab)
     }
 
     override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                         infoTeachers: MutableList<BaseModel>,
-                                        infoAuditories: MutableList<BaseModel>) {
+                                        infoAuditories: MutableList<BaseModel>,
+                                        currentTab: Int,
+                                        listener: CategoryListPresenter) {
 
         if (infoGroups.size + infoTeachers.size + infoAuditories.size < 2) {
             (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
@@ -65,21 +72,33 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
 
         val adapter = BasePagerAdapter(childFragmentManager)
 
-        val groups = CategoryItemFragment.newInstance(infoGroups, ScheduleType.GROUP)
-        val teachers = CategoryItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER)
-        val auditories = CategoryItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY)
+        val groups = CategoryItemFragment.newInstance(infoGroups, ScheduleType.GROUP, listener)
+        val teachers = CategoryItemFragment.newInstance(infoTeachers, ScheduleType.TEACHER, listener)
+        val auditories = CategoryItemFragment.newInstance(infoAuditories, ScheduleType.AUDITORY, listener)
 
         adapter.addFragment(groups, getString(R.string.groups))
         adapter.addFragment(teachers, getString(R.string.teachers))
         adapter.addFragment(auditories, getString(R.string.auditories))
 
         general_view_pager.adapter = adapter
+        general_view_pager.currentItem = currentTab
         general_tab.setupWithViewPager(general_view_pager)
+
+        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun showPinSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                       infoTeachers: MutableList<BaseModel>,
                                       infoAuditories: MutableList<BaseModel>,
+                                      currentTab: Int,
                                       listener: CategoryListPresenter) {
 
         val adapter = BasePagerAdapter(childFragmentManager)
@@ -94,7 +113,18 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
 
         general_view_pager.adapter = adapter
         general_view_pager.offscreenPageLimit = 2
+        general_view_pager.currentItem = currentTab
         general_tab.setupWithViewPager(general_view_pager)
+
+        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun changeToolbarSecondButtonForShow() {
@@ -118,5 +148,4 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
     override fun requestChangePinToActivity(newInfo: BaseModel) {
         (activity as? MainActivity)?.changePin(newInfo)
     }
-
 }
