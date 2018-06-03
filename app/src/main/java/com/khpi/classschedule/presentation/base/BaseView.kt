@@ -17,7 +17,6 @@ interface BaseView : MvpView {
     @StateStrategyType(SkipStrategy::class)
     fun showMessage(message: String)
 
-    @StateStrategyType(SkipStrategy::class)
     fun setCustomProgressBarVisibility(visibility: Boolean)
 
     @StateStrategyType(SkipStrategy::class)

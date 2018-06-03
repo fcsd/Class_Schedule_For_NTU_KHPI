@@ -44,4 +44,14 @@ class SettingsRepository(context: Context) {
     fun getUserPrefix(): String? {
         return sp.getString("prefix", null)
     }
+
+    fun saveLastUpdatedMillis(millis: Long) {
+        val prefsEditor = sp.edit()
+        prefsEditor.putLong("last_updated", millis)
+        prefsEditor.apply()
+    }
+
+    fun getLastUpdatedMillis(): Long {
+        return sp.getLong("last_updated", 0L)
+    }
 }

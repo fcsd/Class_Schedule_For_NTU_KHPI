@@ -29,4 +29,9 @@ object DateFormatter {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         return dateFormat.format(date)
     }
+
+    fun isCurrentDay(lastUpdatedMillis: Long): Boolean {
+        val offsetMillis = lastUpdatedMillis - System.currentTimeMillis()
+        return offsetMillis / (1000 * 60 * 60 * 24) == 0L
+    }
 }
