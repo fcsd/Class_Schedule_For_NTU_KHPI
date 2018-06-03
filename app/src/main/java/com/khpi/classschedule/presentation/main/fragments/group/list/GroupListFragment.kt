@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
-
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.ScheduleType
@@ -16,7 +15,6 @@ import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.group.item.GroupItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_group_list.*
-import kotlinx.android.synthetic.main.fragment_schedule_list.*
 
 class GroupListFragment : BaseFragment(), GroupListView {
 

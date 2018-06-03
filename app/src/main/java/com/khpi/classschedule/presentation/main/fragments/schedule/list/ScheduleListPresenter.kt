@@ -5,7 +5,9 @@ import com.khpi.classschedule.Constants
 import com.khpi.classschedule.business.ScheduleManager
 import com.khpi.classschedule.data.config.ScheduleRepository
 import com.khpi.classschedule.data.config.SettingsRepository
-import com.khpi.classschedule.data.models.*
+import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.Schedule
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import java.util.*
 import javax.inject.Inject
@@ -127,6 +129,10 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
                     course = course,
                     scheduleType = type,
                     isPinned = needPinned)
+
+            if (needPinned) {
+                viewState.requestChangePinToActivity(scheduleInfo)
+            }
 
             val prefix = getPrefixByType(type)
             val messageType = getMessageByType(type)

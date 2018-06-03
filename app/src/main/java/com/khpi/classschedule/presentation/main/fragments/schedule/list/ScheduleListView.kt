@@ -25,4 +25,7 @@ interface ScheduleListView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun changeScheduleType(info: BaseModel?)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun requestChangePinToActivity(newPinned: BaseModel?)
 }

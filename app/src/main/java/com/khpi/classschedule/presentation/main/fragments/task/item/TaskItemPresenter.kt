@@ -1,7 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.task.item
 
 import com.arellomobile.mvp.InjectViewState
-import com.khpi.classschedule.Constants
 import com.khpi.classschedule.data.config.SettingsRepository
 import com.khpi.classschedule.data.config.TaskRepository
 import com.khpi.classschedule.data.models.Task

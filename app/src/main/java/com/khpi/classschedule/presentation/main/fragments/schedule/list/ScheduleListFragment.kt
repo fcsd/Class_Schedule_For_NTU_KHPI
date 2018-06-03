@@ -1,23 +1,25 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.list
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
-
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.data.models.Schedule
 import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
+import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.item.ScheduleItemFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_schedule_list.*
-import android.view.*
-import android.support.design.widget.TabLayout
-import android.widget.PopupMenu
-import com.khpi.classschedule.data.models.Screen
-import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListFragment
 
 class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
@@ -137,5 +139,9 @@ class ScheduleListFragment : BaseFragment(), ScheduleListView {
 
     override fun openCategoryScreen() {
         (activity as? MainActivity)?.replaceFragment(CategoryListFragment.newInstance())
+    }
+
+    override fun requestChangePinToActivity(newPinned: BaseModel?) {
+        (activity as? MainActivity)?.changePin(newPinned)
     }
 }

@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.khpi.classschedule.R
-import com.khpi.classschedule.data.models.ScheduleItem
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.utils.DateFormatter
 import com.khpi.classschedule.views.BasePropertyAdapter
-import kotlinx.android.synthetic.main.item_schedule.view.*
 import kotlinx.android.synthetic.main.item_task.view.*
 
 class TaskListAdapter(private val task: List<Task>,

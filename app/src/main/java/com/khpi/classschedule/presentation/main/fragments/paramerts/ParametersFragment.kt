@@ -2,21 +2,20 @@ package com.khpi.classschedule.presentation.main.fragments.paramerts
 
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
-
+import com.khpi.classschedule.BuildConfig
+import com.khpi.classschedule.Constants
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.Developer
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_parameters.*
-import com.khpi.classschedule.Constants
-import com.khpi.classschedule.BuildConfig
-import com.khpi.classschedule.data.models.Developer
-import android.content.Intent
-import android.net.Uri
 
 
 class ParametersFragment : BaseFragment(), ParametersView {

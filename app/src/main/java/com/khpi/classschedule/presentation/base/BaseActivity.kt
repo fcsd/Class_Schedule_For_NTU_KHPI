@@ -1,7 +1,6 @@
 package com.khpi.classschedule.presentation.base
 
 import android.content.Context
-import android.content.Intent
 import android.support.annotation.IdRes
 import android.support.v4.app.FragmentManager
 import android.view.ViewStub
@@ -10,7 +9,6 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.khpi.classschedule.R
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.views.SnackbarMessenger
-import kotlin.reflect.KClass
 
 abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 

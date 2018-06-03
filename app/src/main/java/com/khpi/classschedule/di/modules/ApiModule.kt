@@ -1,7 +1,7 @@
 package com.khpi.classschedule.di.modules
 
-import com.khpi.classschedule.data.network.RequestApi
 import com.khpi.classschedule.business.ScheduleManager
+import com.khpi.classschedule.data.network.RequestApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

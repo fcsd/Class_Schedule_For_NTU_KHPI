@@ -1,7 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.task.action
 
 import android.annotation.SuppressLint
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver

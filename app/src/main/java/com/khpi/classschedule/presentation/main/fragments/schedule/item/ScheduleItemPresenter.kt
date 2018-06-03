@@ -4,7 +4,10 @@ import com.arellomobile.mvp.InjectViewState
 import com.khpi.classschedule.R
 import com.khpi.classschedule.business.BuildingManager
 import com.khpi.classschedule.data.config.TaskRepository
-import com.khpi.classschedule.data.models.*
+import com.khpi.classschedule.data.models.Property
+import com.khpi.classschedule.data.models.PropertyType
+import com.khpi.classschedule.data.models.ScheduleItem
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BasePresenter
 import com.khpi.classschedule.views.BasePropertyAdapter
 import javax.inject.Inject

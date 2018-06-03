@@ -1,7 +1,5 @@
 package com.khpi.classschedule.utils
 
-import android.annotation.SuppressLint
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 

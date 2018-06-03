@@ -2,7 +2,6 @@ package com.khpi.classschedule.presentation.main.fragments.building.info
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.FullBuildingPair
 import com.khpi.classschedule.presentation.base.BaseFragment
-import com.khpi.classschedule.presentation.main.fragments.building.list.BuildingListAdapter
 import kotlinx.android.synthetic.main.fragment_building_info.*
-import kotlinx.android.synthetic.main.fragment_building_list.*
 
 class BuildingInfoFragment : BaseFragment(), BuildingInfoView {
 

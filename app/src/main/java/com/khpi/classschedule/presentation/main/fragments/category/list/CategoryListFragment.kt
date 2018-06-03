@@ -7,17 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
-
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.ScheduleType
+import com.khpi.classschedule.data.models.Screen
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemFragment
+import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_category_list.*
-import com.khpi.classschedule.data.models.ScheduleType
-import com.khpi.classschedule.data.models.Screen
-import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinFragment
 
 class CategoryListFragment : BaseFragment(), CategoryListView {
 

@@ -1,32 +1,32 @@
 package com.khpi.classschedule.presentation.main.fragments.task.action
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
-
-import com.khpi.classschedule.R
-import com.khpi.classschedule.presentation.base.BaseFragment
-import com.khpi.classschedule.utils.DateFormatter
-import kotlinx.android.synthetic.main.fragment_task_create.*
-import java.util.*
-import android.text.Editable
-import android.text.TextWatcher
-import com.khpi.classschedule.data.models.Task
-import android.app.PendingIntent
 import com.khpi.classschedule.Constants
+import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.CoupleType
 import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.data.models.Screen
+import com.khpi.classschedule.data.models.Task
+import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
+import com.khpi.classschedule.utils.DateFormatter
+import kotlinx.android.synthetic.main.fragment_task_create.*
+import java.util.*
 
 class TaskActionFragment : BaseFragment(), TaskActionView {
 
