@@ -1,20 +1,21 @@
 package com.khpi.classschedule.presentation.main.fragments.category.list
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khpi.classschedule.data.models.BaseModel
 import com.khpi.classschedule.presentation.base.BaseView
 
 interface CategoryListView : BaseView {
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
                                infoTeachers: MutableList<BaseModel>,
                                infoAuditories: MutableList<BaseModel>,
                                currentTab: Int,
                                listener: CategoryListPresenter)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun showPinSchedulesInfo(infoGroups: MutableList<BaseModel>,
                              infoTeachers: MutableList<BaseModel>,
                              infoAuditories: MutableList<BaseModel>,
@@ -22,13 +23,13 @@ interface CategoryListView : BaseView {
                              listener: CategoryListPresenter)
 
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun changeToolbarSecondButtonForPin()
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun changeToolbarSecondButtonForShow()
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun requestChangePinToActivity(newInfo: BaseModel)
 }
 

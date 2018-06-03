@@ -27,17 +27,18 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
     private var infoAuditories: MutableList<BaseModel> = mutableListOf()
     private var backupPinnedInfo: BaseModel? = null
     private var oldPinnedInfo: BaseModel? = null
-    private var currentTab = 0
+    private var currentTab: Int? = null
 
     override fun onViewLoaded() {
         viewState.configureView()
     }
 
-    fun loadSchedules(currentTab: Int) {
+    fun loadSchedules() {
         infoGroups = scheduleRepository.getScheduleInfoByTypes(Constants.GROUP_PREFIX)
         infoTeachers = scheduleRepository.getScheduleInfoByTypes(Constants.TEACHER_PREFIX)
         infoAuditories = scheduleRepository.getScheduleInfoByTypes(Constants.AUDITORY_PREFIX)
-        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab, this)
+        val unwrappedTab = currentTab ?: return
+        viewState.showSavedSchedulesInfo(infoGroups, infoTeachers, infoAuditories, unwrappedTab, this)
     }
 
     fun loadPinSchedulesInfo() {
@@ -47,9 +48,11 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
                 ?: findPinnedInfoOrNull(infoAuditories)
                 ?: return
 
+        val unwrappedTab = currentTab ?: return
+
         backupPinnedInfo = oldPinnedInfo
         viewState.changeToolbarSecondButtonForPin()
-        viewState.showPinSchedulesInfo(infoGroups, infoTeachers, infoAuditories, currentTab, this)
+        viewState.showPinSchedulesInfo(infoGroups, infoTeachers, infoAuditories, unwrappedTab, this)
     }
 
     override fun onRadioChanged(newPinnedInfo: BaseModel) {
@@ -84,16 +87,20 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
         scheduleRepository.saveScheduleInfo(oldPrefix, oldId, oldInfo)
         scheduleRepository.saveScheduleInfo(newPrefix, newId, newInfo)
         viewState.changeToolbarSecondButtonForShow()
-        loadSchedules(currentTab)
+        loadSchedules()
         viewState.requestChangePinToActivity(newInfo)
         viewState.showMessage("Ви успішно закріпили новий розклад")
     }
 
-    fun setCurrentItem(position: Int) {
-        currentTab = position
+    fun setCurrentItem(position: Int, isInit: Boolean = false) {
+        if (isInit && currentTab == null) {
+            currentTab = position
+        } else if (!isInit) {
+            currentTab = position
+        }
     }
 
     override fun onRemovedSchedule() {
-        loadSchedules(currentTab)
+        loadSchedules()
     }
 }

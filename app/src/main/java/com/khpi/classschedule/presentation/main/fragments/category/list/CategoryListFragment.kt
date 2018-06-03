@@ -56,7 +56,18 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.category))
         changeToolbarSecondButtonForShow()
-        presenter.loadSchedules(currentTab)
+        presenter.setCurrentItem(currentTab, true)
+        presenter.loadSchedules()
+
+        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                presenter.setCurrentItem(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
     }
 
     override fun showSavedSchedulesInfo(infoGroups: MutableList<BaseModel>,
@@ -82,16 +93,6 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         general_view_pager.adapter = adapter
         general_view_pager.currentItem = currentTab
         general_tab.setupWithViewPager(general_view_pager)
-
-        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                presenter.setCurrentItem(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-
-            override fun onTabReselected(tab: TabLayout.Tab) { }
-        })
     }
 
     override fun showPinSchedulesInfo(infoGroups: MutableList<BaseModel>,
@@ -114,16 +115,6 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         general_view_pager.offscreenPageLimit = 2
         general_view_pager.currentItem = currentTab
         general_tab.setupWithViewPager(general_view_pager)
-
-        general_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                presenter.setCurrentItem(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-
-            override fun onTabReselected(tab: TabLayout.Tab) { }
-        })
     }
 
     override fun changeToolbarSecondButtonForShow() {
