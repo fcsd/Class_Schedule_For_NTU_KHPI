@@ -32,7 +32,7 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
     private var schedules: MutableList<BaseModel> = mutableListOf()
 
     private var currentWeek = 1
-    private var currentTab = 0
+    private var currentTab = -1
 
     override fun onViewLoaded() {
         viewState.configureView()
@@ -53,7 +53,12 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
         scheduleSecondWeek = groupPair.second
 
         viewState.showToolbarIcons()
-        configureSchedule()
+
+        if (currentTab == -1) {
+            configureSchedule()
+        } else {
+            showSchedule()
+        }
     }
 
     private fun loadScheduleFromInternet(id: Int) {
