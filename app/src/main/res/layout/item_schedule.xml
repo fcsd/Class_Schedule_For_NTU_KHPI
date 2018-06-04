@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_6sdp"
-    android:layout_marginStart="@dimen/_6sdp"
-    android:layout_marginEnd="@dimen/_6sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:layout_marginStart="@dimen/_12sdp"
+    android:layout_marginEnd="@dimen/_12sdp"
+    android:background="@color/c_000000"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardUseCompatPadding="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -81,7 +80,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_12sdp"
-                android:textColor="@color/c_9e9e9e"
+                android:textColor="@color/c_000000"
                 app:layout_constraintLeft_toLeftOf="@+id/schedule_time_text"
                 app:layout_constraintRight_toLeftOf="@+id/schedule_image_open"
                 app:layout_constraintTop_toBottomOf="@+id/schedule_name_text"
@@ -103,7 +102,7 @@
                 android:id="@+id/schedule_image_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_down"
+                android:src="@drawable/ic_arrow_down_blue"
                 android:padding="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_6sdp"

@@ -1,5 +1,6 @@
 package com.khpi.classschedule.presentation.main.fragments.schedule.item
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -45,8 +46,10 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
 
             val propertyTypes = item.properties.map { it.type }
             if (propertyTypes.contains(PropertyType.TASK_ADD)) {
+                itemView.schedule_image_open.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_down_orange))
                 itemView.schedule_image_task.setVisibility(false)
             } else if (propertyTypes.contains(PropertyType.TASK_SHOW)) {
+                itemView.schedule_image_open.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_down_blue))
                 itemView.schedule_image_task.setVisibility(true)
             }
 

@@ -51,6 +51,7 @@ class BasePropertyAdapter(private val properties: List<Property>,
                    listener: OnScheduleItemClickListener,
                    childListener: OnCloseClickListener) {
             itemView.image_property.setImageDrawable(ContextCompat.getDrawable(itemView.context, item.image))
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, item.backgroundColor))
             itemView.text_property.text = item.title
             itemView.setOnClickListener {
                 listener.onPropertyClick(item, parentAdapterPosition)

@@ -48,7 +48,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
 
             tasks.forEach { task ->
                 task.properties = mutableListOf()
-                task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+                task.properties.add(Property("Видалити", R.drawable.ic_remove, R.color.c_e4a66c, PropertyType.REMOVE))
             }
             viewState.showActiveTasks(tasks, this)
         } else {
@@ -68,7 +68,7 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
         this.tasks = tasks.toMutableList()
         this.tasks.forEach { task ->
             task.properties = mutableListOf()
-            task.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+            task.properties.add(Property("Видалити", R.drawable.ic_remove, R.color.c_e4a66c, PropertyType.REMOVE))
         }
         viewState.showActiveTasks(this.tasks, this)
     }

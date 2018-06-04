@@ -47,12 +47,12 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
 
             tasksBySubject?.let {
                 if (it.isNotEmpty()) {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_task_blue, PropertyType.TASK_SHOW))
+                    couple.properties.add(Property("Завдання", R.drawable.ic_task, R.color.c_4a90e2, PropertyType.TASK_SHOW))
                 } else {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_add_blue, PropertyType.TASK_ADD))
+                    couple.properties.add(Property("Завдання", R.drawable.ic_add, R.color.c_4a90e2, PropertyType.TASK_ADD))
                 }
             }
-            couple.properties.add(Property("Мапа", R.drawable.ic_map, PropertyType.BUILDING))
+            couple.properties.add(Property("Мапа", R.drawable.ic_map, R.color.c_6aad77, PropertyType.BUILDING))
         }
 
         this.schedule = schedule

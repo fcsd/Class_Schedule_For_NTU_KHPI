@@ -54,7 +54,7 @@
             android:id="@+id/general_image_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_down"
+            android:src="@drawable/ic_arrow_down_orange"
             android:padding="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintTop_toTopOf="@+id/general_parent_text"

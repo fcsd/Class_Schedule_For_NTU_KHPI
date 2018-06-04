@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/_6sdp"
-    android:layout_marginStart="@dimen/_6sdp"
-    android:layout_marginTop="@dimen/_6sdp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardUseCompatPadding="true">
+    android:layout_marginEnd="@dimen/_12sdp"
+    android:layout_marginStart="@dimen/_12sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:background="@color/c_000000">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
                 android:id="@+id/task_image_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_down"
+                android:src="@drawable/ic_arrow_down_orange"
                 android:padding="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_6sdp"
                 app:layout_constraintTop_toTopOf="@+id/task_description_text"

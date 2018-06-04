@@ -45,8 +45,8 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             this.scheduleInfo = it.toMutableList()
             this.scheduleInfo.forEach { info ->
                 info.properties = mutableListOf()
-                info.properties.add(Property("Оновити", R.drawable.ic_update, PropertyType.UPDATE))
-                info.properties.add(Property("Видалити", R.drawable.ic_remove_orange, PropertyType.REMOVE))
+                info.properties.add(Property("Оновити", R.drawable.ic_update, R.color.c_987ab6, PropertyType.UPDATE))
+                info.properties.add(Property("Видалити", R.drawable.ic_remove, R.color.c_e4a66c, PropertyType.REMOVE))
             }
 
             viewState.showScheduleInfo(this.scheduleInfo, this)
