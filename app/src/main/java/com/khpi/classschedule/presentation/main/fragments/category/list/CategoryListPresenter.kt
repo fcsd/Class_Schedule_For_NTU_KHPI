@@ -100,4 +100,16 @@ class CategoryListPresenter : BasePresenter<CategoryListView>(), CategoryPinAdap
     override fun onRemovedSchedule() {
         loadSchedules()
     }
+
+    fun openSearchScreen() {
+
+        val type = when (currentTab) {
+            0 -> ScheduleType.GROUP
+            1 -> ScheduleType.TEACHER
+            2 -> ScheduleType.AUDITORY
+            else -> return
+        }
+
+        viewState.openSearchScreen(type)
+    }
 }

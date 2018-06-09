@@ -1,7 +1,7 @@
 package com.khpi.classschedule.data.models
 
 data class BaseModel (
-        var title: String?,
+        val title: String?,
         val id: Int?,
         var course: Int?,
         var isPinned: Boolean = false,

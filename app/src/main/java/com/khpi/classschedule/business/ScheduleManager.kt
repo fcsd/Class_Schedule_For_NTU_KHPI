@@ -1,6 +1,7 @@
 package com.khpi.classschedule.business
 
 import com.khpi.classschedule.data.models.BaseModel
+import com.khpi.classschedule.data.models.BufferSearchModel
 import com.khpi.classschedule.data.models.FullSchedule
 import com.khpi.classschedule.data.network.RequestApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,6 +46,22 @@ class ScheduleManager(private val requestApi: RequestApi) {
                               onFailure: (exception: String?) -> Unit) {
 
         requestApi.getScheduleByWeekById(action, groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess(it) },
+                        { throwable ->
+                            val exception = (throwable as? Exception)?.localizedMessage
+                            onFailure(exception)
+                        })
+    }
+
+    fun getSearchedList(action: String,
+                        searchedText: String,
+                        onSuccess: (response: ArrayList<BufferSearchModel>) -> Unit,
+                        onFailure: (exception: String?) -> Unit) {
+
+        requestApi.getSearchedList(action, searchedText)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -117,8 +117,8 @@ class MainActivity : BaseActivity(), MainView {
         return tvToolbarTitleSchedule
     }
 
-    fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
-        replaceFragment(R.id.vgFrame, fragment, isNeedClearBackStack)
+    fun replaceFragment(fragment: BaseFragment, isNeedClearBackStack: Boolean = false, isAnimate: Boolean = true) {
+        replaceFragment(R.id.vgFrame, fragment, isNeedClearBackStack, isAnimate)
     }
 
     fun setRightFirstNavigationIcon(icon: Drawable?) {

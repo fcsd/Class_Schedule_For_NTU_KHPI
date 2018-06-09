@@ -1,10 +1,12 @@
 package com.khpi.classschedule.presentation.main.fragments.category.item
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
+import android.view.*
+import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 import com.khpi.classschedule.R
@@ -13,6 +15,7 @@ import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListPresenter
+import com.khpi.classschedule.presentation.main.fragments.category.search.CategorySearchFragment
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListFragment
 import com.khpi.classschedule.presentation.main.fragments.schedule.list.ScheduleListFragment
 import com.khpi.classschedule.utils.setVisibility
@@ -92,5 +95,4 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
     override fun requestChangePinToActivity(newPinned: BaseModel?) {
         (activity as? MainActivity)?.changePin(newPinned)
     }
-
 }

@@ -1,11 +1,12 @@
 package com.khpi.classschedule.presentation.main.fragments.category.list
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
+import android.view.*
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.BaseModel
@@ -15,6 +16,7 @@ import com.khpi.classschedule.presentation.base.BaseFragment
 import com.khpi.classschedule.presentation.main.MainActivity
 import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemFragment
 import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinFragment
+import com.khpi.classschedule.presentation.main.fragments.category.search.CategorySearchFragment
 import com.khpi.classschedule.views.BasePagerAdapter
 import kotlinx.android.synthetic.main.fragment_category_list.*
 
@@ -34,9 +36,9 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
         }
     }
 
-    var groupPinFragment: CategoryPinFragment? = null
-    var teacherPinFragment: CategoryPinFragment? = null
-    var auditotyPinFragment: CategoryPinFragment? = null
+    private var groupPinFragment: CategoryPinFragment? = null
+    private var teacherPinFragment: CategoryPinFragment? = null
+    private var auditotyPinFragment: CategoryPinFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -49,12 +51,14 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
         (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
     }
 
     override fun configureView() {
         (activity as? MainActivity)?.requestVisibleViews(Screen.SCHEDULE)
         (activity as? MainActivity)?.setToolbarTitle(resources.getString(R.string.category))
+        setHasOptionsMenu(true)
         changeToolbarSecondButtonForShow()
         presenter.setCurrentItem(currentTab, true)
         presenter.loadSchedules()
@@ -77,7 +81,7 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
                                         listener: CategoryListPresenter) {
 
         if (infoGroups.size + infoTeachers.size + infoAuditories.size < 2) {
-            (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
+            (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
         }
 
         val adapter = BasePagerAdapter(childFragmentManager)
@@ -119,12 +123,15 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
 
     override fun changeToolbarSecondButtonForShow() {
         val ctx = context ?: return
-        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_pin))
-        (activity as? MainActivity)?.setRightSecondClickListener { presenter.loadPinSchedulesInfo() }
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_search))
+        (activity as? MainActivity)?.setRightSecondClickListener { presenter.openSearchScreen() }
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_pin))
+        (activity as? MainActivity)?.setRightFirstClickListener { presenter.loadPinSchedulesInfo() }
     }
 
     override fun changeToolbarSecondButtonForPin() {
         val ctx = context ?: return
+        (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
         (activity as? MainActivity)?.setRightSecondNavigationIcon(ContextCompat.getDrawable(ctx, R.drawable.ic_apply))
         (activity as? MainActivity)?.setRightSecondClickListener { presenter.confirmPinGroup() }
     }
@@ -137,5 +144,9 @@ class CategoryListFragment : BaseFragment(), CategoryListView {
 
     override fun requestChangePinToActivity(newInfo: BaseModel) {
         (activity as? MainActivity)?.changePin(newInfo)
+    }
+
+    override fun openSearchScreen(type: ScheduleType) {
+        (activity as? MainActivity)?.replaceFragment(CategorySearchFragment.newInstance(type), isAnimate = false)
     }
 }

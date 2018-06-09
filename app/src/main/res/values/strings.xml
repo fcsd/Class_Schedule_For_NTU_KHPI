@@ -13,6 +13,8 @@
     <string name="search.buildings">Введіть корпус</string>
     <string name="search.faculties">Введіть факультет</string>
     <string name="search.groups">Введіть групу</string>
+    <string name="search.teacher">Введіть викладача</string>
+    <string name="search.auditory">Введіть аудиторію</string>
 
     <string name="buildings_list_title">Учбові корпуси</string>
     <string name="buildings_description">Опис</string>
@@ -90,6 +92,10 @@
     <string name="user_type">Тип користувача</string>
     <string name="user_student">Я студент</string>
     <string name="user_teacher">Я викладач</string>
+
+    <string name="search_description_group">Введіть не меньш двох літер для пошуку групи</string>
+    <string name="search_description_teacher">Введіть не меньш двох літер для пошуку викладача</string>
+    <string name="search_description_auditory">Введіть не меньш двох літер для пошуку аудиторії</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

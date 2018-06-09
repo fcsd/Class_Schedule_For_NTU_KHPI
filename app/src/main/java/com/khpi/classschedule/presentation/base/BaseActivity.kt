@@ -24,7 +24,8 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
         vs.inflate()
     }
 
-    fun replaceFragment(@IdRes contentId: Int, fragment: BaseFragment, isNeedClearBackStack: Boolean = false) {
+    fun replaceFragment(@IdRes contentId: Int, fragment: BaseFragment,
+                        isNeedClearBackStack: Boolean = false, isAnimate: Boolean = true) {
         if ((supportFragmentManager.findFragmentByTag(fragment.TAG) as? BaseFragment)?.isVisible == true) {
             return
         }
@@ -36,11 +37,13 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
             (this as? MainActivity)?.setBackButtonVisibility(true)
         }
 
-        supportFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .setCustomAnimations(R.anim.right_in, R.anim.left_out, R.anim.left_in, R.anim.right_out)
-                .replace(contentId, fragment, fragment.TAG)
-                .commit()
+        val fm = supportFragmentManager.beginTransaction().addToBackStack(null)
+
+        if (isAnimate) {
+            fm.setCustomAnimations(R.anim.right_in, R.anim.left_out, R.anim.left_in, R.anim.right_out)
+        }
+
+        fm.replace(contentId, fragment, fragment.TAG).commit()
     }
 
     private fun clearBackStack() {

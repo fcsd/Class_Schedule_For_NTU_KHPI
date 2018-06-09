@@ -124,12 +124,13 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
             val id = baseModel?.id ?: return
             val name = baseModel.title ?: return
             val course = baseModel.course
+            val parentName = baseModel.parentName
             val type = this.type ?: return
 
             val needPinned = !scheduleRepository.isHasSavedGroup()
 
             val scheduleInfo = BaseModel(id = id,
-                    parentName = "Test Faculty",
+                    parentName = parentName,
                     title = name,
                     course = course,
                     scheduleType = type,

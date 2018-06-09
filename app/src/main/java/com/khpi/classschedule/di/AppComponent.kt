@@ -10,6 +10,7 @@ import com.khpi.classschedule.presentation.main.fragments.building.list.Building
 import com.khpi.classschedule.presentation.main.fragments.category.item.CategoryItemPresenter
 import com.khpi.classschedule.presentation.main.fragments.category.list.CategoryListPresenter
 import com.khpi.classschedule.presentation.main.fragments.category.pin.CategoryPinPresenter
+import com.khpi.classschedule.presentation.main.fragments.category.search.CategorySearchPresenter
 import com.khpi.classschedule.presentation.main.fragments.faculty.FacultyListPresenter
 import com.khpi.classschedule.presentation.main.fragments.first.FirstPresenter
 import com.khpi.classschedule.presentation.main.fragments.group.list.GroupListPresenter
@@ -44,4 +45,5 @@ interface AppComponent {
     fun inject(taskActionAlarmAdapter: TaskActionAlarmAdapter)
     fun inject(categoryPinPresenter: CategoryPinPresenter)
     fun inject(firstPresenter: FirstPresenter)
+    fun inject(categorySearchPresenter: CategorySearchPresenter)
 }
