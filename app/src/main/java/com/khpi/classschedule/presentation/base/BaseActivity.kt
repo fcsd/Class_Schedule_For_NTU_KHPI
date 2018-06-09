@@ -61,7 +61,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
         snackbarMessenger?.showMessageSnackBar(message)
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         val view = currentFocus
         view?.let {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

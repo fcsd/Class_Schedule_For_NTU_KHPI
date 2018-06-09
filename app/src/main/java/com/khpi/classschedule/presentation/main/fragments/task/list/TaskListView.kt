@@ -25,4 +25,7 @@ interface TaskListView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun hideSortingButton()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openConfirmationAlert(task: Task)
 }

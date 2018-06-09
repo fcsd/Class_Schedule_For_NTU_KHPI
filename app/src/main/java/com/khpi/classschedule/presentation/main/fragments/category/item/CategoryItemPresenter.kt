@@ -74,7 +74,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         }
     }
 
-    private fun removeSchedule(adapterPosition: Int) {
+    fun removeSchedule(adapterPosition: Int) {
 
         val itemInfo = scheduleInfo[adapterPosition]
         val id = itemInfo.id ?: return
@@ -200,7 +200,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
     override fun onPropertyClick(property: Property, adapterPosition: Int) {
         when(property.type) {
             PropertyType.UPDATE -> refreshSchedule(adapterPosition)
-            PropertyType.REMOVE -> removeSchedule(adapterPosition)
+            PropertyType.REMOVE -> viewState.openConfirmationAlert(adapterPosition)
             else -> return
         }
     }

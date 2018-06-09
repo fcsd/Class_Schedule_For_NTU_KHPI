@@ -97,11 +97,10 @@ class TaskListPresenter : BasePresenter<TaskListView>(), TaskListAdapter.OnTaskI
     }
 
     override fun onPropertyClick(property: Property, adapterPosition: Int) {
-        val task = tasks[adapterPosition]
-        removeTask(task)
+        viewState.openConfirmationAlert(tasks[adapterPosition])
     }
 
-    private fun removeTask(task: Task) {
+    fun removeTask(task: Task) {
         taskRepository.removeTask(prefix, task.id)
         tasks.remove(task)
         viewState.disableTaskNotification(task)

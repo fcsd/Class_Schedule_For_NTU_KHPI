@@ -1,6 +1,8 @@
 package com.khpi.classschedule.presentation.main.fragments.task.list
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -133,5 +135,20 @@ class TaskListFragment : BaseFragment(), TaskListView {
 
     override fun hideSortingButton() {
         (activity as? MainActivity)?.setRightFirstNavigationIcon(null)
+    }
+
+    override fun openConfirmationAlert(task: Task) {
+        val dialog = AlertDialog.Builder(context)
+                .setTitle(R.string.remove_task)
+                .setMessage(R.string.confirm_remove_task)
+                .setPositiveButton(R.string.remove, { _: DialogInterface, _: Int ->
+                    presenter.removeTask(task)
+                })
+                .setNegativeButton(R.string.cancel, { dialog: DialogInterface, _: Int ->
+                    dialog.dismiss()
+                })
+                .create()
+
+        dialog.show()
     }
 }

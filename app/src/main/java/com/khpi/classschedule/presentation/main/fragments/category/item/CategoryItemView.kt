@@ -20,4 +20,7 @@ interface CategoryItemView : BaseView {
 
     @StateStrategyType(SkipStrategy::class)
     fun requestChangePinToActivity(newPinned: BaseModel?)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openConfirmationAlert(adapterPosition: Int)
 }

@@ -1,7 +1,9 @@
 package com.khpi.classschedule.presentation.main.fragments.category.item
 
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
@@ -94,5 +96,20 @@ class CategoryItemFragment : BaseFragment(), CategoryItemView {
 
     override fun requestChangePinToActivity(newPinned: BaseModel?) {
         (activity as? MainActivity)?.changePin(newPinned)
+    }
+
+    override fun openConfirmationAlert(adapterPosition: Int) {
+        val dialog = AlertDialog.Builder(context)
+                .setTitle(R.string.remove_schedule)
+                .setMessage(R.string.confirm_remove_schedule)
+                .setPositiveButton(R.string.remove, { _: DialogInterface, _: Int ->
+                    presenter.removeSchedule(adapterPosition)
+                })
+                .setNegativeButton(R.string.cancel, { dialog: DialogInterface, _: Int ->
+                            dialog.dismiss()
+                        })
+                .create()
+
+        dialog.show()
     }
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Розклад занять НТУ ХПІ</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="schedule">Розклад</string>
     <string name="task">Завдання</string>
@@ -50,6 +48,7 @@
     <string name="teachers">Викладачі</string>
     <string name="course">Курс %d</string>
     <string name="map">Mапа</string>
+    <string name="remove">Видалити</string>
     <string name="cancel">Відмініти</string>
 
     <string name="choose_group">Оберіть групу зі списку</string>
@@ -62,6 +61,8 @@
     <string name="add_group_schedule_from_task">Додайте розклад групи, щоб додати завдання</string>
     <string name="add_teacher_schedule_from_task">Додайте розклад викладача, щоб додати завдання</string>
     <string name="add_task_empty">Додайте перше завдання</string>
+    <string name="confirm_remove_schedule">Ви впевнені, що бажаєте видалити розклад?</string>
+    <string name="confirm_remove_task">Ви впевнені, що бажаєте видалити завдання?</string>
 
     <string name="add_first_group">Додайте перший розклад групи</string>
     <string name="add_first_teacher">Додайте перший розклад викладача</string>
@@ -96,9 +97,5 @@
     <string name="search_description_group">Введіть не меньш двох літер для пошуку групи</string>
     <string name="search_description_teacher">Введіть не меньш двох літер для пошуку викладача</string>
     <string name="search_description_auditory">Введіть не меньш двох літер для пошуку аудиторії</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>
