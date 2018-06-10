@@ -66,8 +66,7 @@ class CategorySearchPresenter : BasePresenter<CategorySearchView>(), BaseAdapter
             viewState.notifyDataSetChanged()
         }, {
             viewState.setCustomProgressBarVisibility(false)
-            val errorMessage = it ?: "Unknown error"
-            viewState.showError(errorMessage)
+            viewState.showError("При завантаженні даних трапилася помилка. Перевірте ваше підключення к мережі.")
         })
     }
 

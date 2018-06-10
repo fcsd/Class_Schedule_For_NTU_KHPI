@@ -1,11 +1,8 @@
 package com.khpi.classschedule.presentation.main.fragments.category.list
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.SearchView
 import android.view.*
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R

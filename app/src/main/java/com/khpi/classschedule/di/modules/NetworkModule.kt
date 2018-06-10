@@ -5,7 +5,6 @@ import com.khpi.classschedule.Constants
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,11 +23,7 @@ class NetworkModule {
         val cookieManager = CookieManager()
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
 
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient.Builder()
-        builder.addInterceptor(loggingInterceptor)
-
         builder.readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
         builder.connectTimeout(Constants.CONNECT_TIMEOUT, TimeUnit.SECONDS)
         builder.writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)

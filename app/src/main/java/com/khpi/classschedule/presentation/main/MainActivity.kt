@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.Constants
@@ -44,7 +45,12 @@ class MainActivity : BaseActivity(), MainView {
 
     override fun configureView() {
         setSupportActionBar(toolbar)
-        btnToolbarBack.setOnClickListener { super.onBackPressed() }
+        btnToolbarBack.setOnClickListener {
+            if (progress_bar.visibility == View.VISIBLE) {
+                setCustomProgressBarVisibility(false)
+            }
+            super.onBackPressed()
+        }
 
         schedule_fragment.setOnClickListener {
             pinnedInfo?.let { openScheduleScreen(it) } ?: openCategoryScreen()

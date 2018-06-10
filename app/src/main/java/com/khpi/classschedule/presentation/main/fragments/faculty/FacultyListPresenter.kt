@@ -56,9 +56,8 @@ class FacultyListPresenter : BasePresenter<FacultyListView>(), BaseAdapter.OnBas
             viewState.onFacultyLoaded(this.faculties, this)
 
         }, {
-            val errorMessage = it ?: "Unknown error"
             viewState.setCustomProgressBarVisibility(false)
-            viewState.showError(errorMessage)
+            viewState.showError("При завантаженні даних трапилася помилка. Перевірте ваше підключення к мережі.")
         })
     }
 
@@ -75,9 +74,8 @@ class FacultyListPresenter : BasePresenter<FacultyListView>(), BaseAdapter.OnBas
             viewState.onFacultyLoaded(this.faculties, this)
 
         }, {
-            val errorMessage = it ?: "Unknown error"
             viewState.setCustomProgressBarVisibility(false)
-            viewState.showError(errorMessage)
+            viewState.showError("При завантаженні даних трапилася помилка. Перевірте ваше підключення к мережі.")
         })
     }
 

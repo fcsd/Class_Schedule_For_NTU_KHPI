@@ -154,9 +154,8 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
             synchronizeThreads(model, scheduleFirstWeek, scheduleSecondWeek)
 
         }, {
-            val errorMessage = it ?: "Unknown error"
             viewState.setCustomProgressBarVisibility(false)
-            viewState.showError(errorMessage)
+            viewState.showError("При завантаженні даних трапилася помилка. Перевірте ваше підключення к мережі.")
         })
     }
 

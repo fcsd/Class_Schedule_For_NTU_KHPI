@@ -31,7 +31,7 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
     private var id: Int? = null
     private var title: String? = null
     private lateinit var facultyAdapter : BaseAdapter
-    private lateinit var searchViewItem : MenuItem
+    private var searchViewItem : MenuItem? = null
 
     companion object {
         fun newInstance(type: ScheduleType, tag: String, id: Int? = null, title: String? = null)
@@ -66,11 +66,11 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
         }
 
         (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
-        setHasOptionsMenu(true)
         presenter.manageActionByTypeAndTag(type, TAG, id)
     }
 
     override fun onFacultyLoaded(faculties: MutableList<BaseModel>, callback: FacultyListPresenter) {
+        setHasOptionsMenu(true)
         facultyAdapter = BaseAdapter(faculties, callback)
         recycler_facutlies.layoutManager = LinearLayoutManager(context)
         recycler_facutlies.adapter = facultyAdapter
@@ -93,7 +93,7 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
         inflater.inflate(R.menu.menu_search, menu)
         searchViewItem = menu.findItem(R.id.action_search)
         val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = searchViewItem.actionView as SearchView
+        val searchView = searchViewItem?.actionView as SearchView
         searchView.queryHint = resources.getString(R.string.search_faculties)
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
         searchView.setIconifiedByDefault(false)
@@ -105,7 +105,7 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchViewItem.collapseActionView()
+                searchViewItem?.collapseActionView()
                 return false
             }
         }
@@ -117,8 +117,8 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
     }
 
     override fun onBackPressed() {
-        if (searchViewItem.isActionViewExpanded) {
-            searchViewItem.collapseActionView()
+        if (searchViewItem != null && searchViewItem?.isActionViewExpanded == true) {
+            searchViewItem?.collapseActionView()
         } else {
             super.onBackPressed()
         }
