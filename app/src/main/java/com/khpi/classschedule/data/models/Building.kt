@@ -3,8 +3,7 @@ package com.khpi.classschedule.data.models
 data class FullBuilding(
         val shortName: String,
         val data: ArrayList<FullBuildingPair>,
-        val unitTitle: String,
-        val units: ArrayList<String>
+        val units: Map<String, ArrayList<String>>
 )
 
 data class FullBuildingPair(

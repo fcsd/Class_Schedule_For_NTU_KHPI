@@ -21,17 +21,14 @@ class BuildingInfoDecorator(context: Context,
         val right = parent.width
 
         val childCount = parent.childCount
-        for (i in 0 until childCount) {
+        for (i in 0 until childCount - 1) {
             val child = parent.getChildAt(i)
             val params = child.layoutParams as RecyclerView.LayoutParams
-            val position = params.viewAdapterPosition
 
-            if (position < count) {
-                val top = child.bottom + params.bottomMargin
-                val bottom = top + divider.intrinsicHeight
-                divider.setBounds(left, top, right, bottom)
-                divider.draw(c)
-            }
+            val top = child.bottom + params.bottomMargin
+            val bottom = top + divider.intrinsicHeight
+            divider.setBounds(left, top, right, bottom)
+            divider.draw(c)
         }
     }
 }

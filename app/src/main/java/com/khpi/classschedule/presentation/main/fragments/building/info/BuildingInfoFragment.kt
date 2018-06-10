@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.khpi.classschedule.R
 import com.khpi.classschedule.data.models.FullBuildingPair
 import com.khpi.classschedule.presentation.base.BaseFragment
+import com.khpi.classschedule.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_building_info.*
 
 class BuildingInfoFragment : BaseFragment(), BuildingInfoView {
@@ -38,12 +39,12 @@ class BuildingInfoFragment : BaseFragment(), BuildingInfoView {
     }
 
     override fun configureView() {
-        //nothing to override
+        (activity as? MainActivity)?.setRightSecondNavigationIcon(null)
     }
 
-    override fun showBuildingInfo(buildingPairs: ArrayList<FullBuildingPair>, unitTitle: String, units: ArrayList<String>) {
+    override fun showBuildingInfo(buildingPairs: ArrayList<FullBuildingPair>, units: Map<String, ArrayList<String>>) {
         val ctx = context ?: return
-        val buildingInfoAdapter = BuildingInfoAdapter(buildingPairs, unitTitle, units)
+        val buildingInfoAdapter = BuildingInfoAdapter(buildingPairs, units)
 
         val glm = GridLayoutManager(ctx, 2)
         glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

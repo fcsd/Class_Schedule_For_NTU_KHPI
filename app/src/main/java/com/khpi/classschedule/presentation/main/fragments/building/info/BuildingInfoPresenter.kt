@@ -25,9 +25,8 @@ class BuildingInfoPresenter : BasePresenter<BuildingInfoView>() {
 
         building?.let {
             val buildingPairs = it.data
-            val unitTitle = it.unitTitle
             val units = it.units
-            viewState.showBuildingInfo(buildingPairs, unitTitle, units)
+            viewState.showBuildingInfo(buildingPairs, units)
         }
     }
 

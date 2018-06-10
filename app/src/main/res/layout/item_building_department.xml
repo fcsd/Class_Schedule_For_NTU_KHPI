@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/unit_department_value"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:paddingTop="@dimen/_12sdp"
+    android:textSize="@dimen/_12sdp"
+    android:textColor="@color/c_000000"
+    tools:text="FFFFFFF"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
