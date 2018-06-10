@@ -9,7 +9,7 @@ import com.khpi.classschedule.presentation.base.BaseView
 
 interface ScheduleItemView : BaseView {
     @StateStrategyType(SkipStrategy::class)
-    fun showSchedule(schedule: List<ScheduleItem>, callback: ScheduleItemPresenter)
+    fun showSchedule(schedule: List<ScheduleItem>, type: ScheduleType, callback: ScheduleItemPresenter)
 
     @StateStrategyType(SkipStrategy::class)
     fun openBuildingScreen(shortName: String)

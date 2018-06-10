@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.khpi.classschedule.R
+import com.khpi.classschedule.data.models.ScheduleType
 import com.khpi.classschedule.data.models.Task
 import com.khpi.classschedule.utils.DateFormatter
 import com.khpi.classschedule.views.BasePropertyAdapter
@@ -41,7 +42,16 @@ class TaskListAdapter(private val task: List<Task>,
 
             itemView.task_date_text.text = itemView.context.resources.getString(R.string.task_deadline,
                     DateFormatter.getDateFromMillis(item.notificationTime))
-            itemView.task_group_text.text = item.group
+
+            val group = when (item.scheduleType) {
+                ScheduleType.TEACHER -> {
+                    val replacedGroup = item.group.split(" ")
+                    replacedGroup[0] + " " + replacedGroup[1].first() + " " + replacedGroup[2].first()
+                }
+                else -> item.group
+            }
+
+            itemView.task_group_text.text = group
             itemView.task_subject_text.text = item.subject
             itemView.task_description_text.text = item.description
 

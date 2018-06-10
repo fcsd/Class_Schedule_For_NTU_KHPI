@@ -64,6 +64,13 @@
     <string name="confirm_remove_schedule">Ви впевнені, що бажаєте видалити розклад?</string>
     <string name="confirm_remove_task">Ви впевнені, що бажаєте видалити завдання?</string>
 
+    <plurals name="few_groups">
+        <item quantity="one">%d група</item>
+        <item quantity="two">%d групи</item>
+        <item quantity="few">%d групи</item>
+        <item quantity="many">%d груп</item>
+    </plurals>
+
     <string name="add_first_group">Додайте перший розклад групи</string>
     <string name="add_first_teacher">Додайте перший розклад викладача</string>
     <string name="add_first_auditory">Додайте перший розклад аудиторії</string>

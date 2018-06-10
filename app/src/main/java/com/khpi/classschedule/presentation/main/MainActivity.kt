@@ -90,9 +90,9 @@ class MainActivity : BaseActivity(), MainView {
         tvToolbarTitle.setVisibility(false)
 
         if (btnToolbarBack.visibility == View.GONE) {
-            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._210sdp).toInt()
+            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._200sdp).toInt()
         } else {
-            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._170sdp).toInt()
+            tvToolbarTitleSchedule.maxWidth = resources.getDimension(R.dimen._160sdp).toInt()
         }
 
         tvToolbarTitleSchedule.setVisibility(true)
@@ -102,7 +102,7 @@ class MainActivity : BaseActivity(), MainView {
     fun removeToolbarTitleFunctionForSchedule() {
         tvToolbarTitleSchedule.setVisibility(false)
         tvToolbarTitle.setVisibility(true)
-        tvToolbarTitle.setOnClickListener(null)
+        tvToolbarTitleSchedule.setOnClickListener(null)
     }
 
     fun setToolbarTitleClickListener(function: (View) -> Unit) {

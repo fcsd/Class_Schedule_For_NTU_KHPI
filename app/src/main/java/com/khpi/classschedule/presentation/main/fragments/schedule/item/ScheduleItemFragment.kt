@@ -53,8 +53,8 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
         presenter.prepareToShowSchedule(schedule, type, toolbarTitle)
     }
 
-    override fun showSchedule(schedule: List<ScheduleItem>, callback: ScheduleItemPresenter) {
-        val scheduleAdapter = ScheduleItemAdapter(schedule, callback)
+    override fun showSchedule(schedule: List<ScheduleItem>, type: ScheduleType, callback: ScheduleItemPresenter) {
+        val scheduleAdapter = ScheduleItemAdapter(schedule, type, callback)
         recycler_schedule.layoutManager = LinearLayoutManager(context)
         recycler_schedule.adapter = scheduleAdapter
     }

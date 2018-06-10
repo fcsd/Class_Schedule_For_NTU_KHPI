@@ -56,7 +56,7 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
         }
 
         this.schedule = schedule
-        this.schedule?.let { viewState.showSchedule(it, this) }
+        this.schedule?.let { viewState.showSchedule(it, type, this) }
     }
 
     override fun onPropertyClick(property: Property, adapterPosition: Int) {
