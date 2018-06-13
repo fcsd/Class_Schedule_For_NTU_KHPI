@@ -9,8 +9,10 @@ import retrofit2.http.Path
 
 interface RequestApi {
 
-    @GET("FacultyList")
-    fun getFacultyList(): Single<ArrayList<BaseModel>>
+    @GET("{action}")
+    fun getActionList(
+            @Path("action") action : String
+    ): Single<ArrayList<BaseModel>>
 
     @GET("{action}/{id}")
     fun getActionListById(
@@ -18,7 +20,7 @@ interface RequestApi {
             @Path("id") facultyId : Int
     ): Single<ArrayList<BaseModel>>
 
-    @GET("{action}/!{searchedText}")
+    @GET("{action}/{searchedText}")
     fun getSearchedList(
             @Path("action") action : String,
             @Path("searchedText") searchedText : String

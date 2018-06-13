@@ -10,10 +10,11 @@ import io.reactivex.schedulers.Schedulers
 
 class ScheduleManager(private val requestApi: RequestApi) {
 
-    fun getFacultyList(onSuccess: (response: ArrayList<BaseModel>) -> Unit,
+    fun getFacultyList(action: String,
+                       onSuccess: (response: ArrayList<BaseModel>) -> Unit,
                        onFailure: (exception: String?) -> Unit) {
 
-        requestApi.getFacultyList()
+        requestApi.getActionList(action)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

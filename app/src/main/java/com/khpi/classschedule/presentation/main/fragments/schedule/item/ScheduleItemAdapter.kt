@@ -53,8 +53,9 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
             itemView.schedule_auditory_text.text = item.auditory
 
             when (type) {
+                ScheduleType.AUDITORY,
                 ScheduleType.TEACHER -> {
-                    val replacedGroup = item.teacher?.split(" ") ?: return
+                    val replacedGroup = item.teacher?.trim()?.split(" ") ?: return
                     if (replacedGroup.size == 1) {
                         setDefaultSpannable(item)
                     } else {
@@ -92,7 +93,7 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
         }
 
         private fun setDefaultSpannable(item: ScheduleItem) {
-            val text = "${item.teacher}   ${item.type}"
+            val text = "${item.teacher?.trim()}   ${item.type}"
             val spanString = Spannable.Factory.getInstance().newSpannable(text)
 
             val lengthType = item.type?.length ?: 0
@@ -120,13 +121,13 @@ class ScheduleItemAdapter(private val schedule: List<ScheduleItem>,
             spanString.setSpan(object : ClickableSpan() {
                 override fun onClick(v: View) {
                     if (isExpanded) {
-                        val replacedGroup = item.teacher?.split(" ") ?: return
+                        val replacedGroup = item.teacher?.trim()?.split(" ") ?: return
                         val fewGroups = itemView.context.resources
                                 .getQuantityString(R.plurals.few_groups, replacedGroup.size, replacedGroup.size)
                         val text = "$fewGroups   \$   ${item.type}"
                         setNotDefaultSpannable(text, R.drawable.ic_arrow_right, item, !isExpanded)
                     } else {
-                        val text = "${item.teacher}   \$   ${item.type}"
+                        val text = "${item.teacher?.trim()}   \$   ${item.type}"
                         setNotDefaultSpannable(text, R.drawable.ic_arrow_left, item, !isExpanded)
                     }
                 }

@@ -33,21 +33,26 @@ class FacultyListPresenter : BasePresenter<FacultyListView>(), BaseAdapter.OnBas
         this.type = type
 
         when(type) {
-            ScheduleType.GROUP -> loadFacultyList()
+            ScheduleType.GROUP -> loadActionList("FacultyList")
             ScheduleType.TEACHER -> {
                 when (tag) {
-                    Constants.FACULTY_FRAGMENT -> loadFacultyList()
+                    Constants.FACULTY_FRAGMENT -> loadActionList("FacultyList")
                     Constants.DEPARTMENT_FRAGMENT -> loadActionListByFacultyId("DeptsByFacultyP", id)
                     Constants.TEACHER_FRAGMENT -> loadActionListByFacultyId("PrepodListByDeptP", id)
                 }
             }
-            ScheduleType.AUDITORY -> throw NotImplementedError()
+            ScheduleType.AUDITORY -> {
+                when (tag) {
+                    Constants.BUILDING_FRAGMENT -> loadActionList("BuildingList")
+                    Constants.AUDITORY_FRAGMENT -> loadActionListByFacultyId("AudListByBuilding", id)
+                }
+            }
         }
     }
 
-    private fun loadFacultyList() {
+    private fun loadActionList(action: String) {
         viewState.setCustomProgressBarVisibility(true)
-        scheduleManager.getFacultyList( { faculties ->
+        scheduleManager.getFacultyList( action, { faculties ->
 
             backupFaculties = faculties
             this.faculties = backupFaculties.toMutableList()
@@ -89,7 +94,12 @@ class FacultyListPresenter : BasePresenter<FacultyListView>(), BaseAdapter.OnBas
                     Constants.TEACHER_FRAGMENT -> viewState.openScheduleScreen(item)
                 }
             }
-            ScheduleType.AUDITORY -> throw NotImplementedError()
+            ScheduleType.AUDITORY -> {
+                when (tag) {
+                    Constants.BUILDING_FRAGMENT -> viewState.reopenCurrentScreen(item, Constants.AUDITORY_FRAGMENT)
+                    Constants.AUDITORY_FRAGMENT -> viewState.openScheduleScreen(item)
+                }
+            }
         }
     }
 

@@ -23,4 +23,6 @@ object Constants {
     val FACULTY_FRAGMENT = "FacultyListFragment"
     val DEPARTMENT_FRAGMENT = "DepartmentListFragment"
     val TEACHER_FRAGMENT = "TeacherListFragment"
+    val BUILDING_FRAGMENT = "BuildingListFragment"
+    val AUDITORY_FRAGMENT = "AuditoryListFragment"
 }

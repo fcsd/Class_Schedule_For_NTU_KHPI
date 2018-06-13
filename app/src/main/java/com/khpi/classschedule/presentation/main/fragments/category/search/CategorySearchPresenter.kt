@@ -37,11 +37,17 @@ class CategorySearchPresenter : BasePresenter<CategorySearchView>(), BaseAdapter
             return
         }
 
+        val text = if (type == ScheduleType.TEACHER) {
+            searchedText.capitalize()
+        } else {
+            searchedText
+        }
+
         viewState.hideOrShowRecyclerView(true, false)
         val unwrappedType = type ?: return
         when(unwrappedType) {
-            ScheduleType.GROUP -> searchGroup("SearchGroups", searchedText)
-            ScheduleType.TEACHER -> viewState.showMessage("Search Teacher")
+            ScheduleType.GROUP -> searchGroup("SearchGroups", "!".plus(text))
+            ScheduleType.TEACHER -> searchGroup("SearchPrepod", text)
             ScheduleType.AUDITORY -> viewState.showMessage("Search Auditory")
         }
     }
@@ -53,13 +59,32 @@ class CategorySearchPresenter : BasePresenter<CategorySearchView>(), BaseAdapter
         viewState.setCustomProgressBarVisibility(true)
         scheduleManager.getSearchedList(action, searchedText, { bufferSchedules ->
 
-            bufferSchedules.forEach { buffer ->
-                val baseModel = BaseModel(title = buffer.gAbbr,
-                        course = buffer.gKurs,
-                        parentName = buffer.fAbbr,
-                        id = buffer.gId,
-                        scheduleType = type)
-                foundedGroup.add(baseModel)
+            when (type) {
+                ScheduleType.GROUP -> {
+                    bufferSchedules.forEach { buffer ->
+                        val baseModel = BaseModel(title = buffer.gAbbr,
+                                course = buffer.gKurs,
+                                parentName = buffer.fAbbr,
+                                id = buffer.gId,
+                                scheduleType = type)
+                        foundedGroup.add(baseModel)
+                    }
+                }
+
+                ScheduleType.TEACHER -> {
+                    bufferSchedules.forEach { buffer ->
+                        val baseModel = BaseModel(title = buffer.pLast + " " + buffer.pName + " " + buffer.pMiddle,
+                                parentName = buffer.kName,
+                                id = buffer.pId,
+                                scheduleType = type,
+                                course = null)
+                        foundedGroup.add(baseModel)
+                    }
+                }
+
+                ScheduleType.AUDITORY -> {
+
+                }
             }
 
             viewState.setCustomProgressBarVisibility(false)

@@ -69,7 +69,8 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
                 loadScheduleForWeeks(itemInfo, "Schedule2P", itemId)
             }
             ScheduleType.AUDITORY -> {
-                throw NotImplementedError()
+                loadScheduleForWeeks(itemInfo, "ScheduleA", itemId)
+                loadScheduleForWeeks(itemInfo, "Schedule2A", itemId)
             }
         }
     }
@@ -192,7 +193,7 @@ class CategoryItemPresenter : BasePresenter<CategoryItemView>(), CategoryItemAda
         when(unwrappedType) {
             ScheduleType.GROUP -> viewState.openFacultyScreen(unwrappedType, Constants.FACULTY_FRAGMENT)
             ScheduleType.TEACHER -> viewState.openFacultyScreen(unwrappedType, Constants.FACULTY_FRAGMENT)
-            ScheduleType.AUDITORY -> viewState.showMessage("Click: Auditory")
+            ScheduleType.AUDITORY -> viewState.openFacultyScreen(unwrappedType, Constants.BUILDING_FRAGMENT)
         }
     }
 

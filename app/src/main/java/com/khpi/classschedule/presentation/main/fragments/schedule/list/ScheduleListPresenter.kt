@@ -74,7 +74,8 @@ class ScheduleListPresenter : BasePresenter<ScheduleListView>() {
                 loadScheduleForWeeks("Schedule2P", id)
             }
             ScheduleType.AUDITORY -> {
-                throw NotImplementedError()
+                loadScheduleForWeeks("ScheduleA", id)
+                loadScheduleForWeeks("Schedule2A", id)
             }
         }
     }

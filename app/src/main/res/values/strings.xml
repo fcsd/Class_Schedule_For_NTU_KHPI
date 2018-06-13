@@ -19,7 +19,7 @@
     <string name="buildings_map">Карта</string>
 
     <string name="category">Категорії</string>
-    <string name="faculty">Факультети</string>\
+    <string name="faculty">Факультети</string>
     <string name="department">Кафедри</string>
 
     <string name="first_course">Курс 1</string>
@@ -107,5 +107,6 @@
     <string name="search_description_group">Введіть не меньш двох літер для пошуку групи</string>
     <string name="search_description_teacher">Введіть не меньш двох літер для пошуку викладача</string>
     <string name="search_description_auditory">Введіть не меньш двох літер для пошуку аудиторії</string>
+    <string name="schedule_no_item">Для поточного дня немає розкладу занять</string>
 
 </resources>

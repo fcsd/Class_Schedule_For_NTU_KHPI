@@ -41,15 +41,17 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
         val tasks = taskRepository.getTasksByGroup(prefix, group)
 
         schedule.forEach { couple ->
-            val subject = couple.name ?: return@forEach
-            val tasksBySubject = tasks?.filter { it.subject == subject }
-            couple.properties = mutableListOf()
 
-            tasksBySubject?.let {
-                if (it.isNotEmpty()) {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_task, R.color.c_4a90e2, PropertyType.TASK_SHOW))
-                } else {
-                    couple.properties.add(Property("Завдання", R.drawable.ic_add, R.color.c_4a90e2, PropertyType.TASK_ADD))
+            couple.properties = mutableListOf()
+            if (type != ScheduleType.AUDITORY) {
+                val subject = couple.name ?: return@forEach
+                val tasksBySubject = tasks?.filter { it.subject == subject }
+                tasksBySubject?.let {
+                    if (it.isNotEmpty()) {
+                        couple.properties.add(Property("Завдання", R.drawable.ic_task, R.color.c_4a90e2, PropertyType.TASK_SHOW))
+                    } else {
+                        couple.properties.add(Property("Завдання", R.drawable.ic_add, R.color.c_4a90e2, PropertyType.TASK_ADD))
+                    }
                 }
             }
             couple.properties.add(Property("Мапа", R.drawable.ic_map, R.color.c_6aad77, PropertyType.BUILDING))
@@ -90,9 +92,15 @@ class ScheduleItemPresenter : BasePresenter<ScheduleItemView>(), BasePropertyAda
 
     private fun loadBuilding(adapterPosition: Int) {
         val couple = schedule?.get(adapterPosition) ?: return
-        val auditory = couple.auditory ?: return
-        val splitArray = auditory.split(" ")
-        val coupleShortName = splitArray[splitArray.size - 1]
+
+        val coupleShortName = if (type != ScheduleType.AUDITORY) {
+            val auditory = couple.auditory ?: return
+            val splitArray = auditory.split(" ")
+            splitArray[splitArray.size - 1]
+        } else {
+            group?.split(" ")?.get(1) ?: return
+        }
+
         val buildings = buildingManager.getAllShortBuildings()
         val shortName = buildings.find { it.shortName == coupleShortName }?.shortName
         shortName?.let { viewState.openBuildingScreen(it) } ?: viewState.showError("Неможливо знайти корпус")

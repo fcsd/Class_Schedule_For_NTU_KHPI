@@ -62,7 +62,12 @@ class FacultyListFragment : BaseFragment(), FacultyListView {
                     Constants.TEACHER_FRAGMENT -> title?.let { (activity as? MainActivity)?.setToolbarTitle(it) }
                 }
             }
-            ScheduleType.AUDITORY -> throw NotImplementedError()
+            ScheduleType.AUDITORY -> {
+                when (tag) {
+                    Constants.BUILDING_FRAGMENT -> (activity as? MainActivity)?.setToolbarTitle(getString(R.string.buildings))
+                    Constants.AUDITORY_FRAGMENT -> title?.let { (activity as? MainActivity)?.setToolbarTitle(it) }
+                }
+            }
         }
 
         (activity as? MainActivity)?.setRightSecondNavigationIcon(null)

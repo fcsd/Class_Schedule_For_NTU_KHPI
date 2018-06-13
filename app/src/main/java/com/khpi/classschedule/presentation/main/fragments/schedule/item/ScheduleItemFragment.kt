@@ -17,6 +17,7 @@ import com.khpi.classschedule.presentation.main.fragments.building.item.Building
 import com.khpi.classschedule.presentation.main.fragments.task.action.TaskActionFragment
 import com.khpi.classschedule.presentation.main.fragments.task.item.TaskItemFragment
 import com.khpi.classschedule.presentation.main.fragments.task.list.TaskListFragment
+import com.khpi.classschedule.utils.setVisibility
 import kotlinx.android.synthetic.main.fragment_schedule_item.*
 
 class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
@@ -54,9 +55,15 @@ class ScheduleItemFragment : BaseFragment(), ScheduleItemView {
     }
 
     override fun showSchedule(schedule: List<ScheduleItem>, type: ScheduleType, callback: ScheduleItemPresenter) {
-        val scheduleAdapter = ScheduleItemAdapter(schedule, type, callback)
-        recycler_schedule.layoutManager = LinearLayoutManager(context)
-        recycler_schedule.adapter = scheduleAdapter
+        if (schedule.isEmpty()) {
+            recycler_schedule.setVisibility(false)
+            no_items_schedule_text.setVisibility(true)
+            no_items_schedule_text.text = resources.getString(R.string.schedule_no_item)
+        } else {
+            val scheduleAdapter = ScheduleItemAdapter(schedule, type, callback)
+            recycler_schedule.layoutManager = LinearLayoutManager(context)
+            recycler_schedule.adapter = scheduleAdapter
+        }
     }
 
     override fun openBuildingScreen(shortName: String) {

@@ -54,7 +54,7 @@ class MainPresenter : BasePresenter<MainView>() {
         viewState.setCustomProgressBarVisibility(true)
         infoGroups.forEach { info -> loadScheduleForWeeks("Schedule", "Schedule2", info) }
         infoTeachers.forEach { info -> loadScheduleForWeeks("ScheduleP", "Schedule2P", info) }
-        infoAuditories.forEach { info -> }
+        infoAuditories.forEach { info -> loadScheduleForWeeks("ScheduleA", "Schedule2A", info) }
     }
 
     fun openCategory() {
